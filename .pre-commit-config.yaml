@@ -20,3 +20,7 @@ repos:
         entry: ./scripts/tilt-validate.sh
         language: script
         files: ^Tiltfile$
+  - repo: https://github.com/zricethezav/gitleaks
+    rev: v8.15.2
+    hooks:
+      - id: gitleaks
