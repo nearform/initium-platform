@@ -1,0 +1,14 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: "helloworld"
+spec:
+  template:
+    spec:
+      containers:
+        - image: "gcr.io/knative-samples/helloworld-go"
+          env:
+            - name: "TARGET"
+              value: "world"
+          ports:
+            - containerPort: 80

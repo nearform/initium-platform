@@ -1,0 +1,10 @@
+apiVersion: v2
+name: metallb
+description: metallb wrapper chart
+type: application
+version: v0.4.0 # x-release-please-version
+dependencies:
+  - name: metallb
+    alias: metallb-source
+    version: 0.13.7
+    repository: https://metallb.github.io/metallb

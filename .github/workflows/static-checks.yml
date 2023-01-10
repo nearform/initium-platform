@@ -1,0 +1,25 @@
+name: Run static checks
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  format:
+    name: Lint & format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Static check
+        run: |
+          # Install envsubst
+          sudo apt-get update && sudo apt-get install -y gettext
+          # Install asdf and expose to PATH
+          git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.10.2
+          . $HOME/.asdf/asdf.sh
+          # Add asdf plugins and install tools in .tool-versions
+          make asdf_install
+          # Run checks
+          make validate

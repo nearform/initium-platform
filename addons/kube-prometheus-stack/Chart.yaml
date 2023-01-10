@@ -1,0 +1,11 @@
+apiVersion: v2
+name: kube-prometheus-stack
+description: kube-prometheus-stack wrapper chart
+type: application
+version: v0.5.1 # x-release-please-version
+dependencies:
+  - name: kube-prometheus-stack
+    alias: kube-prometheus-stack-source
+    version: 43.2.1
+    repository: https://prometheus-community.github.io/helm-charts
+    condition: kube-prometheus-stack-source.enabled

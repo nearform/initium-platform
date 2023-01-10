@@ -1,0 +1,9 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+  image: ${KKA_K8S_VERSION}
+  extraMounts:
+  - hostPath: ${KKA_REPO_HOST_PATH}
+    containerPath: ${KKA_REPO_NODE_PATH}
+    readOnly: true

@@ -1,0 +1,11 @@
+apiVersion: v2
+name: istio-ingress
+description: istio-ingress wrapper chart
+type: application
+version: v0.5.1 # x-release-please-version
+dependencies:
+  - name: gateway
+    alias: istio-gateway-source
+    version: 1.16.1
+    repository: https://istio-release.storage.googleapis.com/charts
+    condition: istio-source.enabled

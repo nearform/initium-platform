@@ -1,0 +1,7 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: k8s-kurated-addons
+spec:
+  addresses:
+  - {{ .Values.cidrBlock }}

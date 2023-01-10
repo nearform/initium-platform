@@ -1,0 +1,45 @@
+{{- range $name, $props := .Values.apps }}
+{{- with $props }}
+{{- if not $props.excluded }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .name }}
+  namespace: {{ $.Values.namespace }}
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "{{ .syncWave | default 0 }}"
+spec:
+  destination:
+    server: {{ $.Values.spec.destination.server }}
+    namespace: {{ .targetNamespace | default "default" | quote }}
+  project: default
+  source:
+    path: {{ .path }}
+    repoURL: {{ $.Values.repoURL }}
+    targetRevision: {{ coalesce .targetRevision $.Values.subChartsRevision "HEAD" | quote }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      {{- if .managedNamespaceMetadata }}
+      - CreateNamespace=false
+      {{- else }}
+      - CreateNamespace=true
+      {{- end }}
+      {{- if .serverSideApply }}
+      - ServerSideApply=true
+      {{- end }}
+      {{- if .replace }}
+      - Replace=true
+      {{- end }}
+  {{- if .ignoreDifferences }}
+  ignoreDifferences:
+  {{- toYaml .ignoreDifferences | nindent 4 }}
+  {{- end }}
+---
+{{- end }}
+{{- end }}
+{{- end }}

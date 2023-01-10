@@ -1,0 +1,13 @@
+{{- range $name, $props := .Values.apps }}
+{{- with $props }}
+{{- if not $props.excluded }}
+{{- if .managedNamespaceMetadata }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .targetNamespace }}
+  {{- toYaml .managedNamespaceMetadata | nindent 2 }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

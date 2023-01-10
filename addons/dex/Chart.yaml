@@ -1,0 +1,11 @@
+apiVersion: v2
+name: dex
+description: dex wrapper chart
+type: application
+version: v0.5.1 # x-release-please-version
+dependencies:
+  - name: dex
+    alias: dex-source
+    version: 0.12.1
+    repository: https://charts.dexidp.io
+    condition: dex-source.enabled

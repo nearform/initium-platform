@@ -1,0 +1,72 @@
+kube-prometheus-stack-source:
+  prometheus-node-exporter:
+    hostRootFsMount:
+      enabled: false
+    # rbac:
+    #   pspEnabled: false
+  grafana:
+    ingress:
+      enabled: false
+      ingressClassName: nginx
+      # Values can be templated
+      # annotations:
+      #   nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      #   nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+      hosts:
+        - "grafana.local"
+      path: "/"
+
+    # Administrator credentials when not using an existing secret (see below)
+    adminUser: admin
+    adminPassword: data-nest-pass-word
+
+    # Use an existing secret for the admin user.
+    # admin:
+    #   ## Name of the secret. Can be templated.
+    #   existingSecret: ""
+    #   userKey: admin-user
+    #   passwordKey: admin-password
+  #   rbac:
+  #     pspEnabled: false
+  # global:
+  #   rbac:
+  #     pspEnabled: false
+  # kube-state-metrics:
+  #   podSecurityPolicy:
+  #     enabled: false
+  prometheus:
+    ingress:
+      enabled: false
+      ingressClassName: nginx
+      annotations:
+        # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+        # nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+      hosts:
+        - "prometheus.local"
+      paths:
+        - "/"
+  prometheusSpec:
+    externalUrl: "prometheus.local/"
+    rotuePrefix: "/"
+    podMonitorSelector:
+      matchLabels:
+        release: kube-prometheus-stack
+  # Required to fix the out-of-sync issues on the this apps suite
+  kubelet:
+    serviceMonitor:
+      cAdvisorRelabelings:
+        - action: replace
+          sourceLabels: [__metrics_path__]
+          targetLabel: metrics_path
+      probesRelabelings:
+        - action: replace
+          sourceLabels: [__metrics_path__]
+          targetLabel: metrics_path
+      resourceRelabelings:
+        - action: replace
+          sourceLabels: [__metrics_path__]
+          targetLabel: metrics_path
+      relabelings:
+        - action: replace
+          sourceLabels: [__metrics_path__]
+          targetLabel: metrics_path

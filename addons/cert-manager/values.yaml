@@ -1,0 +1,56 @@
+cert-manager-source:
+  replicaCount: 1
+  installCRDs: true
+  namespace: cert-manager
+
+  global:
+    podSecurityPolicy:
+      enabled: false
+      useAppArmor: false
+    loglevel: 2
+
+  serviceAccount:
+    create: true
+    name: "cert-manager"
+    annotations: {}
+    resources:
+      requests:
+        cpu: 10m
+        memory: 32Mi
+      limits:
+        cpu: 50m
+        memory: 160Mi
+
+  prometheus:
+    enabled: true
+    # servicemonitor:
+    #   enabled: true
+
+  webhook:
+    replicaCount: 1
+    resources:
+      requests:
+        cpu: 10m
+        memory: 32Mi
+      limits:
+        cpu: 50m
+        memory: 200Mi
+
+  caininjector:
+    replicaCount: 1
+    resources:
+      requests:
+        cpu: 10m
+        memory: 32Mi
+      limits:
+        cpu: 50m
+        memory: 200Mi
+
+  startupapicheck:
+    resources:
+      requests:
+        cpu: 10m
+        memory: 32Mi
+      limits:
+        cpu: 50m
+        memory: 200Mi

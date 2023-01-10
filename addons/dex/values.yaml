@@ -1,0 +1,30 @@
+dex-source:
+  config:
+    # The base path of dex and the external name of the OpenID Connect service.
+    # This is the canonical URL that all clients MUST use to refer to dex. If a
+    # path is provided, dex's HTTP service will listen at a non-root URL.
+    issuer: http://127.0.0.1:5556
+
+    # See https://dexidp.io/docs/storage/ for more options
+    storage:
+      type: memory
+
+    # Enable at least one connector
+    # See https://dexidp.io/docs/connectors/ for more options
+    enablePasswordDB: true
+
+  ingress:
+    enabled: false
+
+    annotations:
+      cert-manager.io/cluster-issuer: ""
+
+    hosts:
+      - host: localhost
+        paths:
+          - path: /
+
+    tls:
+      - hosts:
+          - localhost
+        secretName: dex-cert

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: git-http-backend
+description: A Helm chart for a dead simple, insecure git-over-http server using nginx
+type: application
+version: 0.1.0
+appVersion: "latest"

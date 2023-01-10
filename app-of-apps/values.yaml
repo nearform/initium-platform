@@ -1,0 +1,72 @@
+namespace: argocd
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+subChartsRevision: HEAD
+repoURL: https://github.com/nearform/k8s-kurated-addons.git
+apps:
+  # ArgoCD - https://github.com/argoproj/argo-cd/
+  argocd:
+    name: argocd
+    path: addons/argocd/
+    targetNamespace: argocd
+    excluded: true
+
+  # Cert-manager - https://cert-manager.io/
+  cert-manager:
+    name: cert-manager
+    path: addons/cert-manager/
+    targetNamespace: cert-manager
+    excluded: true
+
+  # Dex - https://dexidp.io/
+  dex:
+    name: dex
+    path: addons/dex/
+    targetNamespace: dex
+
+  # Prometheus + Grafana + Operator - https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack
+  kube-prometheus-stack:
+    name: kube-prometheus-stack
+    path: addons/kube-prometheus-stack/
+    targetNamespace: prometheus
+    serverSideApply: true
+
+  # Istio - https://istio.io/
+  istio-base:
+    name: istio-base
+    path: addons/istio/base/
+    targetNamespace: istio-system
+    syncWave: -3
+
+  istiod:
+    name: istiod
+    path: addons/istio/istiod/
+    targetNamespace: istio-system
+    syncWave: -2
+
+  istio-ingressgateway:
+    name: istio-ingressgateway
+    path: addons/istio/ingressgateway/
+    targetNamespace: istio-ingress
+    syncWave: -1
+    managedNamespaceMetadata:
+      annotations:
+        argocd.argoproj.io/sync-wave: "-1"
+      labels:
+        name: istio-ingress
+        istio-injection: enabled
+        kubernetes.io/metadata.name: istio-ingress
+
+  # Knative - https://knative.dev/
+  knative-operator:
+    name: knative-operator
+    path: addons/knative/operator/
+  knative-serving:
+    name: knative-serving
+    path: addons/knative/serving/
+    targetNamespace: knative-serving
+  knative-eventing:
+    name: knative-eventing
+    path: addons/knative/eventing/
+    targetNamespace: knative-eventing

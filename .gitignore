@@ -1,0 +1,9 @@
+argocd/charts
+*Chart.lock
+*charts/
+
+.idea
+local.env
+kind.local.yaml
+
+.cache

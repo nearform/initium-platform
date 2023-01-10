@@ -1,0 +1,29 @@
+name: Renovate
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 21 * * 0,2,4' # Every Sunday, Tuesday and Thursday at 9PM UTC
+
+jobs:
+  renovate:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - uses: nearform/github-app-token@v1
+        id: get_installation_token
+        with:
+          app_id: ${{ secrets.RENOVATE_APP_ID }}
+          installation_id: ${{ secrets.RENOVATE_APP_INSTALLATION_ID }}
+          private_key: ${{ secrets.RENOVATE_APP_PRIVATE_KEY }}
+
+      - name: Checkout
+        uses: actions/checkout@v3.2.0
+
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@v34.58.1
+        with:
+          configurationFile: .github/renovate-config.js
+          token: "x-access-token:${{ steps.get_installation_token.outputs.token }}"
+        env:
+          LOG_LEVEL: 'debug'

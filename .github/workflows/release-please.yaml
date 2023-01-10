@@ -1,0 +1,32 @@
+name: release-please
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: nearform/github-app-token@v1
+        id: get_installation_token
+        with:
+          app_id: ${{ secrets.RENOVATE_APP_ID }}
+          installation_id: ${{ secrets.RENOVATE_APP_INSTALLATION_ID }}
+          private_key: ${{ secrets.RENOVATE_APP_PRIVATE_KEY }}
+
+      - uses: google-github-actions/release-please-action@v3
+        with:
+          release-type: simple
+          package-name: k8s-kurated-addons
+          bump-minor-pre-major: true
+          token: ${{ steps.get_installation_token.outputs.token }}
+          extra-files: |
+            app-of-apps/Chart.yaml
+            addons/argocd/Chart.yaml
+            addons/cert-manager/Chart.yaml
+            addons/dex/Chart.yaml
+            addons/istio/base/Chart.yaml
+            addons/istio/istiod/Chart.yaml
+            addons/kube-prometheus-stack/Chart.yaml

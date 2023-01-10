@@ -1,0 +1,44 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: sample-app
+spec:
+  template:
+    spec:
+      containers:
+        - image: nginx:stable
+          ports:
+            - containerPort: 80
+          volumeMounts:
+          - name: config
+            mountPath: "/etc/nginx"
+            readOnly: true
+      volumes:
+      - name: config
+        configMap:
+          name: nginx-config
+          items:
+          - key: "nginx.conf"
+            path: "nginx.conf"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  nginx.conf: |
+    worker_processes  1;
+
+    events {
+      worker_connections  1024;
+    }
+
+    http {
+      server {
+        listen       80;
+
+        location / {
+          return 200 'Hello world from k8s-kurated-addons!';
+        }
+      }
+    }

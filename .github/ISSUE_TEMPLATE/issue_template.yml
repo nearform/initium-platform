@@ -1,0 +1,55 @@
+name: "Issue"
+description: Create a new issue for an enhancement, a bug or a chore.
+title: "[ISSUE] - <title>"
+labels: ["issue"]
+body:
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: "Issue Type"
+      description: What kind of an issue are you reporting?
+      multiple: true
+      options:
+        - Enhancement
+        - Bug
+        - Chore
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description"
+      description: Please enter an short description of your issue
+      placeholder: Short description of the bug/enhancement incident...
+    validations:
+      required: true
+  - type: textarea
+    id: reprod
+    attributes:
+      label: "Detailed steps"
+      description: Please enter an explicit description of your issue
+      value: |
+        1. Go to '...'
+        2. Run this command '....'
+        3. See error
+      render: bash
+    validations:
+      required: true
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: "Screenshots"
+      description: If applicable, add screenshots to help explain your problem.
+      value: |
+        Add any relevant screenshots here
+      render: bash
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: "Logs"
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: bash
+    validations:
+      required: false
