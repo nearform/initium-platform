@@ -87,4 +87,4 @@ integration-test: ## Run integration tests
 	@./scripts/run-test.sh integration examples/sample-app
 
 validate: ## Run static checks
-	@pre-commit run --color=always --show-diff-on-failure --all-files
+	@ASDF_DEFAULT_TOOL_VERSIONS_FILENAME=$(CURDIR)/.tool-versions pre-commit run --color=always --show-diff-on-failure --all-files
