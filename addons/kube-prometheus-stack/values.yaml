@@ -48,9 +48,6 @@ kube-prometheus-stack-source:
   prometheusSpec:
     externalUrl: "prometheus.local/"
     rotuePrefix: "/"
-    podMonitorSelector:
-      matchLabels:
-        release: kube-prometheus-stack
   # Required to fix the out-of-sync issues on the this apps suite
   kubelet:
     serviceMonitor:
