@@ -38,7 +38,7 @@ Remember that to run this solution you also need at least:
 - 8 GB RAM
 - 16 GB Disk space
 
-Those numbers are not written in stone so your milage may vary depending on which components you choose to install.
+Those numbers are not written in stone so your mileage may vary depending on which components you choose to install.
 
 ### Bootstrap
 
