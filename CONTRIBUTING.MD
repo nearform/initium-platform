@@ -4,6 +4,10 @@ Please take a second learn about [K8s-kurated-addons code repo](https://github.c
 
 We greatly appreciate bug fixes, documentation improvements and new features, however when contributing a new major feature, it is a good idea to idea to first open an issue, to make sure the feature it fits with the goal of the project, so we don't waste your or our time.
 
+## General mechanics
+
+![Inner workings of make](docs/img/inner-workings/k8s-addons-internals.png)
+
 ## How To Contribute
 
 <a id="contributing-how-to"></a>

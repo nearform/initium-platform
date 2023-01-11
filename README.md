@@ -10,6 +10,8 @@ Therefore, ArgoCD is the main requirement to run this project on your cluster.
 
 ## Install on your own cluster
 
+![Quick Start](docs/img/quick-start/k8s-addons-quick-start.png)
+
 Assuming you already have `argocd` (if installed with helm, the name of the chart should be argocd) deployed in your cluster, you can download the provided `app-of-apps.yaml` in our [latest stable release](https://github.com/nearform/k8s-kurated-addons/releases/latest) and then apply that manifest using this command:
 
 ```bash
@@ -52,7 +54,7 @@ To continue with the deployment, you need a set of tools installed first. You ca
 > **HINT:** If you want to know which commands are available you can always run `make help` on this project.
 
 #### CLI
-
+![Inner workings of make](docs/img/inner-workings/k8s-addons-internals.png)
 Make sure you've followed the [bootstrap steps](#bootstrap), then:
 
 ```bash
