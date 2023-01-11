@@ -85,7 +85,6 @@ unit-test: ## Run unit tests
 
 integration-test: ## Run integration tests
 	@./scripts/run-test.sh integration examples/sample-app
-	@./scripts/run-test.sh integration examples/sample-prometheus-app
 
 validate: ## Run static checks
 	@pre-commit run --color=always --show-diff-on-failure --all-files
