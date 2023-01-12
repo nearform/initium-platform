@@ -1,5 +1,5 @@
 global:
-  repoURL: https://github.com/nearform/k8s-kurated-addons.git
+  repoURL: http://git-http-backend/git/k8s-kurated-addons
   clusterName: kind-k8s-kurated-addons
   projectName: default
   server: https://kubernetes.default.svc
