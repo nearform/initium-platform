@@ -1,11 +1,11 @@
 global:
-  repoURL: ${KKA_REPO_URI}
+  repoURL: https://github.com/nearform/k8s-kurated-addons.git
   clusterName: kind-k8s-kurated-addons
   projectName: default
   server: https://kubernetes.default.svc
 
 defaults:
-  targetRevision: ${KKA_REPO_BRANCH}
+  targetRevision: HEAD
   syncPolicy:
     automated:
       prune: true
