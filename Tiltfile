@@ -46,6 +46,7 @@ if os.getenv('KKA_DEPLOY_MINIMAL', 'false') == 'false':
         './charts/argocd-resources',
         name='argocd-resources',
         namespace='argocd',
+        values=['./charts/argocd-resources/values.yaml'],
         set=['applications[0].source.repoURL={}'.format(os.getenv('KKA_REPO_URI')),
         'applications[0].source.targetRevision={}'.format(os.getenv('KKA_REPO_BRANCH')),
         'applications[0].source.helm.parameters[0].value={}'.format(os.getenv('KKA_REPO_URI')),
