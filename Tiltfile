@@ -34,20 +34,28 @@ if os.getenv('KKA_DEPLOY_MINIMAL', 'false') == 'false':
     ))
 
     ## ArgoCD
-    local('helm dependency update ./addons/argocd')
+    local('helm dependency update ./charts/argocd')
     k8s_yaml(helm(
-        './addons/argocd',
+        './charts/argocd',
         name='argocd',
         namespace='argocd',
     ))
 
+    ## ArgoCD Resources (App-of-apps, Project, Application Sets)
+    local('helm dependency update ./charts/argocd-resources')
+    k8s_yaml(helm(
+        './charts/argocd-resources',
+        name='argocd-resources',
+        namespace='argocd',
+    ))
+
     ## App-of-apps
-    k8s_yaml(local('cat manifests/app-of-apps.yaml | envsubst'))
-    k8s_resource(
-    objects=['k8s-kurated-addons:Application:argocd'],
-    new_name='k8s-kurated-addons',
-    resource_deps=['argocd-redis', 'argocd-server', 'argocd-repo-server', 'metallb-metallb-source-controller', 'metallb-metallb-source-speaker', 'git-http-backend']
-    )
+    #k8s_yaml(local('cat manifests/app-of-apps.yaml | envsubst'))
+    #k8s_resource(
+    #objects=['k8s-kurated-addons:Application:argocd'],
+    #new_name='k8s-kurated-addons',
+    #resource_deps=['argocd-redis', 'argocd-server', 'argocd-repo-server', 'metallb-metallb-source-controller', 'metallb-metallb-source-speaker', 'git-http-backend']
+    #)
 
     # ===== Tilt local resources =====
 

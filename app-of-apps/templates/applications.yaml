@@ -1,0 +1,47 @@
+{{- range .Values.applications -}}
+{{ if .enabled }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  {{- with .additionalAnnotations }}
+  annotations:
+    {{- range $key, $value := . }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+  {{- end }}
+  {{- with .additionalLabels }}
+  labels:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .finalizers }}
+  finalizers:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  name: {{ .name }}-{{ $.Values.global.clusterName }}
+  namespace: argocd
+spec:
+  project: {{ $.Values.global.projectName }}-{{ $.Values.global.clusterName }}
+  source:
+    helm:
+      {{- with .valueFiles }}
+      valueFiles:
+        {{- toYaml . | nindent 6 }}
+      {{- end }}
+      passCredentials: true
+    path: {{ .path }}
+    repoURL: {{ $.Values.global.repoURL }}
+    targetRevision: {{ .targetRevision | default $.Values.defaults.targetRevision }}
+  destination:
+    namespace: {{ .namespace }}
+    server: {{ $.Values.global.server }}
+  {{- with .ignoreDifferences }}
+  ignoreDifferences:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .syncPolicy | default $.Values.defaults.syncPolicy }}
+  syncPolicy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+{{- end }}
+{{- end -}}
