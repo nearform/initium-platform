@@ -8,7 +8,7 @@ Releasing new versions of software can be a time-consuming task, especially for 
 
 ### Decision
 
-We will use a Release-please GitHub action to automatically release new versions of our software on GitHub. The action will be triggered by a merge to main branch or specific commit tag, it will check all the CI checks pass, update the version of package, create a release and push it to the appropriate git tag and branch. Additionally, there'll be an action that will upload the app-of-apps.yaml to the release assets.
+We will use a Release-please GitHub action to automatically release new versions of our software on GitHub. The action will be triggered by a merge to the main branch or specific commit tag, it will check all the CI checks passed, update the version of the package, create a release and push it to the appropriate git tag and branch. Additionally, there'll be an action that will upload the app-of-apps.yaml to the release assets.
 
 ### Status
 
@@ -31,7 +31,7 @@ Using a Release-please GitHub action will save time and reduce errors by automat
 ### Implications
 
 * The team will need to make sure that the git tag and branch are correctly defined in the workflow configuration.
-* New versions of software will be released automatically, and the team can focus on other tasks.
+* New versions will be released automatically, and the team can focus on other tasks.
 * The action might break the release process if not configured properly
 
 ## Notes
