@@ -18,10 +18,10 @@ metadata:
   finalizers:
     {{- toYaml . | nindent 4 }}
   {{- end }}
-  name: {{ .name }}-{{ $.Values.global.clusterName }}
+  name: {{ .name }}
   namespace: argocd
 spec:
-  project: {{ $.Values.global.projectName }}-{{ $.Values.global.clusterName }}
+  project: {{ $.Values.global.projectName }}
   source:
     helm:
       {{- with .valueFiles }}

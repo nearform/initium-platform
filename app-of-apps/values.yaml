@@ -66,10 +66,6 @@ applications:
       - values.yaml
     additionalAnnotations:
       argocd.argoproj.io/sync-wave: "-1"
-    additionalLabels:
-      name: istio-ingress
-      istio-injection: enabled
-      kubernetes.io/metadata.name: istio-ingress
 
   # Knative - https://knative.dev/
   - name: knative-operator

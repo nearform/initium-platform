@@ -42,7 +42,6 @@ if os.getenv('KKA_DEPLOY_MINIMAL', 'false') == 'false':
     ))
 
     ## ArgoCD Resources (App-of-apps, Project, Application Sets)
-    local('helm dependency update ./charts/argocd-resources')
     k8s_yaml(helm(
         './charts/argocd-resources',
         name='argocd-resources',
