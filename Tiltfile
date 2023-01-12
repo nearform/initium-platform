@@ -48,8 +48,8 @@ if os.getenv('KKA_DEPLOY_MINIMAL', 'false') == 'false':
         namespace='argocd',
         set=['applications[0].source.repoURL={}'.format(os.getenv('KKA_REPO_URI')),
         'applications[0].source.targetRevision={}'.format(os.getenv('KKA_REPO_BRANCH')),
-        'applications[0].source.helm.values.repoURL={}'.format(os.getenv('KKA_REPO_URI')),
-        'applications[0].source.helm.values.targetRevision={}'.format(os.getenv('KKA_REPO_BRANCH'))]
+        'applications[0].source.helm.parameters[0].value={}'.format(os.getenv('KKA_REPO_URI')),
+        'applications[0].source.helm.parameters[1].value={}'.format(os.getenv('KKA_REPO_BRANCH'))]
     ))
 
     ## App-of-apps
