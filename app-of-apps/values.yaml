@@ -68,21 +68,21 @@ applications:
 
   # Knative - https://knative.dev/
   - name: knative-operator
-    enabled: true
+    enabled: false
     namespace: knative-operator
     path: addons/knative/operator
     valueFiles:
       - values.yaml
 
   - name: knative-serving
-    enabled: true
+    enabled: false
     namespace: knative-serving
     path: addons/knative/serving
     valueFiles:
       - values.yaml
 
   - name: knative-eventing
-    enabled: true
+    enabled: false
     namespace: knative-eventing
     path: addons/knative/eventing
     valueFiles:
