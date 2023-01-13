@@ -2,7 +2,7 @@
 
 This document is a list of addons, what they are, how to use them and their purpose in our repository. This is going to be updated as the repository grows.
 
-It is important to emphasize that none of the following addons are strictly **required**. That's why most of them can be disabled by adding the `excluded: true` to the app-of-apps `values.yaml` file.
+It is important to emphasize that none of the following addons are strictly **required**. That's why most of them can be disabled by adding the `enabled: false` to the app-of-apps `values.yaml` file.
 
 ## Summary
 - ArgoCD
@@ -127,12 +127,11 @@ More information at [kube-prometheus-stack Docs](https://github.com/prometheus-c
 
 #### ArgoCD < 2.5.x
 
-This addon requires server deployment, which is unavailable until ArgoCD 2.5 ( see https://github.com/argoproj/argo-cd/issues/820 ). Unfortunately, there's no way to deploy it using earlier versions. To disable this addon, you can use the snippet below:
+This addon requires server deployment, which is unavailable until ArgoCD 2.5 ( see https://github.com/argoproj/argo-cd/issues/820 ). To disable this addon, you can use the snippet below in app-of-apps `values.yaml` file:
 
 ```yaml
-apps:
-    kube-prometheus-stack:
-        excluded: true
+  - name: kube-prometheus-stack
+    enabled: false
 ```
 
 ### Additional Notes

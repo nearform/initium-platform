@@ -53,14 +53,6 @@ if os.getenv('KKA_DEPLOY_MINIMAL', 'false') == 'false':
         'applications[0].source.helm.parameters[1].value={}'.format(os.getenv('KKA_REPO_BRANCH'))]
     ))
 
-    ## App-of-apps
-    #k8s_yaml(local('cat manifests/app-of-apps.yaml | envsubst'))
-    #k8s_resource(
-    #objects=['k8s-kurated-addons:Application:argocd'],
-    #new_name='k8s-kurated-addons',
-    #resource_deps=['argocd-redis', 'argocd-server', 'argocd-repo-server', 'metallb-metallb-source-controller', 'metallb-metallb-source-speaker', 'git-http-backend']
-    #)
-
     # ===== Tilt local resources =====
 
     ## ArgoCD admin password
