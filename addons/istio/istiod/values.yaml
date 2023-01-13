@@ -1,3 +1,2 @@
-istiod:
-  sidecarInjectorWebhook:
-    enableNamespacesByDefault: true
+sidecarInjectorWebhook:
+  enableNamespacesByDefault: true
