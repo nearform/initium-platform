@@ -12,9 +12,7 @@ Therefore, ArgoCD is the main requirement to run this project on your cluster.
 
 ![Quick Start](docs/img/quick-start/k8s-addons-quick-start.png)
 
-Assuming you already have `argocd` (if installed with helm, the name of the chart should be argocd) deployed in your cluster
-to make deployment successful and all addons synced it is required to verify if following configuration is part of your ArgoCD configuration:
-[argocd/values.yaml](https://github.com/nearform/k8s-kurated-addons/blob/main/addons/argocd/values.yaml#L23).
+Assuming you already have `argocd` (if installed with helm, the name of the chart should be argocd) deployed in your cluster to make deployment successful and all addons synced it is required to verify if following configuration is part of your ArgoCD configuration: [argocd/values.yaml](https://github.com/nearform/k8s-kurated-addons/blob/main/addons/argocd/values.yaml#L23).
 You can check it by describing argo-cd config map:
 ```
 kubectl describe cm argocd-cm -n argocd
