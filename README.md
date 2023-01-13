@@ -134,3 +134,18 @@ $ make ci
 # Run the unit tests
 $ make integration-test
 ```
+
+## Contribute
+
+If you desire to contribute to this project, please make sure you have read the [CONTRIBUTING.md](CONTRIBUTING.md) file first.
+
+Once you feel ready for it, remember to [fork this repository](https://github.com/nearform/k8s-kurated-addons/fork).
+
+Clone your fork into your own local workstation, then finally run the following command to install the project dependencies using [asdf-vm](https://asdf-vm.com/) and [precommit](https://pre-commit.com/) hooks:
+
+```bash
+cd path/to/k8s-kurated-addons
+make bootstrap
+```
+
+You're now ready to contribute!
