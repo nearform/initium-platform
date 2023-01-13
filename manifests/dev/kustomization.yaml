@@ -1,0 +1,18 @@
+bases:
+  - ../base
+patches:
+  - patch: |-
+      - op: replace
+        path: /spec/source/repoURL
+        value: http://git-http-backend/git/k8s-kurated-addons
+    target:
+      kind: Application
+  - patch: |-
+      - op: add
+        path: /spec/source/helm/values
+        value: |
+          apps:
+            dex:
+              excluded: true
+    target:
+      kind: Application

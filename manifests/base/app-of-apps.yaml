@@ -15,9 +15,12 @@ spec:
     repoURL: ${KKA_REPO_URI}
     targetRevision: ${KKA_REPO_BRANCH}
     helm:
-      values: |
-        repoURL: ${KKA_REPO_URI}
-        subChartsRevision: ${KKA_REPO_BRANCH}
+      parameters:
+        - name: repoURL
+          value: ${KKA_REPO_URI}
+        - name: subChartsRevision
+          value: ${KKA_REPO_BRANCH}
+      values: |-
         apps:
           dex:
             excluded: ${KKA_AOA_EXCLUDE_DEX}
