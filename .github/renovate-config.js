@@ -17,7 +17,7 @@ module.exports = {
   automergeType: "branch",
   platformAutomerge: true,
   repositories: ['nearform/k8s-kurated-addons'],
-  enabledManagers: ['helmv3', 'github-actions'],
+  enabledManagers: ['asdf', 'helmv3', 'github-actions'],
   prConcurrentLimit: 0,
   branchConcurrentLimit: 0,
   branchNameStrict: true,
