@@ -1,0 +1,51 @@
+# only list generator included
+{{- range .Values.applicationSets }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  {{- with .additionalAnnotations }}
+  annotations:
+    {{- range $key, $value := . }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+  {{- end }}
+  {{- with .additionalLabels }}
+  labels:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  name: {{ .name }}
+  {{- with .namespace }}
+  namespace: {{ . }}
+  {{- end }}
+  {{- with .finalizers }}
+  finalizers:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- with .generators }}
+  generators:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  template:
+    metadata:
+      name: '{{ printf "{{app}}" }}'
+      namespace: {{ .namespace }}
+    spec:
+      project: {{ tpl .project $ }}
+      source:
+        repoURL: {{ .source.repoURL }}
+        targetRevision: {{ default "main" .source.targetRevision }}
+        path: '{{ .source.pathPrefix }}/{{ printf "{{app}}" }}'
+        helm:
+          valueFiles:
+          - {{ .source.valueFiles }}
+          passCredentials: true
+      destination:
+        namespace: '{{ printf "{{namespace}}" }}'
+        server: {{ default "https://kubernetes.default.svc" .destination.server }}
+      {{- with .syncPolicy }}
+      syncPolicy:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

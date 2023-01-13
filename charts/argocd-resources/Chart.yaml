@@ -1,0 +1,5 @@
+apiVersion: v2
+description: Management of ArgoCD resources - projects, application sets and applications
+name: argocd-resources
+type: application
+version: 0.0.1

@@ -1,6 +1,6 @@
-argocd/charts
+charts/argocd/charts
+utils/metallb/charts
 *Chart.lock
-*charts/
 
 .idea
 local.env

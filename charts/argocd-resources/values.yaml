@@ -1,0 +1,39 @@
+applications:
+  - name: k8s-kurated-addons
+    namespace: argocd
+    additionalLabels: {}
+    additionalAnnotations: {}
+    finalizers:
+    - resources-finalizer.argocd.argoproj.io
+    project: default
+    source:
+      repoURL: https://github.com/nearform/k8s-kurated-addons.git
+      targetRevision: HEAD
+      path: app-of-apps
+      helm:
+        passCredentials: true
+        parameters:
+        - name: global.repoURL
+          value: https://github.com/nearform/k8s-kurated-addons.git
+        - name: defaults.targetRevision
+          value: HEAD
+        valueFiles:
+          - values.yaml
+    destination:
+      server: https://kubernetes.default.svc
+    syncPolicy:
+      automated:
+        prune: false
+        selfHeal: true
+    ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+      - /spec/replicas
+    info:
+    - name: url
+      value: https://argoproj.github.io/
+
+applicationSets: []
+
+appProjects: []
