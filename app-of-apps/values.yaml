@@ -63,8 +63,6 @@ applications:
     path: addons/istio/ingressgateway
     valueFiles:
       - values.yaml
-    additionalAnnotations:
-      argocd.argoproj.io/sync-wave: "-1"
 
   # Knative - https://knative.dev/
   - name: knative-operator
