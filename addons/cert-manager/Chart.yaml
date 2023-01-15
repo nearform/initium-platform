@@ -6,6 +6,6 @@ version: v0.5.1 # x-release-please-version
 dependencies:
   - name: cert-manager
     alias: cert-manager-source
-    version: v1.10.1
+    version: v1.11.0
     repository: https://charts.jetstack.io
     condition: cert-manager-source.enabled
