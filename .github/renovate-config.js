@@ -12,12 +12,12 @@ module.exports = {
       groupName: "Istio Helm Chart"
     }
   ],
-  username: "nearform-renovate-app",
-  gitAuthor: '"Nearform" <nearform@nearform.com>',
+  username: "nearform-renovate-app[bot]",
+  gitAuthor: "NearForm Renovate App Bot <115552475+nearform-renovate-app[bot]@users.noreply.github.com>",
   automergeType: "branch",
   platformAutomerge: true,
   repositories: ['nearform/k8s-kurated-addons'],
-  enabledManagers: ['helmv3', 'github-actions'],
+  enabledManagers: ['asdf', 'helmv3', 'github-actions'],
   prConcurrentLimit: 0,
   branchConcurrentLimit: 0,
   branchNameStrict: true,

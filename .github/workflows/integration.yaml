@@ -1,12 +1,13 @@
 name: Run Integration Tests
 
 on:
-  pull_request:
-    branches:
-      - main
+  pull_request_review:
+    types:
+      - submitted
 
 jobs:
   create-cluster:
+    if: github.event.review.state == 'approved'
     strategy:
       matrix:
         KKA_K8S_VERSION:
