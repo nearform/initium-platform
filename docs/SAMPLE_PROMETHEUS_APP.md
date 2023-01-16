@@ -60,7 +60,26 @@ kubectl -n prometheus port-forward prometheus-kube-prometheus-stack-kube-prometh
 
 Then just open http://127.0.0.1:9090/targets in your browser and a new target should be listed.
 
-## Step 3: Clean Up
+## Step 3: Grafana
+
+The manifest from where the Prometheus sample app is deployed contains a Grafana sample dashboard as well. For verifying if the metrics from the sample Prometheus app are correctly fetched in Grafana just expose the Grafana service locally and open the dashboard in browser.
+
+```bash
+export GRAFANA_POD=$(kubectl -n prometheus get pods -l "app.kubernetes.io/name=grafana" -o json | jq -r '.items[].metadata.name')
+kubectl -n prometheus port-forward $GRAFANA_POD 3000
+```
+
+Get the Grafana's admin username and password:
+
+```bash
+export GRAFANA_SECRET=$(kubectl -n prometheus get secrets -l "app.kubernetes.io/name=grafana" -o json | jq -r '.items[].metadata.name')
+kubectl -n prometheus get secrets kube-prometheus-stack-grafana -o jsonpath='{.data.admin-user}' | base64 -d
+kubectl -n prometheus get secrets kube-prometheus-stack-grafana -o jsonpath='{.data.admin-password}' | base64 -d
+```
+
+Open http://127.0.0.1:3000 in brower and search for a dashboard named as `Sample Prometheus App`.
+
+## Step 4: Clean Up
 
 To delete the deployed Sample Prometheus app just execute the following command:
 
