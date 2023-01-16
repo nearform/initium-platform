@@ -12,10 +12,12 @@ Therefore, ArgoCD is the main requirement to run this project on your cluster.
 
 ![Quick Start](docs/img/quick-start/k8s-addons-quick-start.png)
 
-Assuming you already have `argocd` (if installed with helm, the name of the chart should be argocd) deployed in your cluster, you can download the provided `app-of-apps.yaml` in our [latest stable release](https://github.com/nearform/k8s-kurated-addons/releases/latest) and then apply that manifest using this command:
+Assuming you already have `argocd` (if installed with helm, the name of the chart should be argocd) deployed in your cluster, you can install
+desired group of addons (flavor) using `argocd-resources` helm chart while specifying which addons flavor to use:
 
 ```bash
-kubectl apply -f app-of-apps.yaml
+helm repo add argocd-resources https://nearform.github.io/helm-charts
+helm install --set applications[0].source.helm.valueFiles={values-flavor1.yaml} k8-kurated-addons argocd-resources
 ```
 
 Additional information on the addons can be found in the [docs/ADDONS.md](docs/ADDONS.md) file.
