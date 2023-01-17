@@ -39,7 +39,7 @@ jobs:
           # Create a local branch to allow the next steps to work
           git checkout -b ci
           # Deploy cluster
-          make ci
+          make
           # Run tests
           make integration-test
         env:
