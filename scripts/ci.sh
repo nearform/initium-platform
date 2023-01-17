@@ -8,7 +8,7 @@ printenv | grep "KKA_.*"
 echo "======================================================"
 
 # Run Tilt CI
-tilt ci
+tilt ci --file Tiltfile"${CI_TYPE}"
 
 if [ "${KKA_DEPLOY_MINIMAL}" == "false" ]; then
   # Login on ArgoCD

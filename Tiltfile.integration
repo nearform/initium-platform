@@ -1,0 +1,95 @@
+# ===== Sanity check =====
+for env in ['KKA_REPO_NAME', 'KKA_REPO_HOST_PATH', 'KKA_REPO_NODE_PATH', 'KKA_REPO_URI', 'KKA_REPO_BRANCH']:
+    if os.getenv(env, '') == '': fail('Missing or empty {} env var. Did you run this project using the Makefile?'.format(env))
+
+# ===== Internal variables =====
+ARGOCD_EXTERNAL_PORT = os.getenv('KKA_ARGOCD_EXTERNAL_PORT', 8443)
+ISTIO_HTTP_PORT = os.getenv('KKA_ISTIO_HTTP_PORT', 7080)
+ISTIO_HTTPS_PORT = os.getenv('KKA_ISTIO_HTTPS_PORT', 7443)
+
+# ===== Extensions =====
+load('ext://namespace', 'namespace_yaml')
+
+# ===== Kubernetes deployment =====
+
+## MetalLB
+local('helm dependency update ./utils/metallb')
+k8s_yaml(namespace_yaml('metallb-system'), allow_duplicates=False)
+k8s_yaml(helm(
+    './utils/metallb',
+    name='metallb',
+    namespace='metallb-system',
+    set=['cidrBlock="{}"'.format(os.getenv('KKA_METALLB_CIDR'))]
+))
+
+## Istio
+local('helm dependency update ./addons/istio/base')
+k8s_yaml(namespace_yaml('istio-system'), allow_duplicates=False)
+k8s_yaml(helm(
+    './addons/istio/base',
+    namespace='istio-system'
+))
+
+## Istio IngressGateway
+local('helm dependency update ./addons/istio/ingressgateway')
+k8s_yaml(namespace_yaml('istio-ingress'), allow_duplicates=False)
+k8s_yaml(helm(
+    './addons/istio/ingressgateway',
+    name='istio-ingressgateway',
+    namespace='istio-ingress'
+))
+
+## Istiod
+local('helm dependency update ./addons/istio/istiod')
+k8s_yaml(helm(
+    './addons/istio/istiod',
+    name='istiod',
+    namespace='istio-system',
+))
+
+## Knative
+k8s_yaml([
+    'addons/knative/operator/operator.yaml',
+    'addons/knative/serving/serving.yaml'
+])
+
+## Prometheus
+local('helm dependency update ./addons/kube-prometheus-stack')
+k8s_yaml(namespace_yaml('prometheus'), allow_duplicates=False)
+k8s_yaml(helm(
+    './addons/kube-prometheus-stack',
+    name='kube-prometheus-stack',
+    namespace='prometheus'
+))
+
+## Istio Ingress HTTPS port
+local_resource(
+    'istio-ingress-portforward-https',
+    serve_cmd='kubectl port-forward -n istio-ingress svc/istio-ingressgateway {}:443'.format(ISTIO_HTTPS_PORT),
+    links=['https://localhost:{}'.format(ISTIO_HTTPS_PORT)],
+    readiness_probe=probe(
+        initial_delay_secs = 20,
+        timeout_secs = 1,
+        period_secs = 10,
+        success_threshold = 1,
+        failure_threshold = 5,
+        http_get=http_get_action(port=int(ISTIO_HTTPS_PORT), scheme='https')
+    ),
+    auto_init=False
+)
+
+## Istio Ingress HTTP port
+local_resource(
+    'istio-ingress-portforward-http',
+    serve_cmd='kubectl port-forward -n istio-ingress svc/istio-ingressgateway {}:80'.format(ISTIO_HTTP_PORT),
+    links=['http://localhost:{}'.format(ISTIO_HTTP_PORT)],
+    readiness_probe=probe(
+        initial_delay_secs = 20,
+        timeout_secs = 1,
+        period_secs = 10,
+        success_threshold = 1,
+        failure_threshold = 5,
+        http_get=http_get_action(port=int(ISTIO_HTTP_PORT), scheme='http')
+    ),
+    auto_init=False
+)
