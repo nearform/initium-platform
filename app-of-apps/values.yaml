@@ -70,3 +70,13 @@ apps:
     name: knative-eventing
     path: addons/knative/eventing/
     targetNamespace: knative-eventing
+
+  # OpenTelemetry - https://opentelemetry.io/
+  opentelemetry-collector:
+    name: opentelemetry-collector
+    path: addons/opentelemetry/opentelemetry-collector/
+    targetNamespace: opentelemetry-collector
+  opentelemetry-operator:
+    name: opentelemetry-operator
+    path: addons/opentelemetry/opentelemetry-operator/
+    targetNamespace: opentelemetry-operator
