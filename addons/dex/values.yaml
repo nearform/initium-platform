@@ -14,10 +14,7 @@ dex-source:
     enablePasswordDB: true
 
   ingress:
-    enabled: false
-
-    annotations:
-      cert-manager.io/cluster-issuer: ""
+    enabled: true
 
     hosts:
       - host: localhost
@@ -27,4 +24,4 @@ dex-source:
     tls:
       - hosts:
           - localhost
-        secretName: dex-cert
+        secretName: dex.localhost-tls

@@ -7,7 +7,7 @@ kubeadmConfigPatches:
     extraArgs:
       oidc-issuer-url: https://127.0.0.1:32000
       oidc-client-id: kube
-      oidc-ca-file: /etc/ssl/certs/openid-ca.pem
+      oidc-ca-file: /etc/ca-certificates/dex/ca.pem
       oidc-username-claim: email
       oidc-groups-claim: groups
 nodes:
@@ -17,6 +17,6 @@ nodes:
   - hostPath: ${KKA_REPO_HOST_PATH}
     containerPath: ${KKA_REPO_NODE_PATH}
     readOnly: true
-  - hostPath: ${KKA_REPO_HOST_PATH}/ssl/openid-ca.pem
-    containerPath: /etc/ssl/certs/openid-ca.pem
+  - hostPath: ${KKA_REPO_HOST_PATH}/${KKA_REPO_NAME}/.ssl/ca.pem
+    containerPath: /etc/ca-certificates/dex/ca.pem
     readOnly: true

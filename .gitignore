@@ -9,3 +9,5 @@ local.env
 kind.local.yaml
 
 .cache
+
+.ssl
