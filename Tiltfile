@@ -65,6 +65,14 @@ if os.getenv('KKA_DEPLOY_MINIMAL', 'false') == 'false':
         set=['volumes.git_volume.path={}'.format(os.getenv('KKA_REPO_NODE_PATH'))]
     ))
 
+    ## k8s secret with TLS cert to be used by Dex
+    k8s_yaml(namespace_yaml('dex'), allow_duplicates=False)
+    local_resource(
+        'dex-localhost-tls-secret',
+        cmd='kubectl create secret tls -n dex dex.localhost-tls --cert=.ssl/cert.pem --key=.ssl/key.pem',
+        auto_init=True
+    )
+
     ## ArgoCD
     local('helm dependency update ./addons/argocd')
     k8s_yaml(helm(
