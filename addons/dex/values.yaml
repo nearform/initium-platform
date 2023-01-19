@@ -17,7 +17,7 @@ dex-source:
     enabled: false
 
 istioConfig:
-  host: localhost
+  host: dex.local
   port: 443
   dexServiceName: dex-dex-source
-  tlsCertName: dex.localhost-tls
+  tlsCertName: dex.local-tls
