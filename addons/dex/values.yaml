@@ -15,14 +15,3 @@ dex-source:
 
   ingress:
     enabled: false
-
-    hosts:
-      - host: localhost
-        paths:
-          - path: /
-            pathType: ImplementationSpecific
-
-    tls:
-      - hosts:
-          - localhost
-        secretName: dex.localhost-tls
