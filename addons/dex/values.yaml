@@ -14,7 +14,7 @@ dex-source:
     enablePasswordDB: true
 
   ingress:
-    enabled: true
+    enabled: false
 
     hosts:
       - host: localhost
