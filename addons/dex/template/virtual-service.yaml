@@ -7,10 +7,10 @@ spec:
   gateways:
   - dex
   hosts:
-  - {{ .Values.host }}
+  - {{ .Values.istioConfig.host }}
   http:
   - route:
     - destination:
-        host: {{ .Values.dexServiceName }}
+        host: {{ .Values.istioConfig.dexServiceName }}
         port:
-          number: {{ .Values.port }}
+          number: {{ .Values.istioConfig.port }}
