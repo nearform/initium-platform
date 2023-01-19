@@ -20,6 +20,7 @@ dex-source:
       - host: localhost
         paths:
           - path: /
+            pathType: ImplementationSpecific
 
     tls:
       - hosts:
