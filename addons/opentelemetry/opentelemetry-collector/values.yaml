@@ -1,0 +1,34 @@
+otlp-collector-source:
+  mode: deployment
+
+  replicaCount: 1
+
+  presets:
+    clusterMetrics:
+      enabled: true
+
+  ports:
+    jaeger-compact:
+      enabled: false
+    jaeger-thrift:
+      enabled: false
+    jaeger-grpc:
+      enabled: false
+
+  config:
+    receivers:
+      jaeger: null
+      prometheus: null
+      zipkin: null
+    service:
+      pipelines:
+        traces:
+          receivers:
+            - otlp
+        metrics: null
+        logs: null
+
+  resources:
+    limits:
+      cpu: 512m
+      memory: 512Mi
