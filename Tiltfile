@@ -65,7 +65,7 @@ if os.getenv('KKA_DEPLOY_MINIMAL', 'false') == 'false':
         links=['http://localhost:{}'.format(ARGOCD_EXTERNAL_PORT)],
         readiness_probe=probe(
             initial_delay_secs = 20,
-            timeout_secs = 1,
+            timeout_secs = 5,
             period_secs = 10,
             success_threshold = 1,
             failure_threshold = 5,
