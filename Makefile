@@ -10,7 +10,7 @@ SHELL=/bin/bash
 # GOALS ( safe defaults )
 ###############################################################################
 
-default: kind-up tilt-up
+default: generate-oidc-ca kind-up tilt-up
 
 clean: tilt-down kind-down
 	@./scripts/clean-test.sh
@@ -88,3 +88,6 @@ integration-test: ## Run integration tests
 
 validate: ## Run static checks
 	@ASDF_DEFAULT_TOOL_VERSIONS_FILENAME=$(CURDIR)/.tool-versions pre-commit run --color=always --show-diff-on-failure --all-files
+
+generate-oidc-ca: ## Generate TLS assets for running Dex with HTTPS and to be used by cluster API server
+	@./scripts/generate-oidc-ca.sh

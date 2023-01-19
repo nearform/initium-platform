@@ -2,6 +2,8 @@ argocd/charts
 *Chart.lock
 *charts/
 manifests/bootstrap/overrides.local.yaml
+*ssl/
+
 .idea
 local.env
 kind.local.yaml
