@@ -9,8 +9,3 @@ dependencies:
     version: 0.12.1
     repository: https://charts.dexidp.io
     condition: dex-source.enabled
-  - name: dex-config
-    alias: dex-config-source
-    version: 0.0.1
-    repository: file://dex-config
-    condition: dex-config-source.enabled
