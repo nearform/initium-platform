@@ -1,0 +1,5 @@
+dex-config-source:
+  host: localhost
+  port: 443
+  dexServiceName: dex-dex-source
+  tlsCertName: dex.localhost-tls
