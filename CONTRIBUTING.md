@@ -25,6 +25,18 @@ guide, do one of the following:
   issue first. That way, other people can weigh in on the discussion before you
   do any work.
 
+## How to create a new release
+
+> **PLEASE NOTE:** In order to make sure this release pipeline works, every PR and commit MUST use the [Conventional Commits](https://www.conventionalcommits.org/) syntax.
+
+This project uses an automated release setup that is based on [release-please](https://github.com/googleapis/release-please). For a more detailed overview on how it works, feel free to read [their official introduction](https://github.com/googleapis/release-please#whats-a-release-pr).
+
+In short, what happens is that during the normal lifecycle of contributions, as you keep merging PRs, a new release PR will be made (or updated) which will list the changes that will be included in such release ( for eg. see https://github.com/nearform/k8s-kurated-addons/pull/11 ).
+
+Once you merge the PR, a new release will be made and the [`CHANGELOG.md`](https://github.com/nearform/k8s-kurated-addons/blob/main/CHANGELOG.md) will be updated as well. As soon as the release is created, [this workflow](https://github.com/nearform/k8s-kurated-addons/blob/main/.github/workflows/assets.yaml) will be run on top of it, and as a result it will upload on such release the final assets that we deliver for the end-user.
+
+These assets can finally be found on the release Assets section ( for eg. see https://github.com/nearform/k8s-kurated-addons/releases/tag/v0.0.1 ).
+
 ## Conventional Commits
 
 We use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) in this repo. We encourage contributors to name their PRs and commits accordingly. That is required for keeping the repo clean, and [release-please](https://github.com/googleapis/release-please) to do its job when automating release creation.
