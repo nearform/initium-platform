@@ -1,0 +1,3 @@
+istiod-source:
+  sidecarInjectorWebhook:
+    enableNamespacesByDefault: true
