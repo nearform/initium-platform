@@ -1,0 +1,4 @@
+istio-gateway-source:
+  global:
+    logging:
+      level: "default:debug"
