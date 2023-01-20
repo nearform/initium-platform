@@ -18,6 +18,6 @@ dex-source:
 
 istioConfig:
   host: dex.local
-  port: 443
+  port: 5556
   dexServiceName: dex-dex-source
   tlsCertName: dex.local-tls
