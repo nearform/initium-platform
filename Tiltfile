@@ -65,11 +65,10 @@ if os.getenv('KKA_DEPLOY_MINIMAL', 'false') == 'false':
         set=['volumes.git_volume.path={}'.format(os.getenv('KKA_REPO_NODE_PATH'))]
     ))
 
-    ## k8s secret with TLS cert to be used by Dex
-    # k8s_yaml(namespace_yaml('dex'), allow_duplicates=False)
+    ## k8s secret with TLS cert for wildcard.kube.local domains
     local_resource(
-        'dex.local-tls-secret',
-        cmd='kubectl create ns dex && kubectl create secret tls -n dex dex.local-tls --cert=.ssl/cert.pem --key=.ssl/key.pem',
+        'wildcard.kube.local-tls-secret',
+        cmd='kubectl create ns istio-ingress && kubectl create secret tls -n istio-ingress wildcard.kube.local-tls --cert=.ssl/cert.pem --key=.ssl/key.pem',
         auto_init=True
     )
 

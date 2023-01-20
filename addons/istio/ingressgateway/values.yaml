@@ -1,6 +1,3 @@
-istio-gateway-source:
-  global:
-    logging:
-      level: "default:debug"
-    proxy:
-      logLevel: debug
+gateway:
+  host: "*.kube.local"
+  tlsCertName: wildcard.kube.local-tls

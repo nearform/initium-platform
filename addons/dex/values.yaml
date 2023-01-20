@@ -17,7 +17,6 @@ dex-source:
     enabled: false
 
 istioConfig:
-  host: dex.local
+  host: dex.kube.local
   port: 5556
   dexServiceName: dex-dex-source
-  tlsCertName: dex.local-tls

@@ -15,7 +15,7 @@ keyUsage = nonRepudiation, digitalSignature, keyEncipherment
 subjectAltName = @alt_names
 
 [alt_names]
-DNS.1 = dex.local
+DNS.1 = *.kube.local
 EOF
 
 openssl genrsa -out .ssl/ca-key.pem 2048
