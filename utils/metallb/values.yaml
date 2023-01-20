@@ -2,4 +2,4 @@ metallb-source:
   crds:
     validationFailurePolicy: Ignore
 
-cidrBlock: '10.0.0.0/24'
+cidrBlock: '10.0.0.0/24'  # this value is overriden by set command in tiltfile
