@@ -9,10 +9,7 @@ spec:
   hosts:
   - {{ .Values.istioConfig.host }}
   http:
-  - match:
-    - uri:
-        prefix: "/"
-    route:
+  - route:
     - destination:
         host: {{ .Values.istioConfig.dexServiceName }}
         port:
