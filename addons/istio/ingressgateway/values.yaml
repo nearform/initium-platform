@@ -1,3 +1,21 @@
 gateway:
   host: "*.kube.local"
   tlsCertName: wildcard.kube.local-tls
+
+istio-gateway-source:
+  service:
+    type: LoadBalancer
+    ports:
+      - name: status-port
+        port: 15021
+        protocol: TCP
+        targetPort: 15021
+      - name: http2
+        port: 80
+        protocol: TCP
+        targetPort: 80
+      - name: https
+        port: 443
+        protocol: TCP
+        targetPort: 443
+        nodePort: 31525
