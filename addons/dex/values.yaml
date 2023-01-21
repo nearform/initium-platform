@@ -13,6 +13,9 @@ dex-source:
     # See https://dexidp.io/docs/connectors/ for more options
     enablePasswordDB: true
 
+    logger:
+      level: "debug"
+
   ingress:
     enabled: false
 
