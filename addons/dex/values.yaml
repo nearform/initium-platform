@@ -13,13 +13,10 @@ dex-source:
     # See https://dexidp.io/docs/connectors/ for more options
     enablePasswordDB: true
 
-    logger:
-      level: "debug"
-
   ingress:
     enabled: false
 
 istioConfig:
   host: dex.kube.local
-  port: 5558
+  port: 5556
   dexServiceName: dex-dex-source
