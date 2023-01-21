@@ -66,10 +66,17 @@ if os.getenv('KKA_DEPLOY_MINIMAL', 'false') == 'false':
     ))
 
     ## k8s secret with TLS cert for wildcard.kube.local domains
+    k8s_yaml(namespace_yaml('istio-ingress'), allow_duplicates=False)
+    k8s_resource(
+    objects=['istio-ingress:namespace'],
+    new_name='istio-ingress-namespace',
+    )
     local_resource(
         'wildcard.kube.local-tls-secret',
-        cmd='kubectl create ns istio-ingress && kubectl create secret tls -n istio-ingress wildcard.kube.local-tls --cert=.ssl/cert.pem --key=.ssl/key.pem',
-        auto_init=True
+        cmd='kubectl create secret tls -n istio-ingress wildcard.kube.local-tls --save-config \
+        --dry-run=client --cert=.ssl/cert.pem --key=.ssl/key.pem -o yaml | kubectl apply -f -',
+        auto_init=True,
+        resource_deps=['istio-ingress-namespace']
     )
 
     ## ArgoCD
