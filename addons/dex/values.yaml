@@ -17,6 +17,7 @@ dex-source:
     enabled: false
 
 istioConfig:
+  gateway: kube-gateway
   host: dex.kube.local
   port: 5556
   dexServiceName: dex-dex-source

@@ -5,13 +5,10 @@ metadata:
   namespace: dex
 spec:
   gateways:
-  - dex
+  - {{ .Values.istioConfig.gateway }}
   hosts:
   - {{ .Values.istioConfig.host }}
   http:
-  - match:
-    - uri:
-        prefix: "/"
     route:
     - destination:
         host: {{ .Values.istioConfig.dexServiceName }}
