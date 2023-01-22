@@ -24,8 +24,8 @@ dex-source:
     - id: example-app
       redirectURIs:
         - 'http://127.0.0.1:5555/callback'
-      name: 'Example App'
-      secret: ZXhhbXBsZS1hcHAtc2VjcmV0
+      name: example-app
+      secret: $EXAMPLE_APP_CLIENT_SECRET
 
   ingress:
     enabled: false
@@ -40,6 +40,12 @@ dex-source:
     valueFrom:
       secretKeyRef:
         name: github-client
+        key: client-secret
+
+  - name: EXAMPLE_APP_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: example-app-client
         key: client-secret
 
 istioConfig:
