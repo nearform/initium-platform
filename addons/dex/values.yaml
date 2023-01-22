@@ -19,10 +19,11 @@ dex-source:
         redirectURI: https://dex.kube.local:32000/callback
 
     staticClients:
-    - id: kubernetes
+    - id: kubelogin
       redirectURIs:
         - 'http://127.0.0.1:5555/callback'
       name: 'Example App'
+      secretEnv: KUBELOGIN_CLIENT_SECRET
 
   ingress:
     enabled: false
@@ -37,6 +38,12 @@ dex-source:
     valueFrom:
       secretKeyRef:
         name: github-client
+        key: client-secret
+
+  - name: KUBELOGIN_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: kubelogin-client
         key: client-secret
 
 istioConfig:
