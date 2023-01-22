@@ -6,7 +6,7 @@ kubeadmConfigPatches:
   apiServer:
     extraArgs:
       oidc-issuer-url: https://127.0.0.1:32000
-      oidc-client-id: kube
+      oidc-client-id: kubernetes
       oidc-ca-file: /etc/ca-certificates/dex/ca.pem
       oidc-username-claim: email
       oidc-groups-claim: groups
