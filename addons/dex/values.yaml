@@ -19,11 +19,10 @@ dex-source:
         redirectURI: https://dex.kube.local:32000/callback
 
     staticClients:
-    - id: example-app
+    - id: kubernetes
       redirectURIs:
         - 'http://127.0.0.1:5555/callback'
       name: 'Example App'
-      # secret: ZXhhbXBsZS1hcHAtc2VjcmV0
 
   ingress:
     enabled: false
