@@ -21,11 +21,11 @@ dex-source:
         redirectURI: https://dex.kube.local:32000/callback
 
     staticClients:
-    - id: example-app
+    - id: $EXAMPLE_APP_CLIENT_ID
       redirectURIs:
         - 'http://127.0.0.1:5555/callback'
       name: 'Example App'
-      secret: '${EXAMPLE_APP_CLIENT_SECRET}'
+      secret: $EXAMPLE_APP_CLIENT_SECRET
 
   ingress:
     enabled: false
@@ -41,6 +41,12 @@ dex-source:
       secretKeyRef:
         name: github-client
         key: client-secret
+
+  - name: EXAMPLE_APP_CLIENT_ID
+    valueFrom:
+      secretKeyRef:
+        name: example-app-client
+        key: client-id
 
   - name: EXAMPLE_APP_CLIENT_SECRET
     valueFrom:
