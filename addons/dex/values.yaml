@@ -24,8 +24,8 @@ dex-source:
     - id: example-app
       redirectURIs:
         - 'http://127.0.0.1:5555/callback'
-      name: example-app
-      secret: $EXAMPLE_APP_CLIENT_SECRET
+      name: 'Example App'
+      secret: ZXhhbXBsZS1hcHAtc2VjcmV0
 
   ingress:
     enabled: false
