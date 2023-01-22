@@ -7,7 +7,9 @@ dex-source:
 
     # See https://dexidp.io/docs/storage/ for more options
     storage:
-      type: memory
+      type: kubernetes
+      config:
+        inCluster: true
 
     connectors:
     - type: github
