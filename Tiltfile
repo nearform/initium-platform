@@ -3,7 +3,7 @@ for env in ['KKA_REPO_NAME', 'KKA_REPO_HOST_PATH', 'KKA_REPO_NODE_PATH', 'KKA_RE
     if os.getenv(env, '') == '': fail('Missing or empty {} env var. Did you run this project using the Makefile?'.format(env))
 
 # ===== Internal variables =====
-ARGOCD_EXTERNAL_PORT = os.getenv('KKA_ARGOCD_EXTERNAL_PORT', 8443)
+ARGOCD_EXTERNAL_PORT = os.getenv('KKA_ARGOCD_EXTERNAL_PORT', 8080)
 ISTIO_HTTP_PORT = os.getenv('KKA_ISTIO_HTTP_PORT', 7080)
 ISTIO_HTTPS_PORT = os.getenv('KKA_ISTIO_HTTPS_PORT', 7443)
 
@@ -61,11 +61,11 @@ if os.getenv('KKA_DEPLOY_MINIMAL', 'false') == 'false':
     ## ArgoCD HTTPS port
     local_resource(
         'argocd-portforward',
-        serve_cmd='kubectl port-forward -n argocd svc/argocd-server {}:443'.format(ARGOCD_EXTERNAL_PORT),
+        serve_cmd='kubectl port-forward -n argocd svc/argocd-server {}:80'.format(ARGOCD_EXTERNAL_PORT),
         links=['http://localhost:{}'.format(ARGOCD_EXTERNAL_PORT)],
         readiness_probe=probe(
             initial_delay_secs = 20,
-            timeout_secs = 1,
+            timeout_secs = 5,
             period_secs = 10,
             success_threshold = 1,
             failure_threshold = 5,

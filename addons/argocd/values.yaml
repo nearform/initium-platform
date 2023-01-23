@@ -3,6 +3,10 @@ argocd-source:
   applicationSet:
     enabled: false
 
+  configs:
+    params:
+      server.insecure: true
+
   dex:
     enabled: false
 
