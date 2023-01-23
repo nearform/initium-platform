@@ -5,8 +5,8 @@ kubeadmConfigPatches:
   kind: ClusterConfiguration
   apiServer:
     extraArgs:
-      oidc-issuer-url: https://127.0.0.1:32000
-      oidc-client-id: kubernetes
+      oidc-issuer-url: https://dex.kube.local:32000
+      oidc-client-id: kubelogin
       oidc-ca-file: /etc/ca-certificates/dex/ca.pem
       oidc-username-claim: email
       oidc-groups-claim: groups
