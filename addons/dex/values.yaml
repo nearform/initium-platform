@@ -9,6 +9,8 @@ dex-source:
     storage:
       type: memory
 
+    connectors: []
+
 # Example config for Kubernetes Authentication Through Dex and GitHub
 #
 #    # URL and port as seen from outside the cluster, through MetalLB and Istio ingress gateway
