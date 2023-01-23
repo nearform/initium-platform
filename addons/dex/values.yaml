@@ -21,7 +21,7 @@ dex-source:
     staticClients:
     - id: kubelogin
       redirectURIs:
-        - 'http://localhost:8000/callback'
+        - 'http://localhost:8000'
       name: 'Example App'
       secretEnv: KUBELOGIN_CLIENT_SECRET
 
