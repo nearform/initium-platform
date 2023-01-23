@@ -9,7 +9,9 @@ dex-source:
     storage:
       type: memory
 
-  connectors: []
+    # Enable at least one connector
+    # See https://dexidp.io/docs/connectors/ for more options
+    enablePasswordDB: true
 
 # Example config for Kubernetes Authentication Through Dex and GitHub
 #
