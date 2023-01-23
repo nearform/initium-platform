@@ -9,7 +9,7 @@ dex-source:
     storage:
       type: memory
 
-    connectors: []
+  connectors: []
 
 # Example config for Kubernetes Authentication Through Dex and GitHub
 #
