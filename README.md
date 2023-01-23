@@ -14,12 +14,15 @@ Therefore, ArgoCD is the main requirement to run this project on your cluster.
 
 Assuming you already have `argocd` (if installed with helm, the name of the chart should be argocd) deployed in your cluster to make deployment successful and all addons synced it is required to verify if following configuration is part of your ArgoCD configuration: [argocd/values.yaml](https://github.com/nearform/k8s-kurated-addons/blob/main/addons/argocd/values.yaml#L23).
 You can check it by describing argo-cd config map:
+
 ```
 kubectl describe cm argocd-cm -n argocd
 ```
+
 Don't apply changes directly to the Config Map, but apply them the in your installation scripts/helm chart values.
 
 Next, you can download the provided `app-of-apps.yaml` in our [latest stable release](https://github.com/nearform/k8s-kurated-addons/releases/latest) and then apply that manifest using this command:
+
 ```bash
 kubectl apply -f app-of-apps.yaml
 ```
@@ -60,6 +63,7 @@ To continue with the deployment, you need a set of tools installed first. You ca
 > **HINT:** If you want to know which commands are available you can always run `make help` on this project.
 
 #### CLI
+
 ![Inner workings of make](docs/img/inner-workings/k8s-addons-internals.png)
 Make sure you've followed the [bootstrap steps](#bootstrap), then:
 
@@ -80,29 +84,31 @@ Make sure you've followed the [bootstrap steps](#bootstrap), then:
 
 1. Deploy the local environment:
 
-    ```bash
-    # Deploy the cluster and run tilt visually
-    $ make
-    ```
+   ```bash
+   # Deploy the cluster and run tilt visually
+   $ make
+   ```
 
-    You can access the Kind K8s cluster using any kubernetes client like kubectl or Lens.<br>
-    [Accessing Argocd UI](https://argo-cd.readthedocs.io/en/stable/getting_started/#3-access-the-argo-cd-api-server)
-
+   You can access the Kind K8s cluster using any kubernetes client like kubectl or Lens.<br>
+   [Accessing Argocd UI](https://argo-cd.readthedocs.io/en/stable/getting_started/#3-access-the-argo-cd-api-server)
 
 2. (Optional) Run the two following resources in tilt to portforward argocd and get the default admin password
 
-    ```
-    - argocd-portforward
-    - argocd-password
-    ```
+   ```
+   - argocd-portforward
+   - argocd-password
+   ```
 
-    > **PLEASE NOTE:** The port forwarding sometimes seems to drop, so re-run the tilt resource to get the connection up and running again.
+   > **PLEASE NOTE:** The port forwarding sometimes seems to drop, so re-run the tilt resource to get the connection up and running again.
+
+3. (Optional) Test app-of-apps values changes using the override feature of the bootstrap app, following the instructions in the `./manifests/bootstrap/overrides.local.yaml.tmpl` file.
 
 #### Cleanup
 
 > **IMPORTANT:** Make sure to run this command while tilt is NOT running.
 
 In order to cleanup the solution from your own local environment you can run:
+
 ```bash
 $ make clean
 ```
@@ -119,6 +125,7 @@ To make the infrastructure test setup easier.
 Before running tests make sure you've followed the [bootstrap steps](#bootstrap).
 
 Once ready, you can use this simple set of commands:
+
 ```bash
 # Create the cluster
 $ KKA_DEPLOY_MINIMAL=true make ci
@@ -134,6 +141,7 @@ See the [examples/sample-app](examples/sample-app) as an example.
 Before running tests make sure you've followed the [bootstrap steps](#bootstrap).
 
 Once ready, you can use this simple set of commands:
+
 ```bash
 # Create the cluster and all the required dependencies
 $ make ci

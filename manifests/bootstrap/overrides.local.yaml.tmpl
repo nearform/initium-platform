@@ -2,3 +2,10 @@
 # Just create a copy without the .tmpl extension and [re]run make
 # Tilt will see the new file and include it when loading the helm chart
 # Git ignores the file, so there is no risk of pushing it
+
+# This helm chart values will be merged with the values of
+# the app-of-apps chart defined int the root directory.
+# eg. You can disable the dex addon with:
+# apps:
+#   dex:
+#     excluded: true
