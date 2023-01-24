@@ -1,0 +1,30 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  automergeType: "branch",
+  baseBranches: ['main'],
+  branchConcurrentLimit: 0,
+  branchNameStrict: true,
+  dependencyDashboard: false,
+  enabledManagers: ['asdf', 'helmv3', 'github-actions'],
+  extends: ['config:base', ':disableDependencyDashboard', ":semanticCommitTypeAll(deps)"],
+  gitAuthor: "NearForm Renovate App Bot <115552475+nearform-renovate-app[bot]@users.noreply.github.com>",
+  packageRules:
+  [
+    // Global default
+    {
+      matchUpdateTypes: ["minor", "patch"],
+      automerge: true
+    },
+    // Istio has to be considered as a whole
+    {
+      matchPaths: ["addons/istio/**"],
+      groupName: "Istio Helm Chart"
+    }
+  ],
+  platform: 'github',
+  platformAutomerge: true,
+  prConcurrentLimit: 0,
+  rebaseWhen : "auto",
+  repositories: ['nearform/k8s-kurated-addons'],
+  username: "nearform-renovate-app[bot]",
+}
