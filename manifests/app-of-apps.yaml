@@ -36,9 +36,9 @@ spec:
           kube-prometheus-stack:
             excluded: ${KKA_AOA_EXCLUDE_PROMETHEUSSTACK}
           opentelemetry-collector:
-            excluded: ${KKA_AOA_EXCLUDE_OPENTELEMETRY_COLLECTOR}
+            excluded: ${KKA_AOA_EXCLUDE_OPENTELEMETRY}
           opentelemetry-operator:
-            excluded: ${KKA_AOA_EXCLUDE_OPENTELEMETRY_OPERATOR}
+            excluded: ${KKA_AOA_EXCLUDE_OPENTELEMETRY}
   syncPolicy:
     automated:
       prune: true
