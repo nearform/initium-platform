@@ -135,6 +135,15 @@ apps:
         excluded: true
 ```
 
+### OpenTelemetry
+OpenTelemetry is used to instrument, generate, collect, and export telemetry data (metrics, logs, and traces) to help you analyze your software’s performance and behavior. OpenTelemetry is generally available across several languages and is suitable for use. Depending on the project requirements, the OpenTelemetry addon can be enabled and disabled via an ENV variable.
+
+##### Collector
+The OpenTelemetry Collector offers a vendor-agnostic implementation of how to receive, process and export telemetry data. It removes the need to run, operate, and maintain multiple agents/collectors.
+
+##### Operator
+The OpenTelemetry Operator is an implementation of a Kubernetes Operator, it manages collectors and auto-instrumentation of the workload using OpenTelemetry instrumentation libraries.
+
 ### Additional Notes
 
 We are constantly evaluating new addons that might become standards in the industry. That's not high priority, though, since our main goal is to keep this repository straight to the point and minimize overhead on the users' clusters.

@@ -1,0 +1,11 @@
+apiVersion: v2
+name: opentelemetry-collector
+description: OpenTelemetry Collector Helm chart for Kubernetes
+type: application
+version: v0.0.1 # x-release-please-version
+dependencies:
+  - name: opentelemetry-collector
+    alias: otlp-collector-source
+    version: 0.45.2
+    repository: https://open-telemetry.github.io/opentelemetry-helm-charts
+    condition: otlp-collector-source.enabled

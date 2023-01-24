@@ -17,7 +17,7 @@ apps:
     name: cert-manager
     path: addons/cert-manager/
     targetNamespace: cert-manager
-    excluded: true
+    excluded: false
 
   # Dex - https://dexidp.io/
   dex:
@@ -70,3 +70,13 @@ apps:
     name: knative-eventing
     path: addons/knative/eventing/
     targetNamespace: knative-eventing
+
+  # OpenTelemetry - https://opentelemetry.io/
+  opentelemetry-collector:
+    name: opentelemetry-collector
+    path: addons/opentelemetry/opentelemetry-collector/
+    targetNamespace: opentelemetry
+  opentelemetry-operator:
+    name: opentelemetry-operator
+    path: addons/opentelemetry/opentelemetry-operator/
+    targetNamespace: opentelemetry
