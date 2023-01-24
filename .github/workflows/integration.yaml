@@ -16,27 +16,21 @@ jobs:
             "kindest/node:v1.24.7@sha256:577c630ce8e509131eab1aea12c022190978dd2f745aac5eb1fe65c0807eb315",
             "kindest/node:v1.25.3@sha256:f1de3b0670462f43280114eccceab8bf1b9576d2afe0582f8f74529da6fd0365",
           ]
-    runs-on: macos-12
+    runs-on:
+      labels: ubuntu-latest-4-cores
     steps:
       - uses: actions/checkout@v3
 
       - name: Integration test
         run: |
-          # Install GNU tools and make use them from now on
-          brew install bash make coreutils
-          PATH="$(brew --prefix)/opt/make/libexec/gnubin:$PATH"
+          # Install envsubst
+          sudo apt-get update && sudo apt-get install -y gettext
           # Install asdf and expose to PATH
-          brew install asdf
-          . $(brew --prefix)/opt/asdf/libexec/asdf.sh
-          # Install Docker
-          brew install docker
+          git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.10.2
+          . $HOME/.asdf/asdf.sh
           # Add asdf plugins and install tools in .tool-versions
           make asdf_install
-          # Print Colima version
-          colima version
-          # Run Colima ( 3 vCPU, 12GB RAM, 12GB Disk )
-          colima start --cpu 3 --memory 12 --disk 12
-          # Create a local branch to allow the next steps to work
+          # Create a local branch to allow the next step to work
           git checkout -b ci
           # Deploy cluster
           make ci
