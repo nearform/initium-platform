@@ -18,6 +18,7 @@ jobs:
           ]
     runs-on:
       labels: ubuntu-latest-4-cores
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v3
 
