@@ -78,7 +78,7 @@ This project makes use of the [Renovate Bot](https://docs.renovatebot.com/) to a
 
 There are some edge cases to be considered when your addon is divided in multiple charts ( for example, see the [istio addon](https://github.com/nearform/k8s-kurated-addons/tree/main/addons/istio) ). In such cases, Renovate Bot will by default open a PR for each chart detected to be bumped, although this would make the PR difficult to be merged, as each part of the Istio stack has to be bumped as a whole to work correctly.
 
-In order to fix this behavior, you will need to add into the [packageRules](https://github.com/nearform/k8s-kurated-addons/blob/main/.github/renovate-config.js#L4) section an object that will instruct the Renovate bot to consider the addon as whole. Following the istio example, this is the configuration to be used:
+In order to fix this behavior, you will need to add into the [packageRules](https://github.com/nearform/k8s-kurated-addons/blob/main/.github/renovate.json5#L11) section an object that will instruct the Renovate bot to consider the addon as whole. Following the istio example, this is the configuration to be used:
 ```js
 {
   matchPaths: ["addons/istio/**"],
