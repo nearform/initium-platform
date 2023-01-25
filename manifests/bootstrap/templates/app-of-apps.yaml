@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: k8s-kurated-addons
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  project: default
+  source:
+    path: app-of-apps
+    repoURL: {{ .Values.repoURL }}
+    targetRevision: {{ .Values.revision }}
+    helm:
+      parameters:
+        - name: repoURL
+          value: {{ .Values.repoURL }}
+        - name: subChartsRevision
+          value: {{ .Values.revision }}
+      {{- if .Values.apps }}
+      values: |-
+        apps:
+{{ .Values.apps | toYaml | indent 10}}
+      {{- end }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

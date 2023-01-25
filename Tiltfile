@@ -2,6 +2,30 @@
 for env in ['KKA_REPO_NAME', 'KKA_REPO_HOST_PATH', 'KKA_REPO_NODE_PATH', 'KKA_REPO_URI', 'KKA_REPO_BRANCH']:
     if os.getenv(env, '') == '': fail('Missing or empty {} env var. Did you run this project using the Makefile?'.format(env))
 
+def parse_excluded_env_vars(prefix='KKA_AOA_EXCLUDE_'):
+    mapping = {
+        'knative': [
+            'knative-operator',
+            'knative-serving',
+            'knative-eventing'
+        ],
+        'prometheusstack': [
+            'kube-prometheus-stack'
+        ]
+    }
+
+    excluded = [
+        var.removeprefix(prefix).lower().replace('_', '-')
+        for var in os.environ.keys()
+        if var.startswith(prefix) and os.getenv(var) == 'true'
+    ]
+
+    values = []
+    for e in excluded:
+        values.extend(mapping.get(e, [e]))
+
+    return ['apps.%s.excluded=true' % app for app in values ]
+
 # ===== Internal variables =====
 ARGOCD_EXTERNAL_PORT = os.getenv('KKA_ARGOCD_EXTERNAL_PORT', 8080)
 ISTIO_HTTP_PORT = os.getenv('KKA_ISTIO_HTTP_PORT', 7080)
@@ -11,6 +35,14 @@ ISTIO_HTTPS_PORT = os.getenv('KKA_ISTIO_HTTPS_PORT', 7443)
 load('ext://namespace', 'namespace_yaml')
 
 # ===== Kubernetes deployment =====
+
+def bootstrap_app_values():
+    VALUES_OVERRIDES='./manifests/bootstrap/overrides.local.yaml'
+    valueFiles = [VALUES_OVERRIDES] if os.path.exists(VALUES_OVERRIDES) else []
+    values = ['repoURL=%s' % os.getenv('KKA_REPO_URI')]
+    values += parse_excluded_env_vars()
+    return valueFiles, values
+
 
 ## MetalLB
 local('helm dependency update ./utils/metallb')
@@ -42,11 +74,13 @@ if os.getenv('KKA_DEPLOY_MINIMAL', 'false') == 'false':
     ))
 
     ## App-of-apps
-    k8s_yaml(local('cat manifests/app-of-apps.yaml | envsubst'))
+    valueFiles, values = bootstrap_app_values()
+    k8s_yaml(helm('./manifests/bootstrap', namespace="argocd", name="app-of-apps", values=valueFiles, set=values))
+
     k8s_resource(
-    objects=['k8s-kurated-addons:Application:argocd'],
-    new_name='k8s-kurated-addons',
-    resource_deps=['argocd-redis', 'argocd-server', 'argocd-repo-server', 'metallb-metallb-source-controller', 'metallb-metallb-source-speaker', 'git-http-backend']
+        objects=['k8s-kurated-addons:Application:argocd'],
+        new_name='k8s-kurated-addons',
+        resource_deps=['argocd-redis', 'argocd-server', 'argocd-repo-server', 'metallb-metallb-source-controller', 'metallb-metallb-source-speaker', 'git-http-backend']
     )
 
     # ===== Tilt local resources =====
