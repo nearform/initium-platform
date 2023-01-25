@@ -41,6 +41,18 @@ A perfect bug report would have the following:
 
 We would like to avoid issues that require a follow up questions to identify the bug. These follow ups are difficult to do unless we have a repeatable test case.
 
+## How to create a new release
+
+> **PLEASE NOTE:** In order to make sure this release pipeline works, every PR and commit MUST use the [Conventional Commits](https://www.conventionalcommits.org/) syntax.
+
+This project uses an automated release setup that is based on [release-please](https://github.com/googleapis/release-please). For a more detailed overview on how it works, feel free to read [their official introduction](https://github.com/googleapis/release-please#whats-a-release-pr).
+
+In short, what happens is that during the normal lifecycle of contributions, as you keep merging PRs, a new release PR will be made (or updated) which will list the changes that will be included in such release ( for eg. see https://github.com/nearform/k8s-kurated-addons/pull/11 ).
+
+Once you merge the PR, a new release will be made and the [`CHANGELOG.md`](https://github.com/nearform/k8s-kurated-addons/blob/main/CHANGELOG.md) will be updated as well. As soon as the release is created, [this workflow](https://github.com/nearform/k8s-kurated-addons/blob/main/.github/workflows/assets.yaml) will be run on top of it, and as a result it will upload on such release the final assets that we deliver for the end-user.
+
+These assets can finally be found on the release Assets section ( for eg. see https://github.com/nearform/k8s-kurated-addons/releases/tag/v0.0.1 ).
+
 ## Running the local stack
 
 Since this project is mostly based on the concept of [ArgoCD app of apps](https://argo-cd.readthedocs.io/en/stable/operator-manual/cluster-bootstrapping/#app-of-apps-pattern) it will require a Git repository to host the components required to be deployed by ArgoCD on the cluster.
