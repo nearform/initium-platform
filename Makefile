@@ -15,7 +15,7 @@ default: generate-certs kind-up tilt-up
 clean: tilt-down kind-down
 	@./scripts/clean-test.sh
 
-ci: kind-up
+ci: generate-certs kind-up
 	@./scripts/ci.sh
 
 help:
