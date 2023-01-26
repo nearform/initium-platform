@@ -74,7 +74,7 @@ if os.getenv('KKA_DEPLOY_MINIMAL', 'false') == 'false':
     local_resource(
         'wildcard.kube.local-tls-secret',
         cmd='kubectl create secret tls -n istio-ingress wildcard.kube.local-tls --save-config \
-        --dry-run=client --cert=.ssl/cert.pem --key=.ssl/key.pem -o yaml | kubectl apply -f -',
+        --dry-run=client --cert=.ssl/cert-ingress-gateway.pem --key=.ssl/key-ingress-gateway.pem -o yaml | kubectl apply -f -',
         auto_init=True,
         resource_deps=['istio-ingress-namespace']
     )

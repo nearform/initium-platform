@@ -14,7 +14,7 @@ During cluster bootstrap OIDC parameters are already configured. Parameters can 
 * The Kubelogin plugin is installed using [setup instructions](https://github.com/int128/kubelogin#setup).
 * For now, we will use default configuration for Dex addon and make changes as we progress.
 
-## Local DNS Configuration
+## Local Environment Configuration
 1. Retrieve the IP address allocated by MetalLB to the service of type `Loadbalancer`. This address will make Dex issuer reachable on the local network.
 ```bash
 kubectl get svc -n istio-ingress istio-ingressgateway \
@@ -24,18 +24,24 @@ kubectl get svc -n istio-ingress istio-ingressgateway \
 ```bash
 172.18.255.200  dex.kube.local
 ```
+3. Add self-signed CA created during cluster bootstrap to trusted certificate store of your machine. For example, if using Ubuntu:
+```bash
+sudo apt-get install -y ca-certificates
+sudo cp .ssl/ca.pem /usr/local/share/ca-certificates/ca.crt
+sudo update-ca-certificates
+```
 
 **WSL Users Only**:
 As WSL networking will not allow Loadbalancer address to be reachable from the Windows host, additional steps are needed:
-3. Start TCP forwarding between the WSL LAN address and the Loadbalancer address. Utility `socat` can be used for that purpose.
+4. Start TCP forwarding between the WSL LAN address and the Loadbalancer address. Utility `socat` can be used for that purpose.
 ```bash
 socat TCP4-LISTEN:443,fork,reuseaddr TCP4:172.18.255.200:443 &
 ```
-4. Instead of using the Loadbalancer address in WSL hosts file, configure the WSL LAN address in the Windows hosts file, for example:
+5. Instead of using the Loadbalancer address in WSL hosts file, configure the WSL LAN address in the Windows hosts file, for example:
 ```bash
 172.23.41.241  dex.kube.local
 ```
-5. Make sure **not** to use `generateResolvConf=false` otherwise above setting will not be reflected in WSL
+6. Make sure **not** to use `generateResolvConf=false` otherwise above setting will not be reflected in WSL
 
 ## GitHub Configuration
 1. [Create](https://github.com/settings/applications/new ) a new OAuth app setting in GitHub
