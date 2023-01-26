@@ -16,7 +16,7 @@ dex-source:
 # Example config for Kubernetes Authentication Through Dex and GitHub
 #
 #    # URL and port as seen from outside the cluster, through MetalLB and Istio ingress gateway
-#    issuer: https://dex.kube.local:32000
+#    issuer: https://dex.kube.local
 #
 #    storage:
 #      type: kubernetes
@@ -30,7 +30,7 @@ dex-source:
 #      config:
 #        clientID: $GITHUB_CLIENT_ID
 #        clientSecret: $GITHUB_CLIENT_SECRET
-#        redirectURI: https://dex.kube.local:32000/callback
+#        redirectURI: https://dex.kube.local/callback
 #
 #    staticClients:
 #    - id: kubelogin

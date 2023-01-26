@@ -29,7 +29,7 @@ kubectl get svc -n istio-ingress istio-ingressgateway \
 As WSL networking will not allow Loadbalancer address to be reachable from the Windows host, additional steps are needed:
 3. Start TCP forwarding between the WSL LAN address and the Loadbalancer address. Utility `socat` can be used for that purpose.
 ```bash
-socat TCP4-LISTEN:32000,fork,reuseaddr TCP4:172.18.255.200:443 &
+socat TCP4-LISTEN:443,fork,reuseaddr TCP4:172.18.255.200:443 &
 ```
 4. Instead of using the Loadbalancer address in WSL hosts file, configure the WSL LAN address in the Windows hosts file, for example:
 ```bash
@@ -41,7 +41,7 @@ socat TCP4-LISTEN:32000,fork,reuseaddr TCP4:172.18.255.200:443 &
 1. [Create](https://github.com/settings/applications/new ) a new OAuth app setting in GitHub
    * Application name: Dex
    * Homepage URL: any URL related to the app
-   * Authorization callback URL: https://dex.kube.local:32000/callback
+   * Authorization callback URL: https://dex.kube.local/callback
 
 2. Open the registered app and generate a new client secret. Registered application can be found under `Account Settings/Developer settings/Oauth Apps`.
 Save the GitHub client id and the GitHub client secret for later use.
@@ -73,7 +73,7 @@ kubectl create secret generic kubelogin-client \
 ```yaml
 dex-source:
   config:
-    issuer: https://dex.kube.local:32000
+    issuer: https://dex.kube.local
     storage:
       type: kubernetes
       config:
@@ -85,7 +85,7 @@ dex-source:
       config:
         clientID: $GITHUB_CLIENT_ID
         clientSecret: $GITHUB_CLIENT_SECRET
-        redirectURI: https://dex.kube.local:32000/callback
+        redirectURI: https://dex.kube.local/callback
 
     staticClients:
     - id: kubelogin
@@ -131,7 +131,7 @@ kubectl config set-credentials oidc \
   --exec-command=kubectl \
   --exec-arg=oidc-login \
   --exec-arg=get-token \
-  --exec-arg=--oidc-issuer-url=https://dex.kube.local:32000 \
+  --exec-arg=--oidc-issuer-url=https://dex.kube.local \
   --exec-arg=--oidc-client-id=kubelogin \
   --exec-arg=--oidc-extra-scope=email \
   --exec-arg=--oidc-client-secret=[plain-text-kubelogin-client-secret]
