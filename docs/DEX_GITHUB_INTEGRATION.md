@@ -35,7 +35,7 @@ sudo update-ca-certificates
 As WSL networking will not allow Loadbalancer address to be reachable from the Windows host, additional steps are needed:
 4. Start TCP forwarding between the WSL LAN address and the Loadbalancer address. Utility `socat` can be used for that purpose.
 ```bash
-socat TCP4-LISTEN:443,fork,reuseaddr TCP4:172.18.255.200:443 &
+sudo socat TCP4-LISTEN:443,fork,reuseaddr TCP4:172.18.255.200:443 &
 ```
 5. Instead of using the Loadbalancer address in WSL hosts file, configure the WSL LAN address in the Windows hosts file, for example:
 ```bash
