@@ -78,6 +78,7 @@ kubectl create secret generic kubelogin-client \
 1. Uncomment the GitHub section in Dex [values.yaml](https://github.com/nearform/k8s-kurated-addons/blob/main/addons/dex/values.yaml) file. Also, remove the default section at the start of the file. Resulting config should look like the below:
 ```yaml
 dex-source:
+  nameOverride: dex
   config:
     issuer: https://dex.kube.local
     storage:
