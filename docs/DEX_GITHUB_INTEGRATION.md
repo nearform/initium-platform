@@ -117,11 +117,13 @@ dex-source:
         name: kubelogin-client
         key: client-secret
 
-istioConfig:
+virtualService:
+  name: dex
+  namespace: dex
   gateway: istio-ingress/kube-gateway
   host: dex.kube.local
   port: 5556
-  dexServiceName: dex-dex-source
+  serviceName: dex
 ```
 2. Commit changes and make sure ArgoCD deployed Dex with the new configuration.
 
