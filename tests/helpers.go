@@ -25,6 +25,7 @@ type HelmAddonData struct {
 	chartPath       string
 	hasCustomValues bool
 	manageNamespace bool
+	overrideValues  map[string]string
 }
 
 func readYamlFile(filename string) (*map[string]interface{}, error) {
@@ -116,6 +117,7 @@ func prepareHelmEnvironment(t *testing.T, addonData *HelmAddonData) (helm.Option
 	helmOptions = helm.Options{
 		KubectlOptions: kubectlOptions,
 		ValuesFiles:    valuesFiles,
+		SetValues:      addonData.overrideValues,
 	}
 
 	helm.AddRepo(t, &helmOptions, addonData.dependencyRepo, dependencies["repository"].(string))

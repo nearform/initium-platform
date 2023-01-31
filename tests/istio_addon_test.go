@@ -24,7 +24,7 @@ func TestHelmIstioAddon(t *testing.T) {
 
 	// ----------------------------------
 
-	istioDaemonAddonData := HelmAddonData{
+	istioDiscoveryAddonData := HelmAddonData{
 		namespaceName:  "istio-system",
 		releaseName:    "",
 		dependencyRepo: "",
@@ -33,23 +33,24 @@ func TestHelmIstioAddon(t *testing.T) {
 		chartPath:      "../addons/istio/istiod",
 	}
 
-	istioDaemonHelmOptions, err := prepareHelmEnvironment(t, &istioDaemonAddonData)
+	istioDiscoveryHelmOptions, err := prepareHelmEnvironment(t, &istioDiscoveryAddonData)
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	waitUntilServicesAvailable(t, *istioDaemonHelmOptions.KubectlOptions, []string{"istiod"})
+	waitUntilServicesAvailable(t, *istioDiscoveryHelmOptions.KubectlOptions, []string{"istiod"})
 
 	// ----------------------------------
 
 	istioIngressAddonData := HelmAddonData{
-		namespaceName:  "istio-system",
-		releaseName:    "",
-		dependencyRepo: "",
-		addonName:      "istio-ingressgateway",
-		addonAlias:     "",
-		chartPath:      "../addons/istio/ingressgateway",
+		namespaceName:   "istio-ingress",
+		releaseName:     "",
+		dependencyRepo:  "",
+		addonName:       "istio-ingressgateway",
+		addonAlias:      "",
+		chartPath:       "../addons/istio/ingressgateway",
+		manageNamespace: true,
 	}
 
 	istioIngressHelmOptions, err := prepareHelmEnvironment(t, &istioIngressAddonData)
@@ -63,6 +64,6 @@ func TestHelmIstioAddon(t *testing.T) {
 	// ----------------------------------
 
 	destroyHelmEnvironment(t, istioIngressAddonData, istioIngressHelmOptions)
-	destroyHelmEnvironment(t, istioDaemonAddonData, istioDaemonHelmOptions)
+	destroyHelmEnvironment(t, istioDiscoveryAddonData, istioDiscoveryHelmOptions)
 	destroyHelmEnvironment(t, istioBaseAddonData, istioBaseHelmOptions)
 }

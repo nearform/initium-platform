@@ -1,5 +1,5 @@
 dex-source:
-  nameOverride: dex
+  fullnameOverride: dex
   config:
     # The base path of dex and the external name of the OpenID Connect service.
     # This is the canonical URL that all clients MUST use to refer to dex. If a
