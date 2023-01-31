@@ -1,0 +1,25 @@
+grafana-source:
+  nameOverride: grafana
+  rbac:
+    pspEnabled: false
+  adminUser: admin
+  adminPassword: strongpassword
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: Loki
+        type: loki
+        url: http://loki.loki:3100
+        access: proxy
+        isDefault: true
+        jsonData:
+          maxLines: 1000
+
+virtualService:
+  name: grafana
+  namespace: grafana
+  gateway: istio-ingress/kube-gateway
+  host: grafana.kube.local
+  port: 80
+  serviceName: grafana

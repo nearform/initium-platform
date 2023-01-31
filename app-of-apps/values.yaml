@@ -23,13 +23,14 @@ apps:
     name: cert-manager
     path: addons/cert-manager/
     targetNamespace: cert-manager
-    excluded: false
+    excluded: true
 
   # Dex - https://dexidp.io/
   dex:
     name: dex
     path: addons/dex/
     targetNamespace: dex
+    excluded: true
 
   # Prometheus + Grafana + Operator - https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack
   kube-prometheus-stack:
@@ -37,6 +38,7 @@ apps:
     path: addons/kube-prometheus-stack/
     targetNamespace: prometheus
     serverSideApply: true
+    excluded: true
 
   # Istio - https://istio.io/
   istio-base:
@@ -60,21 +62,32 @@ apps:
   knative-operator:
     name: knative-operator
     path: addons/knative/operator/
+    excluded: true
   knative-serving:
     name: knative-serving
     path: addons/knative/serving/
     targetNamespace: knative-serving
+    excluded: true
   knative-eventing:
     name: knative-eventing
     path: addons/knative/eventing/
     targetNamespace: knative-eventing
+    excluded: true
 
   # OpenTelemetry - https://opentelemetry.io/
   opentelemetry-collector:
     name: opentelemetry-collector
-    path: addons/opentelemetry/opentelemetry-collector/
+    path: addons/opentelemetry-collector/
     targetNamespace: opentelemetry
-  opentelemetry-operator:
-    name: opentelemetry-operator
-    path: addons/opentelemetry/opentelemetry-operator/
-    targetNamespace: opentelemetry
+
+  # Grafana Loki - https://grafana.com/oss/loki/
+  loki:
+    name: loki
+    path: addons/loki/
+    targetNamespace: loki
+
+  # Grafana - https://grafana.com/oss/
+  grafana:
+    name: grafana
+    path: addons/grafana/
+    targetNamespace: grafana

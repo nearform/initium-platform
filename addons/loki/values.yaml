@@ -1,0 +1,23 @@
+loki-source:
+  nameOverride: loki
+  loki:
+    auth_enabled: false
+    storage:
+      type: filesystem
+    commonConfig:
+      replication_factor: 1
+  monitoring:
+    dashboards:
+      enabled: false
+    serviceMonitor:
+      enabled: false
+    selfMonitoring:
+      enabled: false
+      grafanaAgent:
+        installOperator: false
+    lokiCanary:
+      enabled: false
+  test:
+    enabled: false
+#  singleBinary:
+#    extraArgs: [ "-log.level=debug" ]
