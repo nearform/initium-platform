@@ -1,9 +1,22 @@
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
+kubeadmConfigPatches:
+- |-
+  kind: ClusterConfiguration
+  apiServer:
+    extraArgs:
+      oidc-issuer-url: https://dex.kube.local
+      oidc-client-id: kubelogin
+      oidc-ca-file: /etc/ca-certificates/dex/ca.pem
+      oidc-username-claim: email
+      oidc-groups-claim: groups
 nodes:
 - role: control-plane
   image: ${KKA_K8S_VERSION}
   extraMounts:
   - hostPath: ${KKA_REPO_HOST_PATH}
     containerPath: ${KKA_REPO_NODE_PATH}
+    readOnly: true
+  - hostPath: ${KKA_REPO_HOST_PATH}/${KKA_REPO_NAME}/.ssl/ca.pem
+    containerPath: /etc/ca-certificates/dex/ca.pem
     readOnly: true

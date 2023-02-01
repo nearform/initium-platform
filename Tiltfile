@@ -65,6 +65,20 @@ if os.getenv('KKA_DEPLOY_MINIMAL', 'false') == 'false':
         set=['volumes.git_volume.path={}'.format(os.getenv('KKA_REPO_NODE_PATH'))]
     ))
 
+    ## k8s secret with TLS cert for wildcard.kube.local domains
+    k8s_yaml(namespace_yaml('istio-ingress'), allow_duplicates=False)
+    k8s_resource(
+    objects=['istio-ingress:namespace'],
+    new_name='istio-ingress-namespace',
+    )
+    local_resource(
+        'wildcard.kube.local-tls-secret',
+        cmd='kubectl create secret tls -n istio-ingress wildcard.kube.local-tls --save-config \
+        --dry-run=client --cert=.ssl/cert-ingress-gateway.pem --key=.ssl/key-ingress-gateway.pem -o yaml | kubectl apply -f -',
+        auto_init=True,
+        resource_deps=['istio-ingress-namespace']
+    )
+
     ## ArgoCD
     local('helm dependency update ./addons/argocd')
     k8s_yaml(helm(

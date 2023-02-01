@@ -8,12 +8,33 @@ import (
 )
 
 func TestHelmDexAddon(t *testing.T) {
+	// add Istio CRDs to test Istio virtual service
+	istioBaseAddonData := HelmAddonData{
+		namespaceName:   "dex-test",
+		releaseName:     "",
+		dependencyRepo:  "",
+		addonName:       "istio-base",
+		addonAlias:      "",
+		chartPath:       "../addons/istio/base",
+		manageNamespace: true,
+		overrideValues: map[string]string{
+			"global.istioNamespace": "dex-test",
+		},
+	}
+
+	istioBaseHelmOptions, err := prepareHelmEnvironment(t, &istioBaseAddonData)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	addonData := HelmAddonData{
 		namespaceName:   "",
 		releaseName:     "",
 		dependencyRepo:  "",
 		addonName:       "dex",
 		addonAlias:      "",
+		chartPath:       "",
 		hasCustomValues: true,
 		manageNamespace: true,
 	}
@@ -24,9 +45,10 @@ func TestHelmDexAddon(t *testing.T) {
 		log.Fatal(err)
 	}
 
-	waitUntilHelmFormattedServicesAvailable(t, addonData, helmOptions, []string{"dex-source"})
+	waitUntilServicesAvailable(t, *helmOptions.KubectlOptions, []string{"dex"})
 
 	// ----------------------------------
 
 	destroyHelmEnvironment(t, addonData, helmOptions)
+	destroyHelmEnvironment(t, istioBaseAddonData, istioBaseHelmOptions)
 }

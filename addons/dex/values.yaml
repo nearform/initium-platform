@@ -1,4 +1,5 @@
 dex-source:
+  fullnameOverride: dex
   config:
     # The base path of dex and the external name of the OpenID Connect service.
     # This is the canonical URL that all clients MUST use to refer to dex. If a
@@ -13,18 +14,54 @@ dex-source:
     # See https://dexidp.io/docs/connectors/ for more options
     enablePasswordDB: true
 
-  ingress:
-    enabled: false
+# Example config for Kubernetes Authentication Through Dex and GitHub
+#
+#    # URL and port as seen from outside the cluster, through MetalLB and Istio ingress gateway
+#    issuer: https://dex.kube.local
+#
+#    storage:
+#      type: kubernetes
+#      config:
+#        inCluster: true
+#
+#    connectors:
+#    - type: github
+#      id: github
+#      name: GitHub
+#      config:
+#        clientID: $GITHUB_CLIENT_ID
+#        clientSecret: $GITHUB_CLIENT_SECRET
+#        redirectURI: https://dex.kube.local/callback
+#
+#    staticClients:
+#    - id: kubelogin
+#      redirectURIs:
+#        - 'http://localhost:8000'
+#      name: 'Kubelogin'
+#      secretEnv: KUBELOGIN_CLIENT_SECRET
+#
+#  envVars:
+#  - name: GITHUB_CLIENT_ID
+#    valueFrom:
+#      secretKeyRef:
+#        name: github-client
+#        key: client-id
+#  - name: GITHUB_CLIENT_SECRET
+#    valueFrom:
+#      secretKeyRef:
+#        name: github-client
+#        key: client-secret
+#
+#  - name: KUBELOGIN_CLIENT_SECRET
+#    valueFrom:
+#      secretKeyRef:
+#        name: kubelogin-client
+#        key: client-secret
 
-    annotations:
-      cert-manager.io/cluster-issuer: ""
-
-    hosts:
-      - host: localhost
-        paths:
-          - path: /
-
-    tls:
-      - hosts:
-          - localhost
-        secretName: dex-cert
+virtualService:
+  name: dex
+  namespace: dex
+  gateway: istio-ingress/kube-gateway
+  host: dex.kube.local
+  port: 5556
+  serviceName: dex

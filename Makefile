@@ -10,12 +10,12 @@ SHELL=/bin/bash
 # GOALS ( safe defaults )
 ###############################################################################
 
-default: kind-up tilt-up
+default: generate-certs kind-up tilt-up
 
 clean: tilt-down kind-down
 	@./scripts/clean-test.sh
 
-ci: kind-up
+ci: generate-certs kind-up
 	@./scripts/ci.sh
 
 help:
@@ -64,6 +64,9 @@ bootstrap: asdf_install pre-commit ## setup all the needed plugins and install p
 ###############################################################################
 # GOALS
 ###############################################################################
+
+generate-certs: ## Generate TLS assets for to be used by cluster API server and istio ingress gateway
+	@./scripts/generate-certs.sh
 
 kind-up: ## Create the K8s cluster
 	@./scripts/kind-up.sh
