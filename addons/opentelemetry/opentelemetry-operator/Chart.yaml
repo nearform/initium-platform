@@ -6,6 +6,6 @@ version: v0.0.1 # x-release-please-version
 dependencies:
   - name: opentelemetry-operator
     alias: otlp-operator-source
-    version: 0.21.2
+    version: 0.21.4
     repository: https://open-telemetry.github.io/opentelemetry-helm-charts
     condition: otlp-operator-source.enabled
