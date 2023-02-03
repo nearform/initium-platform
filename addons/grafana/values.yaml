@@ -1,9 +1,11 @@
 grafana-source:
-  nameOverride: grafana
+  fullnameOverride: grafana
   rbac:
     pspEnabled: false
   adminUser: admin
   adminPassword: strongpassword
+  plugins:
+  - grafana-piechart-panel
   datasources:
     datasources.yaml:
       apiVersion: 1

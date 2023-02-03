@@ -1,11 +1,17 @@
 loki-source:
-  nameOverride: loki
+  fullnameOverride: loki
   loki:
     auth_enabled: false
     storage:
       type: filesystem
     commonConfig:
       replication_factor: 1
+    query_range:
+      parallelise_shardable_queries: false
+    limits_config:
+      split_queries_by_interval: 0
+    query_scheduler:
+      max_outstanding_requests_per_tenant: 10000
   monitoring:
     dashboards:
       enabled: false
@@ -19,5 +25,6 @@ loki-source:
       enabled: false
   test:
     enabled: false
-#  singleBinary:
-#    extraArgs: [ "-log.level=debug" ]
+  singleBinary:
+    extraArgs: [ "-log.level=error" ]
+

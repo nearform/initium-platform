@@ -80,6 +80,14 @@ apps:
     name: loki
     path: addons/loki/
     targetNamespace: loki
+<<<<<<< HEAD
+=======
+    ignoreDifferences:
+      - group: apps
+        kind: StatefulSet
+        jsonPointers:
+          - /spec/persistentVolumeClaimRetentionPolicy
+>>>>>>> 782643e (feat: add loki, otlp collector and grafana)
 
   # Grafana - https://grafana.com/oss/
   grafana:
