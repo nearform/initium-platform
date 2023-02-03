@@ -26,5 +26,5 @@ loki-source:
   test:
     enabled: false
   singleBinary:
+    # decrease log level from info to error to reduce log output
     extraArgs: [ "-log.level=error" ]
-
