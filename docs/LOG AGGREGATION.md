@@ -23,7 +23,7 @@ It has been deployed in `single binary` mode with the logs stored in the file sy
 Grafana is deployed independently of Loki to be used by both Loki and Kube Prometheus applications.
 At this moment logging in to Grafana is done by using default credentials defined in [Grafana values](https://github.com/nearform/k8s-kurated-addons/blob/main/addons/grafana/values.yaml#L6)
 In the future default password will be replaced with generated one.
-Grafana is preconfigured to use Loki data source and logs are available upon stack deployment. Custom dashboards are not included with Grafana, rather idea is to use Grafana’s `explore` feature.
+Grafana is preconfigured to use Loki data source and logs are available upon stack deployment. Custom dashboards for Loki are not included with Grafana, rather idea is to use Grafana’s `explore` feature.
 
 Log filtering is based on LogQL, a Grafana Loki’s PromQL-inspired query language. It uses labels and operators for filtering. A few examples are shown below:
 ```bash
