@@ -13,7 +13,7 @@ otlp-collector-source:
           http:
 
     processors:
-      batch:
+      batch: {}
 
       attributes:
         actions:

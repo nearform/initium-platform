@@ -7,12 +7,12 @@ import (
 	_ "github.com/stretchr/testify/assert"
 )
 
-func TestHelmPrometheusServerAddon(t *testing.T) {
+func TestHelmLokiAddon(t *testing.T) {
 	addonData := HelmAddonData{
-		namespaceName:   "monitoring",
+		namespaceName:   "",
 		releaseName:     "",
 		dependencyRepo:  "",
-		addonName:       "kube-prometheus-stack",
+		addonName:       "loki",
 		addonAlias:      "",
 		chartPath:       "",
 		hasCustomValues: true,
@@ -25,15 +25,10 @@ func TestHelmPrometheusServerAddon(t *testing.T) {
 		log.Fatal(err)
 	}
 
-	waitUntilHelmFormattedServicesAvailable(t, addonData, helmOptions, []string{
-		"kube-state-metrics",
-		"prometheus-node-exporter",
-	})
-
 	waitUntilServicesAvailable(t, *helmOptions.KubectlOptions, []string{
-		"kube-prometheus-stack-test-alertmanager",
-		"kube-prometheus-stack-test-operator",
-		"kube-prometheus-stack-test-prometheus",
+		"loki",
+		"loki-headless",
+		"loki-memberlist",
 	})
 
 	// ----------------------------------
