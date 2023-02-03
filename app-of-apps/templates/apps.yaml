@@ -19,6 +19,11 @@ spec:
     path: {{ .path }}
     repoURL: {{ $.Values.repoURL }}
     targetRevision: {{ coalesce .targetRevision $.Values.subChartsRevision "HEAD" | quote }}
+    {{- if .helmValues }}
+    helm:
+      values: |-
+{{ .helmValues | toYaml | indent 8 }}
+    {{- end}}
   {{- with .syncPolicy | default $.Values.syncPolicy }}
   syncPolicy:
     {{- toYaml . | nindent 4 }}
