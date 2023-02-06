@@ -23,18 +23,6 @@ spec:
   syncPolicy:
     {{- toYaml . | nindent 4 }}
   {{- end }}
-    syncOptions:
-      {{- if .managedNamespaceMetadata }}
-      - CreateNamespace=false
-      {{- else }}
-      - CreateNamespace=true
-      {{- end }}
-      {{- if .serverSideApply }}
-      - ServerSideApply=true
-      {{- end }}
-      {{- if .replace }}
-      - Replace=true
-      {{- end }}
   {{- if .ignoreDifferences }}
   ignoreDifferences:
   {{- toYaml .ignoreDifferences | nindent 4 }}

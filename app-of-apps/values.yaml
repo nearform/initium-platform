@@ -8,6 +8,8 @@ syncPolicy:
   automated:
     prune: true
     selfHeal: true
+  syncOptions:
+    - CreateNamespace=true
 apps:
   # ArgoCD - https://github.com/argoproj/argo-cd/
   argocd:
@@ -41,26 +43,18 @@ apps:
     name: istio-base
     path: addons/istio/base/
     targetNamespace: istio-system
-    syncWave: -3
+    syncWave: -20
 
   istiod:
     name: istiod
     path: addons/istio/istiod/
     targetNamespace: istio-system
-    syncWave: -2
+    syncWave: -20
 
   istio-ingressgateway:
     name: istio-ingressgateway
     path: addons/istio/ingressgateway/
     targetNamespace: istio-ingress
-    syncWave: -1
-    managedNamespaceMetadata:
-      annotations:
-        argocd.argoproj.io/sync-wave: "-1"
-      labels:
-        name: istio-ingress
-        istio-injection: enabled
-        kubernetes.io/metadata.name: istio-ingress
 
   # Knative - https://knative.dev/
   knative-operator:
