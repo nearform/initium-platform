@@ -23,9 +23,6 @@ func TestHelmPrometheusServerAddon(t *testing.T) {
 	// add Grafana namespace as it is expected by Prometheus stack
 	kubectlOptions := k8s.NewKubectlOptions("", "", addonData.namespaceName)
 	k8s.CreateNamespace(t, kubectlOptions, "grafana")
-	defer func() {
-		k8s.DeleteNamespace(t, kubectlOptions, "grafana")
-	}()
 
 	helmOptions, err := prepareHelmEnvironment(t, &addonData)
 
@@ -47,4 +44,5 @@ func TestHelmPrometheusServerAddon(t *testing.T) {
 	// ----------------------------------
 
 	destroyHelmEnvironment(t, addonData, helmOptions)
+	k8s.DeleteNamespace(t, kubectlOptions, "grafana")
 }
