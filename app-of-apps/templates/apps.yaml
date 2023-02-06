@@ -19,10 +19,10 @@ spec:
     path: {{ .path }}
     repoURL: {{ $.Values.repoURL }}
     targetRevision: {{ coalesce .targetRevision $.Values.subChartsRevision "HEAD" | quote }}
+  {{- with .syncPolicy | default $.Values.syncPolicy }}
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
     syncOptions:
       {{- if .managedNamespaceMetadata }}
       - CreateNamespace=false
