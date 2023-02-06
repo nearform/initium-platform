@@ -1,0 +1,43 @@
+grafana-source:
+  fullnameOverride: grafana
+  rbac:
+    pspEnabled: false
+  adminUser: admin
+  adminPassword: strongpassword
+  plugins:
+  - grafana-piechart-panel
+
+  # loki config
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: Loki
+        type: loki
+        url: http://loki.loki:3100
+        access: proxy
+        isDefault: false
+        jsonData:
+          maxLines: 1000
+
+  # prometheus config
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      labelValue: "1"
+    datasources:
+      enabled: true
+      defaultDatasourceEnabled: true
+      isDefaultDatasource: true
+      uid: prometheus
+      label: grafana_datasource
+      labelValue: "1"
+
+virtualService:
+  name: grafana
+  namespace: grafana
+  gateway: istio-ingress/kube-gateway
+  host: grafana.kube.local
+  port: 80
+  serviceName: grafana

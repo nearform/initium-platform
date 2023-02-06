@@ -45,7 +45,7 @@ metadata:
   labels:
     grafana_dashboard: "1"
   name: sample-prometheus-app
-  namespace: prometheus
+  namespace: grafana
 data:
   k8s-pod-count.json: |-
     {

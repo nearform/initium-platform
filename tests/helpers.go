@@ -8,6 +8,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/require"
 	"gopkg.in/yaml.v3"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
@@ -162,4 +163,21 @@ func waitUntilLoadBalancerAvailable(t *testing.T, kubectlOptions k8s.KubectlOpti
 			k8s.WaitUntilServiceAvailable(t, &kubectlOptions, v.Name, 10, 30*time.Second)
 		}
 	}
+}
+
+func waitUntilDaemonSetAvailable(t *testing.T, kubectlOptions k8s.KubectlOptions, daemonSetName string) {
+	retries := 10
+	sleep := time.Second * 1
+	for i := 1; i < retries; i++ {
+		podsReady := k8s.GetDaemonSet(t, &kubectlOptions, daemonSetName).Status.NumberReady
+		if podsReady > 0 {
+			break
+		}
+		time.Sleep(sleep)
+	}
+	pods := k8s.ListPods(t, &kubectlOptions, v1.ListOptions{})
+	require.Greater(t, len(pods), 0)
+	pod := pods[0]
+
+	k8s.WaitUntilPodAvailable(t, &kubectlOptions, pod.Name, 10, 30*time.Second)
 }

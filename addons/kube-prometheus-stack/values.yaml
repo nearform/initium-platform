@@ -5,20 +5,19 @@ kube-prometheus-stack-source:
     # rbac:
     #   pspEnabled: false
   grafana:
-    ingress:
-      enabled: false
-      ingressClassName: nginx
-      # Values can be templated
-      # annotations:
-      #   nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-      #   nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-      hosts:
-        - "grafana.local"
-      path: "/"
+    # external grafana app is used by default
+    enabled: false
+    namespaceOverride: "grafana"
+
+    ## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
+    forceDeployDatasources: true
+
+    ## ForceDeployDashboard Create dashboard configmap even if grafana deployment has been disabled
+    forceDeployDashboards: true
 
     # Administrator credentials when not using an existing secret (see below)
     adminUser: admin
-    adminPassword: data-nest-pass-word
+    # adminPassword: data-nest-pass-word
 
     # Use an existing secret for the admin user.
     # admin:
