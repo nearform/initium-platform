@@ -22,7 +22,7 @@ spec:
     {{- if .helmValues }}
     helm:
       values: |-
-{{ .helmValues | toYaml | indent 8 }}
+        {{- .helmValues | toYaml | nindent 8 }}
     {{- end}}
   {{- with .syncPolicy | default $.Values.syncPolicy }}
   syncPolicy:
