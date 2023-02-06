@@ -31,7 +31,8 @@ apps:
     path: addons/dex/
     targetNamespace: dex
 
-  # Prometheus + Grafana + Operator - https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack
+  # Prometheus + Operator - https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack
+  # External grafana app needs to be deployed together with this stack
   kube-prometheus-stack:
     name: kube-prometheus-stack
     path: addons/kube-prometheus-stack/

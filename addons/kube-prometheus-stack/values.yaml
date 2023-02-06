@@ -5,6 +5,7 @@ kube-prometheus-stack-source:
     # rbac:
     #   pspEnabled: false
   grafana:
+    # external grafana app is used by default
     enabled: false
     namespaceOverride: "grafana"
 

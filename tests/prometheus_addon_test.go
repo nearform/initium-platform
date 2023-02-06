@@ -4,6 +4,7 @@ import (
 	"log"
 	"testing"
 
+	"github.com/gruntwork-io/terratest/modules/k8s"
 	_ "github.com/stretchr/testify/assert"
 )
 
@@ -18,6 +19,13 @@ func TestHelmPrometheusServerAddon(t *testing.T) {
 		hasCustomValues: true,
 		manageNamespace: true,
 	}
+
+	// add Grafana namespace as it is expected by Prometheus stack
+	kubectlOptions := k8s.NewKubectlOptions("", "", addonData.namespaceName)
+	k8s.CreateNamespace(t, kubectlOptions, "grafana")
+	defer func() {
+		k8s.DeleteNamespace(t, kubectlOptions, "grafana")
+	}()
 
 	helmOptions, err := prepareHelmEnvironment(t, &addonData)
 
