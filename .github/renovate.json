@@ -6,7 +6,7 @@
   "branchNameStrict": true,
   "dependencyDashboard": false,
   "enabledManagers": ["asdf", "helmv3", "github-actions"],
-  "extends": ["config:base", ":disableDependencyDashboard", ":semanticCommitTypeAll(deps)"],
+  "extends": ["config:base", ":disableDependencyDashboard", ":semanticCommitTypeAll(ci)"],
   "gitAuthor": "NearForm Renovate App Bot <115552475+nearform-renovate-app[bot]@users.noreply.github.com>",
   "packageRules":
   [
