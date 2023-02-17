@@ -26,5 +26,6 @@ loki-source:
   test:
     enabled: false
   singleBinary:
+    replicas: 1 # https://grafana.com/docs/loki/next/installation/helm/install-monolithic/
     # decrease log level from info to error to reduce log output
     extraArgs: [ "-log.level=error" ]
