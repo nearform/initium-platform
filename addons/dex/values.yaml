@@ -4,11 +4,11 @@ dex-source:
     # The base path of dex and the external name of the OpenID Connect service.
     # This is the canonical URL that all clients MUST use to refer to dex. If a
     # path is provided, dex's HTTP service will listen at a non-root URL.
-    issuer: http://127.0.0.1:5556
+    # issuer: http://127.0.0.1:5556
 
     # See https://dexidp.io/docs/storage/ for more options
-    storage:
-      type: memory
+    # storage:
+    #   type: memory
 
     # Enable at least one connector
     # See https://dexidp.io/docs/connectors/ for more options
@@ -17,46 +17,41 @@ dex-source:
 # Example config for Kubernetes Authentication Through Dex and GitHub
 #
 #    # URL and port as seen from outside the cluster, through MetalLB and Istio ingress gateway
-#    issuer: https://dex.kube.local
-#
-#    storage:
-#      type: kubernetes
-#      config:
-#        inCluster: true
-#
-#    connectors:
-#    - type: github
-#      id: github
-#      name: GitHub
-#      config:
-#        clientID: $GITHUB_CLIENT_ID
-#        clientSecret: $GITHUB_CLIENT_SECRET
-#        redirectURI: https://dex.kube.local/callback
-#
-#    staticClients:
-#    - id: kubelogin
-#      redirectURIs:
-#        - 'http://localhost:8000'
-#      name: 'Kubelogin'
-#      secretEnv: KUBELOGIN_CLIENT_SECRET
-#
-#  envVars:
-#  - name: GITHUB_CLIENT_ID
-#    valueFrom:
-#      secretKeyRef:
-#        name: github-client
-#        key: client-id
-#  - name: GITHUB_CLIENT_SECRET
-#    valueFrom:
-#      secretKeyRef:
-#        name: github-client
-#        key: client-secret
-#
-#  - name: KUBELOGIN_CLIENT_SECRET
-#    valueFrom:
-#      secretKeyRef:
-#        name: kubelogin-client
-#        key: client-secret
+    issuer: https://dex.kube.local
+    storage:
+      type: kubernetes
+      config:
+        inCluster: true
+    connectors:
+    - type: github
+      id: github
+      name: GitHub
+      config:
+        clientID: $GITHUB_CLIENT_ID
+        clientSecret: $GITHUB_CLIENT_SECRET
+        redirectURI: https://dex.kube.local/callback
+    staticClients:
+    - id: kubelogin
+      redirectURIs:
+        - 'http://localhost:8000'
+      name: 'Kubelogin'
+      secretEnv: KUBELOGIN_CLIENT_SECRET
+  envVars:
+  - name: GITHUB_CLIENT_ID
+    valueFrom:
+      secretKeyRef:
+        name: github-client
+        key: client-id
+  - name: GITHUB_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: github-client
+        key: client-secret
+  - name: KUBELOGIN_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: kubelogin-client
+        key: client-secret
 
 virtualService:
   name: dex

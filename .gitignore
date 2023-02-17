@@ -6,7 +6,7 @@ manifests/bootstrap/overrides.local.yaml
 .idea
 local.env
 kind.local.yaml
-
+.DS_Store
 .cache
 
 .ssl
