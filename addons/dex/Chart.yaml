@@ -6,6 +6,6 @@ version: v0.0.1 # x-release-please-version
 dependencies:
   - name: dex
     alias: dex-source
-    version: 0.12.1
+    version: 0.13.0
     repository: https://charts.dexidp.io
     condition: dex-source.enabled
