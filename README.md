@@ -49,6 +49,8 @@ Remember that to run this solution you also need at least:
 
 Those numbers are not written in stone so your mileage may vary depending on which components you choose to install.
 
+You also will need bash in version 5.2 or higher, because the installations scripts uses "readarray" command.
+
 ### Bootstrap
 
 > **HINT:** If you want to remove the automatically installed dependencies via asdf once you're done with this project, you can run `make asdf_uninstall`.
