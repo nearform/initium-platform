@@ -19,6 +19,14 @@ You can check it by describing argo-cd config map:
 kubectl describe cm argocd-cm -n argocd
 ```
 
+If you dont have argocd installed yet, you can quick do it this using helm:
+
+```
+helm repo add argo https://argoproj.github.io/argo-helm
+helm repo update
+helm install argocd argo/argo-cd
+```
+
 Don't apply changes directly to the Config Map, but apply them the in your installation scripts/helm chart values.
 
 Next, you can download the provided `app-of-apps.yaml` in our [latest stable release](https://github.com/nearform/k8s-kurated-addons/releases/latest) and then apply that manifest using this command:
