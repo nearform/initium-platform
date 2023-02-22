@@ -5,7 +5,7 @@ argocd-source:
 
   configs:
     params:
-      server.insecure: false
+      server.insecure: true
 
   dex:
     enabled: false
