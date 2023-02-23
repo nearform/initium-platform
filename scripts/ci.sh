@@ -12,8 +12,8 @@ tilt ci
 
 if [ "${KKA_DEPLOY_MINIMAL}" == "false" ]; then
   # Login on ArgoCD
-  argocd login --core --name k8s-kurated-addons
   kubectl config set-context --current --namespace=argocd
+  argocd login --core --name k8s-kurated-addons
 
   # Ensure ArgoCD apps are all healthy and in sync
   echo ">> Waiting for k8s-kurated-addons to be healty and in sync..."
@@ -52,7 +52,7 @@ if [ "${KKA_DEPLOY_MINIMAL}" == "false" ]; then
       argocd app get k8s-kurated-addons
 
       # Print the 10 last lines of logs of apps not currently healthy
-      readarray -t apps < <(argocd app get k8s-kurated-addons -o json | jq -r '.status.resources | .[]? | select(.kind | contains("Application")) | select(.health.status | contains("Progressing")) | .name')
+      readarray -t apps < <(argocd app get k8s-kurated-addons -o json | jq -r '.status.resources | .[]? | select(.kind | contains("Application")) | select(.status | contains("Progressing")) | .name')
       for app in ${apps[@]}
       do
         echo ">> Printing last 10 log lines for $app..."
