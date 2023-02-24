@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: github-actions-token
+  annotations:
+    kubernetes.io/service-account.name: "github-actions"
+type: kubernetes.io/service-account-token
