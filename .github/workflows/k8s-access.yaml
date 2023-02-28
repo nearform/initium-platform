@@ -23,8 +23,8 @@ jobs:
       - name: ASDF - Install Tools
         run: |
           cut -d' ' -f1 .tool-versions | grep -v '#' | xargs -n1 asdf plugin add || true
-          asdf pllugin add awscli
-          asdf pllugin add kubectl
+          asdf plugin add awscli
+          asdf plugin add kubectl
           asdf install awscli 2.7.18
           asdf install kubectl 1.24.7
 
