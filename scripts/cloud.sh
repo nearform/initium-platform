@@ -7,19 +7,18 @@ echo "======================================================"
 printenv | grep "KKA_.*"
 echo "======================================================"
 
-# Run Tilt CI
-# tilt ci
-
 if [ "${KKA_DEPLOY_MINIMAL}" == "false" ]; then
   # Install ArgoCD
   kubectl create namespace argocd
   helm repo add argo https://argoproj.github.io/argo-helm
-  helm install argocd argo/argo-cd -f ./addons/argocd/values.yaml
-
+  helm repo update
+  helm install argocd argo/argo-cd --namespace=argocd -f ./addons/argocd/values.yaml
+  sleep 10
+  # Install apps
+  kubectl apply -f https://github.com/nearform/k8s-kurated-addons/releases/download/v0.0.1/app-of-apps.yaml
   # Login on ArgoCD
   kubectl config set-context --current --namespace=argocd
   argocd login --core --name k8s-kurated-addons
-
   # Ensure ArgoCD apps are all healthy and in sync
   echo ">> Waiting for k8s-kurated-addons to be healty and in sync..."
   while [ true ]
