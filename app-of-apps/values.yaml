@@ -1,4 +1,4 @@
-namespace: ${ARGOCD_NAMESPACE}
+namespace: argocd
 spec:
   destination:
     server: https://kubernetes.default.svc
@@ -15,7 +15,7 @@ apps:
   argocd:
     name: argocd
     path: addons/argocd/
-    targetNamespace: ${ARGOCD_NAMESPACE}
+    targetNamespace: argocd
     excluded: true
 
   # Cert-manager - https://cert-manager.io/
