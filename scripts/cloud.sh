@@ -8,9 +8,14 @@ printenv | grep "KKA_.*"
 echo "======================================================"
 
 # Run Tilt CI
-tilt ci
+# tilt ci
 
 if [ "${KKA_DEPLOY_MINIMAL}" == "false" ]; then
+  # Install ArgoCD
+  kubectl create namespace argocd
+  helm repo add argo https://argoproj.github.io/argo-helm
+  helm install argocd argo/argo-cd -f ./addons/argocd/values.yaml
+
   # Login on ArgoCD
   kubectl config set-context --current --namespace=argocd
   argocd login --core --name k8s-kurated-addons
