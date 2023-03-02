@@ -12,7 +12,7 @@ Therefore, ArgoCD is the main requirement to run this project on your cluster.
 
 ![Quick Start](docs/img/quick-start/k8s-addons-quick-start.png)
 
-If you dont have `argocd`on your cluster, the following command will install it + `app-of-apps`, setting up everything. Make sure that you are using the correct Kubernetes context before run.
+If you dont have `argocd` on your cluster, the following command will install it + `app-of-apps`, setting up everything. Make sure that you are using the correct Kubernetes context before run.
 
 ```bash
 $ make cloud
