@@ -10,7 +10,7 @@ explained in [GitHub Dex documentation](https://dexidp.io/docs/connectors/github
 
 ## Prerequisites
 * It is assumed that local cluster with Dex addon is already deployed. The needed steps are explained in the [bootstrap section](https://github.com/nearform/k8s-kurated-addons#bootstrap).
-During cluster bootstrap OIDC parameters are already configured. Parameters can be checked in the [kind manifest](https://github.com/nearform/k8s-kurated-addons/blob/main/manifests/kind.yaml).
+During cluster bootstrap OIDC parameters are already configured. Parameters can be checked in the [kind manifest](https://github.com/nearform/k8s-kurated-addons/blob/main/manifests/kind/templates/cluster.yaml).
 * The Kubelogin plugin is installed using [setup instructions](https://github.com/int128/kubelogin#setup).
 * For now, we will use default configuration for Dex addon and make changes as we progress.
 
