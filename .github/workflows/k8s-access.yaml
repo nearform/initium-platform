@@ -22,7 +22,6 @@ jobs:
 
       - name: ASDF - Install Tools
         run: |
-          cut -d' ' -f1 .tool-versions | grep -v '#' | xargs -n1 asdf plugin add || true
           asdf plugin add awscli || true
           asdf plugin add kubectl || true
           asdf install awscli 2.7.18
@@ -31,8 +30,8 @@ jobs:
       - name: Test authentication
         run: |
           aws eks update-kubeconfig --name k8s-kurated-addons
-          kubectl config set-credentials github-actions --token=$K8S_GHA_TOKEN
-          kubectl config set-context k8s-kurated-addons-gha --cluster=arn:aws:eks:eu-west-1:$AWS_ACCOUNT_ID:cluster/k8s-kurated-addons --user=github-actions
+          kubectl config set-credentials ci-bot --token=$K8S_GHA_TOKEN
+          kubectl config set-context k8s-kurated-addons-gha --cluster=arn:aws:eks:eu-west-1:$AWS_ACCOUNT_ID:cluster/k8s-kurated-addons --user=ci-bot
           kubectl config use-context k8s-kurated-addons-gha
           kubectl get namespaces
           kubectl get pods

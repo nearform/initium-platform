@@ -8,5 +8,5 @@ roleRef:
   name: continuous-deployment
 subjects:
   - kind: ServiceAccount
-    name: github-actions
+    name: ci-bot
     namespace: default
