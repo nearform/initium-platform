@@ -12,23 +12,23 @@ tilt ci
 
 if [ "${KKA_DEPLOY_MINIMAL}" == "false" ]; then
   # Login on ArgoCD
-  kubectl config set-context --current --namespace=argocd
   argocd login --core --name k8s-kurated-addons
+  kubectl config set-context --current --namespace=argocd
 
   # Ensure ArgoCD apps are all healthy and in sync
   echo ">> Waiting for k8s-kurated-addons to be healty and in sync..."
   while [ true ]
   do
     ALL_HEALTHY=true
-    readarray -t apps_health < <(argocd app get k8s-kurated-addons -o json | jq -r '.status.resources | .[]? | select(.kind | contains("Application")) | .health')
+    readarray -t apps_health < <(argocd app get k8s-kurated-addons -o json | jq -r '.status.resources | .[]? | select(.kind | contains("Application")) | .health.status')
 
     if (( ${#apps_health[@]} == 0 )); then
       ALL_HEALTHY=false
     else
       for status in ${apps_health[@]}
       do
-        if [ "$status" == "Healthy" ] || [ "$status" == null ]; then
-          ALL_HEALTHY=true
+        if [ "$status" != "Healthy" ]; then
+          ALL_HEALTHY=false
         fi
       done
     fi
@@ -52,7 +52,7 @@ if [ "${KKA_DEPLOY_MINIMAL}" == "false" ]; then
       argocd app get k8s-kurated-addons
 
       # Print the 10 last lines of logs of apps not currently healthy
-      readarray -t apps < <(argocd app get k8s-kurated-addons -o json | jq -r '.status.resources | .[]? | select(.kind | contains("Application")) | select(.status | contains("Progressing")) | .health')
+      readarray -t apps < <(argocd app get k8s-kurated-addons -o json | jq -r '.status.resources | .[]? | select(.kind | contains("Application")) | select(.health.status | contains("Progressing")) | .name')
       for app in ${apps[@]}
       do
         echo ">> Printing last 10 log lines for $app..."
