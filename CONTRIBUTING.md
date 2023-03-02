@@ -29,7 +29,6 @@ guide, do one of the following:
 
 We use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) in this repo. We encourage contributors to name their PRs and commits accordingly. That is required for keeping the repo clean, and [release-please](https://github.com/googleapis/release-please) to do its job when automating release creation.
 
-
 Basically, the `fix` and `feat` words on commits will trigger new releases (with `fix` being patch versions and `feat` minor versions, unless there is an exclamation mark (`!`) after one of both, which will trigger a major version release). Other keywords won't trigger releases, but they are welcome in order to better readability of the changes made. Examples: `docs`, `chore`, `ci`, `test` and so on.
 
 ## Bug Reports
@@ -61,10 +60,10 @@ Usually you would see your ArgoCD Applications pointing to a Github repository o
 
 How this is done is simple:
 - We use a project named [git-http-backend](https://github.com/ynohat/git-http-backend) where you basically mirror your local folder as an HTTP Git server
-- We mount the **parent folder** of where you clone this repository [in kind](./manifests/kind.yaml#L6-9) so later on the charts can use the `containerPath` as mount volume
+- We mount the **parent folder** of where you clone this repository [in kind](./manifests/kind/templates/cluster.yaml#L6-9) so later on the charts can use the `containerPath` as mount volume
 - We build a docker image of this project locally to ensure it doesn't change in time and no malicious code comes with it, see [utils/git-http-backend/docker](utils/git-http-backend/docker)
 - We create a custom Helm chart to deploy the built container, see [utils/git-http-backend/chart](utils/git-http-backend/chart)
-- We [build and deploy the image as a chart in the cluster via Tilt](./Tiltfile#L12-18) and we pass to the container image the [kind mounted path](./manifests/kind.yaml#L8) of where this repository lives, so you can later access it via the [KKA_REPO_URI defined in the .envrc](./.envrc#L8) ( eg. `http://git-http-backend/git/k8s-kurated-addons` )
+- We [build and deploy the image as a chart in the cluster via Tilt](./Tiltfile#L12-18) and we pass to the container image the [kind mounted path](./manifests/kind/templates/cluster.yaml#L8) of where this repository lives, so you can later access it via the [KKA_REPO_URI defined in the .envrc](./.envrc#L8) ( eg. `http://git-http-backend/git/k8s-kurated-addons` )
 
 **REMEMBER:** As ArgoCD will use the latest commit to checkout changes, you **will have** to commit your changes locally otherwise ArgoCD won't be able to see them. Pushing is **NOT REQUIRED**.
 
