@@ -23,8 +23,6 @@ jobs:
 
       - name: Integration test
         run: |
-          # Install envsubst
-          sudo apt-get update && sudo apt-get install -y gettext
           # Install asdf and expose to PATH
           git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.10.2
           . $HOME/.asdf/asdf.sh
