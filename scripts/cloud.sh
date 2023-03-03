@@ -11,7 +11,7 @@ echo "======================================================"
 kubectl create namespace argocd
 helm repo add argo https://argoproj.github.io/argo-helm
 helm repo update
-helm install argocd argo/argo-cd --namespace=argocd -f ./addons/argocd/values.yaml --version $ARGOCD_VERSION
+helm install argocd ./addons/argocd/ -f ./addons/argocd/values.yaml --namespace=argocd
 # Ensure ArgoCD apps are all healthy and in sync
 echo ">> Waiting for argocd to be healty and in sync..."
 
