@@ -4,5 +4,5 @@ version: v0.0.1 # x-release-please-version
 dependencies:
 - alias: argocd-source
   name: argo-cd
-  version: 5.16.14
+  version: ${ARGOCD_VERSION}
   repository: https://argoproj.github.io/argo-helm
