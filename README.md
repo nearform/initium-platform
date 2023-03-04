@@ -163,3 +163,8 @@ make bootstrap
 ```
 
 You're now ready to contribute!
+
+## CI Process
+
+After deploying the cluster, you may wish to integrate it with a CI tool of choice. 
+For more information on this subject, consult [CI Service Account Readme](manifests/ci-service-account/README.md)
