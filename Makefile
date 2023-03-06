@@ -94,3 +94,6 @@ integration-test: ## Run integration tests
 
 validate: ## Run static checks
 	@ASDF_DEFAULT_TOOL_VERSIONS_FILENAME=$(CURDIR)/.tool-versions pre-commit run --color=always --show-diff-on-failure --all-files
+
+create-ci-service-account: ## Create a k8s service account that would be used by CI systems
+	@./scripts/create-ci-service-account.sh
