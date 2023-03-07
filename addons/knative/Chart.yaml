@@ -8,10 +8,10 @@ appVersion: 0.1.0
 dependencies:
   - name: knative-serving
     version: 0.26.0
-    repository: https://knative.github.io/helm-charts
+    repository: https://charts.kubegems.io/kubegems
   - name: knative-operator
     version: 0.26.0
-    repository: https://knative.github.io/helm-charts
+    repository: https://charts.kubegems.io/kubegems
   - name: knative-eventing
     version: 0.26.0
-    repository: https://knative.github.io/helm-charts
+    repository: https://charts.kubegems.io/kubegems
