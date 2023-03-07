@@ -61,6 +61,7 @@ apps:
   knative:
     name: knative
     path: addons/knative/
+    targetNamespace: knative
 
   # OpenTelemetry - https://opentelemetry.io/
   opentelemetry-collector:
