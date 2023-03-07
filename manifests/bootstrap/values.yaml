@@ -1,2 +1,2 @@
-revision: HEAD
+revision: 43-knative-improve-deployment
 repoURL: "https://github.com/nearform/k8s-kurated-addons.git"
