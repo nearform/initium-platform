@@ -1,0 +1,17 @@
+apiVersion: v2
+name: knative
+description: A Helm chart for Knative Serving and Operator
+type: application
+version: 0.1.0
+appVersion: 0.1.0
+
+dependencies:
+  - name: knative-serving
+    version: 0.26.0
+    repository: https://knative.github.io/helm-charts
+  - name: knative-operator
+    version: 0.26.0
+    repository: https://knative.github.io/helm-charts
+  - name: knative-eventing
+    version: 0.26.0
+    repository: https://knative.github.io/helm-charts
