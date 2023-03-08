@@ -11,7 +11,7 @@ dependencies:
     repository: https://charts.kubegems.io/kubegems
   - name: knative-operator
     version: 0.26.0
-    # repository: ./addons/knative
+    repository: https://charts.bitnami.com/bitnami
   - name: knative-eventing
     version: 0.26.0
     repository: https://charts.kubegems.io/kubegems
