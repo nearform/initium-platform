@@ -1,12 +1,6 @@
-name: Run Integration Tests
+name: DELETE ME
 
-on:
-  pull_request:
-    branches:
-      - main
-  pull_request_review:
-    types:
-      - submitted
+on: push
 
 jobs:
   create-cluster:
@@ -15,8 +9,8 @@ jobs:
       matrix:
         KKA_K8S_VERSION:
           [
-            "kindest/node:v1.24.7@sha256:577c630ce8e509131eab1aea12c022190978dd2f745aac5eb1fe65c0807eb315",
-            "kindest/node:v1.25.3@sha256:f1de3b0670462f43280114eccceab8bf1b9576d2afe0582f8f74529da6fd0365",
+              "kindest/node:v1.24.7@sha256:577c630ce8e509131eab1aea12c022190978dd2f745aac5eb1fe65c0807eb315",
+              "kindest/node:v1.25.3@sha256:f1de3b0670462f43280114eccceab8bf1b9576d2afe0582f8f74529da6fd0365",
           ]
     runs-on:
       labels: ubuntu-latest-4-cores
