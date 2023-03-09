@@ -29,7 +29,7 @@ jobs:
           # Deploy cluster
           make ci
           # Run tests
-          make integration-test
+          make unit-test
         env:
           GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           KKA_AOA_EXCLUDE_DEX: true
