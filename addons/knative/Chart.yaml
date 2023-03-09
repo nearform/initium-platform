@@ -1,6 +1,6 @@
 apiVersion: v2
 name: knative
 version: 0.1.0
-# dependencies:
-#   - name: knative
-#     repository: file://./addons/knative
+dependencies:
+  - name: knative
+    repository: file://./addons/knative
