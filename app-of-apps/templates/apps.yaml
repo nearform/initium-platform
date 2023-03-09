@@ -19,10 +19,23 @@ spec:
     path: {{ .path }}
     repoURL: {{ $.Values.repoURL }}
     targetRevision: {{ coalesce .targetRevision $.Values.subChartsRevision "HEAD" | quote }}
-  {{- with .syncPolicy | default $.Values.syncPolicy }}
+    {{- if .helmValues }}
+    helm:
+      values: |-
+        {{- .helmValues | toYaml | nindent 8 }}
+    {{- end}}
   syncPolicy:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      {{- if .serverSideApply }}
+      - ServerSideApply=true
+      {{- end }}
+      {{- if .replace }}
+      - Replace=true
+      {{- end }}
   {{- if .ignoreDifferences }}
   ignoreDifferences:
   {{- toYaml .ignoreDifferences | nindent 4 }}

@@ -33,7 +33,11 @@ Next, you can download the provided `app-of-apps.yaml` in our [latest stable rel
 kubectl apply -f app-of-apps.yaml
 ```
 
-Full list of the addons the the manifest is installing and additional information for each of them can be found in the [docs/ADDONS.md](docs/ADDONS.md) file.
+Full list of the addons that the manifest is installing and additional information for each of them can be found in the [docs/ADDONS.md](docs/ADDONS.md) file.
+
+### Pass your own values to the addons
+
+You can pass your own values or override default values to the addons by modifying the `app-of-apps.yaml` manifest, you can get more details here [docs/ADDONS.md](docs/ADDONS.md#override-values)
 
 ## Run locally
 

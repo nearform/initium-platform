@@ -20,7 +20,7 @@ if [ "${KKA_DEPLOY_MINIMAL}" == "false" ]; then
   while [ true ]
   do
     ALL_HEALTHY=true
-    readarray -t apps_health < <(argocd app get k8s-kurated-addons -o json | jq -r '.status.resources | .[]? | select(.kind | contains("Application")) | .health.status')
+    IFS=$'\n' read -r -d '' -a apps_health < <(argocd app get k8s-kurated-addons -o json | jq -r '.status.resources | .[]? | select(.kind | contains("Application")) | .health.status')
 
     if (( ${#apps_health[@]} == 0 )); then
       ALL_HEALTHY=false
@@ -34,7 +34,7 @@ if [ "${KKA_DEPLOY_MINIMAL}" == "false" ]; then
     fi
 
     ALL_SYNCED=true
-    readarray -t apps_sync < <(argocd app get k8s-kurated-addons -o json | jq -r '.status.resources | .[]? | select(.kind | contains("Application")) | .status')
+    IFS=$'\n' read -r -d '' -a apps_sync < <(argocd app get k8s-kurated-addons -o json | jq -r '.status.resources | .[]? | select(.kind | contains("Application")) | .status')
     if (( ${#apps_sync[@]} == 0 )); then
       ALL_SYNCED=false
     else
@@ -52,7 +52,7 @@ if [ "${KKA_DEPLOY_MINIMAL}" == "false" ]; then
       argocd app get k8s-kurated-addons
 
       # Print the 10 last lines of logs of apps not currently healthy
-      readarray -t apps < <(argocd app get k8s-kurated-addons -o json | jq -r '.status.resources | .[]? | select(.kind | contains("Application")) | select(.health.status | contains("Progressing")) | .name')
+      IFS=$'\n' read -r -d '' -a apps < <(argocd app get k8s-kurated-addons -o json | jq -r '.status.resources | .[]? | select(.kind | contains("Application")) | select(.health.status | contains("Progressing")) | .name')
       for app in ${apps[@]}
       do
         echo ">> Printing last 10 log lines for $app..."
