@@ -3,4 +3,4 @@ name: knative
 version: 0.1.0
 dependencies:
   - name: knative
-    repository: file://./addons/knative
+    repository: file:///.
