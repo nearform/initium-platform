@@ -149,3 +149,23 @@ The OpenTelemetry Operator is an implementation of a Kubernetes Operator, it man
 We are constantly evaluating new addons that might become standards in the industry. That's not high priority, though, since our main goal is to keep this repository straight to the point and minimize overhead on the users' clusters.
 
 If you want to contribute with the repo, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+# Override values
+
+You can override values on the addons modifying the `app-of-apps.yaml` manifest.
+Just define an `helmValues` key on the addons you want to customize eg:
+
+```yaml
+    helm:
+      values: |
+        repoURL: https://github.com/nearform/k8s-kurated-addons.git
+        subChartsRevision: v0.0.1
+        apps:
+          dex:
+            hemlValues:
+                dex-source:
+                    fullnameOverride: dexy
+```
+
+We are using `dex-source` since that is the [alias](/addons/dex/Chart.yaml#L8) that we used for the dependency chart.
+Each addon has its own alias for the dependency chart, you can find it in the specific addon `Chart.yaml` file in the [/addons](/addons) folder.
