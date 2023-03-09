@@ -24,10 +24,18 @@ spec:
       values: |-
         {{- .helmValues | toYaml | nindent 8 }}
     {{- end}}
-  {{- with .syncPolicy | default $.Values.syncPolicy }}
   syncPolicy:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      {{- if .serverSideApply }}
+      - ServerSideApply=true
+      {{- end }}
+      {{- if .replace }}
+      - Replace=true
+      {{- end }}
   {{- if .ignoreDifferences }}
   ignoreDifferences:
   {{- toYaml .ignoreDifferences | nindent 4 }}
