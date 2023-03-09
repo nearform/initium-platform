@@ -1,17 +1,6 @@
 apiVersion: v2
 name: knative
-description: A Helm chart for Knative Serving and Operator
-type: application
 version: 0.1.0
-appVersion: 0.1.0
-
-dependencies:
-  - name: knative-serving
-    version: 0.26.0
-    repository: https://charts.kubegems.io/kubegems
-  - name: knative-operator
-    version: 0.26.0
-    repository: https://helm-repository.readthedocs.io/en/latest/packages/
-  - name: knative-eventing
-    version: 0.26.0
-    repository: https://charts.kubegems.io/kubegems
+# dependencies:
+#   - name: knative
+#     repository: file://./addons/knative
