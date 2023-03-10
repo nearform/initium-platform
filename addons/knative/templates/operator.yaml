@@ -4292,7 +4292,7 @@ metadata:
     app.kubernetes.io/version: "1.8.1"
     app.kubernetes.io/part-of: knative-operator
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       name: knative-operator
