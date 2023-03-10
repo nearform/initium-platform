@@ -1,5 +1,0 @@
-# Specify the repository name
-name: knative
-
-# Specify the URL where the repository will be served
-url: file:///.
