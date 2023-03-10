@@ -92,6 +92,9 @@ unit-test: ## Run unit tests
 integration-test: ## Run integration tests
 	@./scripts/run-test.sh integration examples/sample-app
 
+integration-test-podinfo: ## Run integration tests
+	@./scripts/run-test.sh integration examples/sample-podinfo-app
+
 validate: ## Run static checks
 	@ASDF_DEFAULT_TOOL_VERSIONS_FILENAME=$(CURDIR)/.tool-versions pre-commit run --color=always --show-diff-on-failure --all-files
 
