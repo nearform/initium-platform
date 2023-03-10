@@ -35,7 +35,7 @@ func TestExampleApp(t *testing.T) {
 		"GET",
 		fmt.Sprintf("http://%s", os.Getenv("KKA_LB_ENDPOINT")),
 		[]byte("Hello world from k8s-kurated-addons!"),
-		map[string]string{"Host": "sample-app.default.example.com"},
+		map[string]string{"Host": "sample-podinfo-app.default.example.com"},
 		200,
 		30,
 		3*time.Second,
