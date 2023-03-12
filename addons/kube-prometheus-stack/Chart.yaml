@@ -6,6 +6,6 @@ version: v0.0.1 # x-release-please-version
 dependencies:
   - name: kube-prometheus-stack
     alias: kube-prometheus-stack-source
-    version: 45.5.0
+    version: 45.7.1
     repository: https://prometheus-community.github.io/helm-charts
     condition: kube-prometheus-stack-source.enabled
