@@ -4,12 +4,6 @@ spec:
     server: https://kubernetes.default.svc
 subChartsRevision: 43-knative-improve-deployment
 repoURL: https://github.com/nearform/k8s-kurated-addons.git
-syncPolicy:
-  automated:
-    prune: true
-    selfHeal: true
-  syncOptions:
-    - CreateNamespace=true
 apps:
   # ArgoCD - https://github.com/argoproj/argo-cd/
   argocd:
