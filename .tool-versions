@@ -1,4 +1,4 @@
-argocd 2.6.3
+argocd 2.6.4
 awscli 2.11.0
 eksctl 0.113.0
 golang 1.19

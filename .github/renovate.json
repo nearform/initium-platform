@@ -11,10 +11,6 @@
   "packageRules":
   [
     {
-      "matchUpdateTypes": ["minor", "patch"],
-      "automerge": true
-    },
-    {
       "matchPaths": ["addons/istio/**"],
       "groupName": "Istio Helm Chart"
     }
