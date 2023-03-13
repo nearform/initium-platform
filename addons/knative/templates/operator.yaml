@@ -4144,7 +4144,7 @@ data:
     # Common configuration for all Knative codebase
     zap-logger-config: |
       {
-        "level": "error",
+        "level": "panic",
         "development": false,
         "outputPaths": ["stdout"],
         "errorOutputPaths": ["stderr"],
