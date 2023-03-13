@@ -4244,7 +4244,7 @@ data:
     #   PodIP         string  // IP of the pod hosting the revision
     # }
     #
-    logging.request-log-template: '%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:level} %{GREEDYDATA:message}'
+    logging.request-log-template: '%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:error} %{GREEDYDATA:message}'
     # metrics.backend-destination field specifies the system metrics destination.
     # It supports either prometheus (the default) or stackdriver.
     # Note: Using stackdriver will incur additional charges
@@ -4292,7 +4292,7 @@ metadata:
     app.kubernetes.io/version: "1.8.1"
     app.kubernetes.io/part-of: knative-operator
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       name: knative-operator
