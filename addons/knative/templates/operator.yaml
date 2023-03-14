@@ -4215,7 +4215,7 @@ data:
     # This value is what you might use the the Knative monitoring bundle, and provides
     # access to Kibana after setting up kubectl proxy.
     #logging.revision-url-template: |
-    #  http://localhost:8001/api/v1/namespaces/knative-monitoring/services/kibana-logging/proxy/app/kibana#/discover?_a=(query:(match:(kubernetes.labels.serving-knative-dev%2FrevisionUID:(query:'${REVISION_UID}',type:phrase))))
+    http://localhost:8001/api/v1/namespaces/knative-monitoring/services/kibana-logging/proxy/app/kibana#/discover?_a=(query:(match:(kubernetes.labels.serving-knative-dev%2FrevisionUID:(query:'${REVISION_UID}',type:phrase))))
 
     # If non-empty, this enables queue proxy writing request logs to stdout.
     # The value determines the shape of the request logs and it must be a valid go text/template.
@@ -4244,6 +4244,7 @@ data:
     #   PodIP         string  // IP of the pod hosting the revision
     # }
     #
+    logging.request-log-template: '{"httpRequest": {"requestMethod": "{{.Method}}", "requestUrl": "{{js .RequestURI}}", "requestSize": "{{.ContentLength}}", "status": {{.Code}}, "responseSize": "{{.Size}}", "userAgent": "{{js .UserAgent}}", "remoteIp": "{{js .RemoteAddr}}", "serverIp": "{{.PodIP}}", "referer": "{{js .Referer}}", "latency": "{{.Latency}}s", "protocol": "{{.Proto}}"}, "traceId": "{{index "X-B3-Traceid"}}"}'
     #logging.request-log-template: '%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:level} %{GREEDYDATA:message}'
     # metrics.backend-destination field specifies the system metrics destination.
     # It supports either prometheus (the default) or stackdriver.
