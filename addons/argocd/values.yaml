@@ -23,8 +23,6 @@ argocd-source:
       - hosts:
         - argocd.local
         secretName: argocd.dex-tls
-      log-max-pods: 100
-
     config:
       repositories: |
         - type: helm
