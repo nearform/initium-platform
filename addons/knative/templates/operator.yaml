@@ -4244,7 +4244,8 @@ data:
     #   PodIP         string  // IP of the pod hosting the revision
     # }
     #
-    logging.request-log-template: '{"httpRequest": {"requestMethod": "{{.Method}}", "requestUrl": "{{js .RequestURI}}", "requestSize": "{{.ContentLength}}", "status": {{.Code}}, "responseSize": "{{.Size}}", "userAgent": "{{js .UserAgent}}", "remoteIp": "{{js .RemoteAddr}}", "serverIp": "{{.PodIP}}", "referer": "{{js .Referer}}", "latency": "{{.Latency}}s", "protocol": "{{.Proto}}"}, "traceId": "{{index "X-B3-Traceid"}}"}'
+    logging.request-log-template: '{{.Values.requestLogTemplate}}'
+
     # metrics.backend-destination field specifies the system metrics destination.
     # It supports either prometheus (the default) or stackdriver.
     # Note: Using stackdriver will incur additional charges
