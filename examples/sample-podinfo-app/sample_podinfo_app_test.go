@@ -53,7 +53,7 @@ func TestSamplePodInfoApp(t *testing.T) {
 	actualValue, exists := actual["message"]
 
 	assert.True(t, exists)
-	assert.Equal(t, "greetings from podinfo v6.3.4", actualValue)
+	assert.Equal(t, "greetings from podinfo v6.3.5", actualValue)
 
 	// =============================================================
 	k8s.KubectlDelete(t, kubectlOptions, "sample-podinfo-app.yaml")
