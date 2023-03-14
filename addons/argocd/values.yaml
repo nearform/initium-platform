@@ -23,8 +23,7 @@ argocd-source:
       - hosts:
         - argocd.local
         secretName: argocd.dex-tls
-      args:
-      - --max-pod-logs-to-render=100
+      log-max-pods: 100
 
     config:
       repositories: |
