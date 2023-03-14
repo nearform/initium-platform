@@ -1,7 +1,9 @@
 package test
 
 import (
+	"encoding/json"
 	"fmt"
+	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
 	"time"
@@ -13,7 +15,7 @@ import (
 	http_helper "github.com/gruntwork-io/terratest/modules/http-helper"
 )
 
-func TestExampleApp(t *testing.T) {
+func TestSamplePodInfoApp(t *testing.T) {
 	// =============================================================
 	kubectlOptions := k8s.NewKubectlOptions("", "", "istio-ingress")
 
@@ -30,17 +32,28 @@ func TestExampleApp(t *testing.T) {
 	k8s.KubectlApply(t, kubectlOptions, "sample-podinfo-app.yaml")
 
 	// =============================================================
-	http_helper.HTTPDoWithRetry(
+	out := http_helper.HTTPDoWithRetry(
 		t,
 		"GET",
 		fmt.Sprintf("http://%s", os.Getenv("KKA_LB_ENDPOINT")),
-		[]byte("Hello world from k8s-kurated-addons!"),
+		nil,
 		map[string]string{"Host": "sample-podinfo-app.default.example.com"},
 		200,
 		30,
 		3*time.Second,
 		nil,
 	)
+
+	var actual map[string]string
+	err := json.Unmarshal([]byte(out), &actual)
+	if err != nil {
+		t.Fatal("Failed to unmarshal response body", err)
+	}
+
+	actualValue, exists := actual["message"]
+
+	assert.True(t, exists)
+	assert.Equal(t, "greetings from podinfo v6.3.4", actualValue)
 
 	// =============================================================
 	k8s.KubectlDelete(t, kubectlOptions, "sample-podinfo-app.yaml")
