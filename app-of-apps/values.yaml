@@ -2,7 +2,7 @@ namespace: argocd
 spec:
   destination:
     server: https://kubernetes.default.svc
-subChartsRevision: 43-knative-improve-deployment
+subChartsRevision: HEAD
 repoURL: https://github.com/nearform/k8s-kurated-addons.git
 apps:
   # ArgoCD - https://github.com/argoproj/argo-cd/
