@@ -23,7 +23,6 @@ argocd-source:
       - hosts:
         - argocd.local
         secretName: argocd.dex-tls
-
     config:
       repositories: |
         - type: helm
