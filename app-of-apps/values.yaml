@@ -52,17 +52,10 @@ apps:
     targetNamespace: istio-ingress
 
   # Knative - https://knative.dev/
-  knative-operator:
-    name: knative-operator
-    path: addons/knative/operator/
-  knative-serving:
-    name: knative-serving
-    path: addons/knative/serving/
-    targetNamespace: knative-serving
-  knative-eventing:
-    name: knative-eventing
-    path: addons/knative/eventing/
-    targetNamespace: knative-eventing
+  knative:
+    name: knative
+    path: addons/knative/
+    targetNamespace: knative
 
   # OpenTelemetry - https://opentelemetry.io/
   opentelemetry-collector:

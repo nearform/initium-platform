@@ -7,7 +7,7 @@ import (
 )
 
 func TestKnativeOperatorAddon(t *testing.T) {
-	operatorResourcePath := "../addons/knative/operator/operator.yaml"
+	operatorResourcePath := "../addons/knative/templates/operator.yaml"
 
 	operatorOptions := k8s.NewKubectlOptions("", "", "default")
 
@@ -17,7 +17,7 @@ func TestKnativeOperatorAddon(t *testing.T) {
 
 	// ----------------------------------
 
-	servingResourcePath := "../addons/knative/serving/serving.yaml"
+	servingResourcePath := "../addons/knative/templates/serving.yaml"
 
 	servingOptions := k8s.NewKubectlOptions("", "", "knative-serving")
 
@@ -32,7 +32,7 @@ func TestKnativeOperatorAddon(t *testing.T) {
 
 	// ----------------------------------
 
-	eventingResourcePath := "../addons/knative/eventing/eventing.yaml"
+	eventingResourcePath := "../addons/knative/templates/eventing.yaml"
 
 	eventingOptions := k8s.NewKubectlOptions("", "", "knative-eventing")
 
