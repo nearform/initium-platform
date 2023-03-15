@@ -2,18 +2,9 @@ apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
   name: sample-podinfo-app
-#  namespace: prometheus
-#  labels:
-#    release: kube-prometheus-stack
-#    app.kubernetes.io/name: sample-prometheus-app
+#  namespace: xxx TODO should this live in its own namespace?
 spec:
   template:
-#    metadata:
-#      labels:
-#        app.kubernetes.io/name: sample-prometheus-app
-#        release: kube-prometheus-stack
-#      annotations:
-#        autoscaling.knative.dev/scale-to-zero-pod-retention-period: "5m"
     spec:
       containers:
         - name: podinfod
