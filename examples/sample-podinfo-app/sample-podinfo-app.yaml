@@ -5,6 +5,13 @@ metadata:
 #  namespace: xxx TODO should this live in its own namespace?
 spec:
   template:
+    metadata:
+      annotations:
+        # For testing purposes set request-per-second to 1 to force scaling
+        autoscaling.knative.dev/target: "1"
+        autoscaling.knative.dev/metric: "rps"
+      labels:
+        service: "podinfo"
     spec:
       containers:
         - name: podinfod

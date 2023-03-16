@@ -39,6 +39,7 @@ echo "Running test on ${PROJECT_PATH}"
 cd $PROJECT_PATH
 go mod init test || true
 go install . || true
+go clean -testcache
 go test . -v -timeout=30m
 
 if [ "$PROJECT_TYPE" == "integration" ]; then

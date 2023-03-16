@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/stretchr/testify/assert"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"os"
 	"testing"
 	"time"
@@ -37,6 +38,17 @@ func TestSamplePodInfoApp(t *testing.T) {
 		t.Run("version", testVersion)
 		t.Run("statusCode", testStatusCode)
 	})
+
+	listOptions := metav1.ListOptions{
+		LabelSelector: "service=podinfo",
+	}
+
+	// podinfo is configured to scale using rps metric with a target of 1
+	// we've just executed 3 tests in parallel so knative will scale podinfo up
+	pods := k8s.ListPods(t, kubectlOptions, listOptions)
+
+	assert.NotNil(t, pods)
+	assert.Greater(t, len(pods), 1)
 
 	// =============================================================
 	k8s.KubectlDelete(t, kubectlOptions, "sample-podinfo-app.yaml")
