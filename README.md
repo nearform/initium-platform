@@ -10,6 +10,10 @@ Therefore, ArgoCD is the main requirement to run this project on your cluster.
 
 ## Install on your own cluster
 
+
+> **HINT** This project uses `tilt` to bring up environment, but there are 2 executables named `tilt`. If you already have it on your system, make sure that you are using [tilt.dev](https://tilt.dev/) instead of [Ruby tilt](https://github.com/rtomayko/tilt)
+
+
 ![Quick Start](docs/img/quick-start/k8s-addons-quick-start.png)
 
 If you dont have `argocd` on your cluster, the following command will install it with required configuration. Make sure that you are using the correct Kubernetes context before run.
@@ -54,10 +58,12 @@ Here you can find a list of possible candidates:
 Remember that to run this solution you also need at least:
 
 - 4 CPU cores
-- 8 GB RAM
+- 8 GB RAM - Maybe is necessary to increase Docker limits to use more RAM or Swap to run all components with 8GB RAM.
 - 16 GB Disk space
 
 Those numbers are not written in stone so your mileage may vary depending on which components you choose to install.
+
+> **HINT:** To run everything on Windows machine is recommended to use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) and install Docker inside this subsystem.
 
 ### Bootstrap
 
