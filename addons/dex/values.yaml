@@ -4,11 +4,11 @@ dex-source:
     # The base path of dex and the external name of the OpenID Connect service.
     # This is the canonical URL that all clients MUST use to refer to dex. If a
     # path is provided, dex's HTTP service will listen at a non-root URL.
-    # issuer: http://127.0.0.1:5556
+    issuer: http://127.0.0.1:5556
 
     # See https://dexidp.io/docs/storage/ for more options
-    # storage:
-    #   type: memory
+    storage:
+      type: memory
 
     # Enable at least one connector
     # See https://dexidp.io/docs/connectors/ for more options
