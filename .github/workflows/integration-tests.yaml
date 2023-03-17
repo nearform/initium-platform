@@ -6,8 +6,8 @@ on:
       - submitted
 
 jobs:
-  create-cluster:
-    if: github.event.review.state == 'approved' && !startsWith(github.event.pull_request.title, 'docs:')
+  integration-tests:
+    if: github.event.review.state == 'approved'
     strategy:
       matrix:
         KKA_K8S_VERSION:
@@ -22,6 +22,8 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Integration test
+        id: tests
+        if: ! startsWith(github.event.pull_request.title, 'docs:')
         run: |
           # Install asdf and expose to PATH
           git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.10.2
@@ -40,3 +42,9 @@ jobs:
           KKA_AOA_EXCLUDE_PROMETHEUSSTACK: true
           KKA_AOA_EXCLUDE_OPENTELEMETRY: true
           KKA_K8S_VERSION: ${{ matrix.KKA_K8S_VERSION }}
+
+# https://docs.github.com/en/actions/learn-github-actions/contexts#steps-context
+# This action should succeed if the tests are skipped or have passed
+      - name: Status Check
+        run: |
+          if [[ ${{ steps.tests.outputs.outcome }} == 'skipped' || ${{ steps.tests.outputs.outcome }} == 'success' ]]; then exit 0; else exit 1; fi
