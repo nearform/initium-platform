@@ -6,6 +6,6 @@ version: v0.0.1 # x-release-please-version
 dependencies:
   - name: opentelemetry-collector
     alias: otlp-collector-source
-    version: 0.49.3
+    version: 0.50.1
     repository: https://open-telemetry.github.io/opentelemetry-helm-charts
     condition: otlp-collector-source.enabled
