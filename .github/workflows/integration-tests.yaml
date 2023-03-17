@@ -23,7 +23,7 @@ jobs:
 
       - name: Integration test
         id: tests
-        if: ! startsWith(github.event.pull_request.title, 'docs:')
+        if: !startsWith(github.event.pull_request.title, 'docs:')
         run: |
           # Install asdf and expose to PATH
           git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.10.2
