@@ -18,10 +18,12 @@ jobs:
       labels: ubuntu-latest-4-cores
     timeout-minutes: 15
     steps:
-      - name: Integration test
+      - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Integration test
+        if: "!startsWith(github.event.pull_request.title, 'docs:')"
         id: tests
-        if: !startsWith(github.event.pull_request.title, 'docs:')
         run: |
           # Install asdf and expose to PATH
           git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.10.2
