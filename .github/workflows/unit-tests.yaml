@@ -7,7 +7,6 @@ on:
 
 jobs:
   unit-tests:
-    if: github.event.review.state == 'approved'
     strategy:
       matrix:
         KKA_K8S_VERSION:
