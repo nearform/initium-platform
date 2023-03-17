@@ -18,9 +18,8 @@ jobs:
       labels: ubuntu-latest-4-cores
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v3
-
       - name: Integration test
+        uses: actions/checkout@v3
         id: tests
         if: !startsWith(github.event.pull_request.title, 'docs:')
         run: |
