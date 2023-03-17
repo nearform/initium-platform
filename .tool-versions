@@ -4,7 +4,7 @@ eksctl 0.113.0
 golang 1.19
 golangci-lint 1.48.0
 jq 1.6
-helm 3.11.1
+helm 3.11.2
 kind 0.17.0
 kubectl 1.24.7
 pre-commit 2.19.0
