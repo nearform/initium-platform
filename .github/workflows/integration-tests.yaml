@@ -48,4 +48,4 @@ jobs:
 # This action should succeed if the tests are skipped or have passed
       - name: Status Check
         run: |
-          if [[ ${{ steps.tests.outputs.outcome }} == 'skipped' || ${{ steps.tests.outputs.outcome }} == 'success' ]]; then exit 0; else exit 1; fi
+          if [[ ${{ steps.tests.outcome }} == 'skipped' || ${{ steps.tests.outcome }} == 'success' ]]; then exit 0; else exit 1; fi
