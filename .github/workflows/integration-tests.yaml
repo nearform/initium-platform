@@ -6,7 +6,7 @@ on:
       - submitted
 
 jobs:
-  create-cluster:
+  integration-tests:
     if: github.event.review.state == 'approved' && !startsWith(github.event.pull_request.title, 'docs:')
     strategy:
       matrix:
@@ -19,7 +19,8 @@ jobs:
       labels: ubuntu-latest-4-cores
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
       - name: Integration test
         run: |
@@ -40,3 +41,18 @@ jobs:
           KKA_AOA_EXCLUDE_PROMETHEUSSTACK: true
           KKA_AOA_EXCLUDE_OPENTELEMETRY: true
           KKA_K8S_VERSION: ${{ matrix.KKA_K8S_VERSION }}
+
+  # https://github.com/orgs/community/discussions/26822#discussioncomment-5122101
+  integration-tests-result:
+    if: github.event.review.state == 'approved'
+    runs-on: ubuntu-latest
+    name: Integration Tests
+    needs: [integration-tests]
+    steps:
+      - run: exit 1
+        # see https://stackoverflow.com/a/67532120/4907315
+        if: >-
+          ${{
+                contains(needs.*.result, 'failure')
+              || contains(needs.*.result, 'cancelled')
+          }}
