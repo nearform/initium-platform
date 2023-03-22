@@ -6,15 +6,16 @@ on:
       - submitted
 
 jobs:
+  load-matrix:
+    if: github.event.review.state == 'approved' && !startsWith(github.event.pull_request.title, 'docs:')
+    uses: ./.github/workflows/load-kind-versions.yaml
+
   unit-tests:
     if: github.event.review.state == 'approved' && !startsWith(github.event.pull_request.title, 'docs:')
+    needs: load-matrix
     strategy:
       matrix:
-        KKA_K8S_VERSION:
-          [
-            "kindest/node:v1.24.7@sha256:577c630ce8e509131eab1aea12c022190978dd2f745aac5eb1fe65c0807eb315",
-            "kindest/node:v1.25.3@sha256:f1de3b0670462f43280114eccceab8bf1b9576d2afe0582f8f74529da6fd0365",
-          ]
+        KKA_K8S_VERSION: ${{ fromJSON(needs.load-matrix.outputs.matrix) }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:

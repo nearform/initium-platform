@@ -1,0 +1,24 @@
+name: Load Kind Versions
+# You can test this with
+# act workflow_call
+on:
+  workflow_call:
+    # Map the workflow outputs to job outputs
+    outputs:
+      matrix:
+        description: "Matrix of kind versions to use for testing"
+        value: ${{ jobs.load-kind-versions.outputs.matrix }}
+
+jobs:
+  # https://docs.github.com/en/actions/learn-github-actions/expressions#example-returning-a-json-object
+  load-kind-versions:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - id: set-matrix
+      run: |
+        JSON=$(cat .github/workflows/kind-versions.json | jq -c)
+        echo "matrix=${JSON}" >> $GITHUB_OUTPUT
