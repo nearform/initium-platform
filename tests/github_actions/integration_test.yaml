@@ -1,0 +1,8 @@
+name: Run Unit Tests
+# You can test this with
+# act -W tests/github_actions integration_tests
+on: integration_tests
+
+jobs:
+  load-matrix:
+    uses: ./.github/workflows/integration-tests.yaml

@@ -1,9 +1,6 @@
 name: Run Integration Tests
 
-on:
-  pull_request_review:
-    types:
-      - submitted
+on: workflow_call
 
 jobs:
   load-matrix:
