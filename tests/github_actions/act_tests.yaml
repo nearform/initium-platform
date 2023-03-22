@@ -8,6 +8,7 @@ jobs:
     uses: ./.github/workflows/load-kind-versions.yaml
 
   print-version:
+    if: github.event.review.state == 'approved' || startsWith(github.event.pull_request.title, 'docs:')
     needs: load-matrix
     strategy:
       matrix:

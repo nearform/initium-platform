@@ -5,7 +5,7 @@ on: workflow_call
 jobs:
   load-matrix:
     if: github.event.review.state == 'approved' && !startsWith(github.event.pull_request.title, 'docs:')
-    uses: ./.github/workflows/load-kind-versions.yaml
+    uses: ./.github/actions/load-kind-versions.yaml
 
   integration-tests:
     if: github.event.review.state == 'approved' && !startsWith(github.event.pull_request.title, 'docs:')
