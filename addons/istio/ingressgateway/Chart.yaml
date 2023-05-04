@@ -6,6 +6,6 @@ version: v0.0.1 # x-release-please-version
 dependencies:
   - name: gateway
     alias: istio-gateway-source
-    version: 1.17.1
+    version: 1.17.2
     repository: https://istio-release.storage.googleapis.com/charts
     condition: istio-source.enabled
