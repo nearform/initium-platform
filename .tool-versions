@@ -1,5 +1,5 @@
 argocd 2.7.1
-awscli 2.11.17
+awscli 2.11.18
 eksctl 0.113.0
 golang 1.19
 golangci-lint 1.48.0
