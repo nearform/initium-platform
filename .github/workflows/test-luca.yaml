@@ -4,12 +4,12 @@ on: [push]
 
 jobs:
   build:
-    runs-on:
-      container:
-        image: ghcr.io/nearform/k8s-kurated-addons-cli
-        credentials:
-          username: ${{ github.actor }}
-          password: ${{ secrets.github_token }}
-      steps:
-        - name: Check for dockerenv file
-          run: ls
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/nearform/k8s-kurated-addons-cli
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.github_token }}
+    steps:
+      - name: Check for dockerenv file
+        run: ls
