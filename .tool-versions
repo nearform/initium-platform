@@ -7,5 +7,5 @@ jq 1.6
 helm 3.11.3
 kind 0.17.0
 kubectl 1.24.7
-pre-commit 2.19.0
+pre-commit 2.21.0
 tilt 0.30.12
