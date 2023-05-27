@@ -23,12 +23,12 @@
 - [Docker](https://docs.docker.com/engine/install/) ( cross-platform, paid solution )
 
 **Download the project**
-    - k8s-kurated-addons
-        - git clone https://github.com/nearform/k8s-kurated-addons.git 
-    - Get into k8s-kurated-addons run:
-        - make asdf_install
-        - make ci (***From here Docker desktop have to be running***)
-        - make
+- k8s-kurated-addons
+    - git clone https://github.com/nearform/k8s-kurated-addons.git 
+- Get into k8s-kurated-addons run:
+    - make asdf_install
+    - make ci (***From here Docker desktop have to be running***)
+    - make
 
 ### Preparing App
 
@@ -47,9 +47,8 @@
 - kubectl get pods
 
 **Testing the app if is running on Cluster**
-    - on Linux:
-         ` export KKA_LB_ENDPOINT="$(kubectl get service -n istio-ingress istio-ingressgateway -o go-template='{{(index .status.loadBalancer.ingress 0).ip}}'):80" `
-         ` export SAMPLE_APP_URL=$(kubectl get ksvc -o json | jq -r '.items[] | select(.metadata.name == "helloworld") | .status.url'  | sed 's#http://##') `
-
+- on Linux:
+     ` export KKA_LB_ENDPOINT="$(kubectl get service -n istio-ingress istio-ingressgateway -o go-template='{{(index .status.loadBalancer.ingress 0).ip}}'):80" `
+     ` export SAMPLE_APP_URL=$(kubectl get ksvc -o json | jq -r '.items[] | select(.metadata.name == "helloworld") | .status.url'  | sed 's#http://##') `
 
 
