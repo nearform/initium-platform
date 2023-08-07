@@ -5,6 +5,10 @@ kubeadmConfigPatches:
 - |-
   kind: ClusterConfiguration
   apiServer:
+    certSANs:
+      - "127.0.0.1"
+      - "localhost"
+      - "*.tcp.sa.ngrok.io"
     extraArgs:
       oidc-issuer-url: https://dex.kube.local
       oidc-client-id: kubelogin
