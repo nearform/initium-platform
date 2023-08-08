@@ -6,6 +6,6 @@ golangci-lint 1.48.0
 jq 1.6
 helm 3.12.2
 kind 0.20.0
-kubectl 1.24.7
+kubectl 1.27.4
 pre-commit 2.21.0
 tilt 0.30.12
