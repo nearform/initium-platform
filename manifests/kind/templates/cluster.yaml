@@ -5,6 +5,9 @@ kubeadmConfigPatches:
 - |-
   kind: ClusterConfiguration
   apiServer:
+  {{- if .Values.certSANs }}
+    certSANs: {{ .Values.certSANs | toYaml | nindent 6 }}
+  {{- end }}
     extraArgs:
       oidc-issuer-url: https://dex.kube.local
       oidc-client-id: kubelogin
