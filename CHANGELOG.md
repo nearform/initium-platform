@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/nearform/k8s-kurated-addons/compare/v0.1.0...v0.2.0) (2023-08-09)
+
+
+### Features
+
+* add certificate for ngrok tcp endpoints ([#154](https://github.com/nearform/k8s-kurated-addons/issues/154)) ([0daf1fe](https://github.com/nearform/k8s-kurated-addons/commit/0daf1fe9df5095decbf76533d2382a1f2e616509))
+
 ## [0.1.0](https://github.com/nearform/k8s-kurated-addons/compare/v0.0.1...v0.1.0) (2023-03-23)
 
 
