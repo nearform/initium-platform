@@ -1,12 +1,12 @@
 module github.com/nearform/k8s-kurated-addons
 
-go 1.19
+go 1.21
 
 require (
-	github.com/gruntwork-io/terratest v0.41.0
-	github.com/stretchr/testify v1.8.1
+	github.com/gruntwork-io/terratest v0.43.11
+	github.com/stretchr/testify v1.8.4
 	gopkg.in/yaml.v3 v3.0.1
-	k8s.io/apimachinery v0.20.6
+	k8s.io/apimachinery v0.27.3
 )
 
 require (
