@@ -1,4 +1,4 @@
-# k8s-kurated-addons addon list
+# initium-platform addon list
 
 This document is a list of addons, what they are, how to use them and their purpose in our repository. This is going to be updated as the repository grows.
 
@@ -27,7 +27,7 @@ ArgoCD follows the GitOps pattern of using Git repositories as the source of tru
 
 ArgoCD automates the deployment of the desired application states in the specified target environments. Application deployments can track updates to branches, tags, or pinned to a specific version of manifests at a Git commit. See tracking strategies for additional details about the different tracking strategies available.
 
-We use ArgoCD in our repository for managing all the addons that will be installed on the Kubernetes clusters. It is possible to run all the addons on the same `k8s-kurated-addons` revision, or pass down a specific revision to each addon, using the `app-of-apps/values.yaml` file `targetRevision` field.
+We use ArgoCD in our repository for managing all the addons that will be installed on the Kubernetes clusters. It is possible to run all the addons on the same `initium-platform` revision, or pass down a specific revision to each addon, using the `app-of-apps/values.yaml` file `targetRevision` field.
 
 More information at [ArgoCD Docs](https://argo-cd.readthedocs.io/en/stable/).
 
@@ -158,7 +158,7 @@ Just define an `helmValues` key on the addons you want to customize eg:
 ```yaml
     helm:
       values: |
-        repoURL: https://github.com/nearform/k8s-kurated-addons.git
+        repoURL: https://github.com/nearform/initium-platform.git
         subChartsRevision: v0.0.1
         apps:
           dex:

@@ -4,7 +4,7 @@ source .envrc
 
 # Generate report of current env vars
 echo "======================================================"
-printenv | grep "KKA_.*"
+printenv | grep "INITIUM_.*"
 echo "======================================================"
 
 # Install ArgoCD

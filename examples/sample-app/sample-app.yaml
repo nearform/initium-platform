@@ -38,7 +38,7 @@ data:
         listen       80;
 
         location / {
-          return 200 'Hello world from k8s-kurated-addons!';
+          return 200 'Hello world from initium-platform!';
         }
       }
     }
