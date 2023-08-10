@@ -1,5 +1,5 @@
 image:
-  repository: k8s-kurated-addons/git-http-backend
+  repository: initium-platform/git-http-backend
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""

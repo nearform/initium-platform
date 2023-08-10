@@ -28,9 +28,9 @@ else
 EOF
 
   openssl genrsa -out .ssl/ca-key.pem 2048
-  openssl req -x509 -new -nodes -key .ssl/ca-key.pem -days "${KKA_CERT_VALIDITY_DAYS}" -out .ssl/ca.pem -subj "/CN=root-ca"
+  openssl req -x509 -new -nodes -key .ssl/ca-key.pem -days "${INITIUM_CERT_VALIDITY_DAYS}" -out .ssl/ca.pem -subj "/CN=root-ca"
 
   openssl genrsa -out .ssl/key-ingress-gateway.pem 2048
   openssl req -new -key .ssl/key-ingress-gateway.pem -out .ssl/csr.pem -subj "/CN=kube-local" -config .ssl/req.cnf
-  openssl x509 -req -in .ssl/csr.pem -CA .ssl/ca.pem -CAkey .ssl/ca-key.pem -CAcreateserial -out .ssl/cert-ingress-gateway.pem -days "${KKA_CERT_VALIDITY_DAYS}" -extensions v3_req -extfile .ssl/req.cnf
+  openssl x509 -req -in .ssl/csr.pem -CA .ssl/ca.pem -CAkey .ssl/ca-key.pem -CAcreateserial -out .ssl/cert-ingress-gateway.pem -days "${INITIUM_CERT_VALIDITY_DAYS}" -extensions v3_req -extfile .ssl/req.cnf
 fi

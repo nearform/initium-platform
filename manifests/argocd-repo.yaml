@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: k8s-kurated-addons
+  name: initium-platform
   namespace: argocd
   labels:
     argocd.argoproj.io/secret-type: repository
 stringData:
   type: git
-  url: https://github.com/nearform/k8s-kurated-addons.git
+  url: https://github.com/nearform/initium-platform.git
   # githubAppPrivateKey: ${GITHUB_APP_PRIVATE_KEY}
   # githubAppId: ${GITHUB_APP_ID}
   # githubAppInstallationId: ${GITHUB_APP_INSTALLATION_ID}

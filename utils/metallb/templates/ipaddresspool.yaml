@@ -1,7 +1,7 @@
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
 metadata:
-  name: k8s-kurated-addons
+  name: initium-platform
 spec:
   addresses:
   - {{ .Values.cidrBlock }}

@@ -4,23 +4,23 @@ source .envrc
 
 # Generate report of current env vars
 echo "======================================================"
-printenv | grep "KKA_.*"
+printenv | grep "INITIUM_.*"
 echo "======================================================"
 
 # Run Tilt CI
 tilt ci
 
-if [ "${KKA_DEPLOY_MINIMAL}" == "false" ]; then
+if [ "${INITIUM_DEPLOY_MINIMAL}" == "false" ]; then
   # Login on ArgoCD
-  argocd login --core --name k8s-kurated-addons
+  argocd login --core --name initium-platform
   kubectl config set-context --current --namespace=argocd
 
   # Ensure ArgoCD apps are all healthy and in sync
-  echo ">> Waiting for k8s-kurated-addons to be healty and in sync..."
+  echo ">> Waiting for initium-platform to be healty and in sync..."
   while [ true ]
   do
     ALL_HEALTHY=true
-    IFS=$'\n' read -r -d '' -a apps_health < <(argocd app get k8s-kurated-addons -o json | jq -r '.status.resources | .[]? | select(.kind | contains("Application")) | .health.status')
+    IFS=$'\n' read -r -d '' -a apps_health < <(argocd app get initium-platform -o json | jq -r '.status.resources | .[]? | select(.kind | contains("Application")) | .health.status')
 
     if (( ${#apps_health[@]} == 0 )); then
       ALL_HEALTHY=false
@@ -34,7 +34,7 @@ if [ "${KKA_DEPLOY_MINIMAL}" == "false" ]; then
     fi
 
     ALL_SYNCED=true
-    IFS=$'\n' read -r -d '' -a apps_sync < <(argocd app get k8s-kurated-addons -o json | jq -r '.status.resources | .[]? | select(.kind | contains("Application")) | .status')
+    IFS=$'\n' read -r -d '' -a apps_sync < <(argocd app get initium-platform -o json | jq -r '.status.resources | .[]? | select(.kind | contains("Application")) | .status')
     if (( ${#apps_sync[@]} == 0 )); then
       ALL_SYNCED=false
     else
@@ -49,10 +49,10 @@ if [ "${KKA_DEPLOY_MINIMAL}" == "false" ]; then
     if [[ "$ALL_HEALTHY" == "true" && "$ALL_SYNCED" == "true" ]]; then
       break
     else
-      argocd app get k8s-kurated-addons
+      argocd app get initium-platform
 
       # Print the 10 last lines of logs of apps not currently healthy
-      IFS=$'\n' read -r -d '' -a apps < <(argocd app get k8s-kurated-addons -o json | jq -r '.status.resources | .[]? | select(.kind | contains("Application")) | select(.health.status | contains("Progressing")) | .name')
+      IFS=$'\n' read -r -d '' -a apps < <(argocd app get initium-platform -o json | jq -r '.status.resources | .[]? | select(.kind | contains("Application")) | select(.health.status | contains("Progressing")) | .name')
       for app in ${apps[@]}
       do
         echo ">> Printing last 10 log lines for $app..."
@@ -67,6 +67,6 @@ if [ "${KKA_DEPLOY_MINIMAL}" == "false" ]; then
   argocd app list
 
   # Logout on ArgoCD
-  argocd logout k8s-kurated-addons
+  argocd logout initium-platform
   kubectl config set-context --current --namespace=default
 fi

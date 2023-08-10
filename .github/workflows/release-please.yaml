@@ -19,7 +19,7 @@ jobs:
       - uses: google-github-actions/release-please-action@v3
         with:
           release-type: simple
-          package-name: k8s-kurated-addons
+          package-name: initium-platform
           bump-minor-pre-major: true
           token: ${{ steps.get_installation_token.outputs.token }}
           extra-files: |

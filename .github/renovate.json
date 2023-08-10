@@ -23,6 +23,6 @@
   "platformAutomerge": true,
   "prConcurrentLimit": 0,
   "rebaseWhen": "auto",
-  "repositories": ["nearform/k8s-kurated-addons"],
+  "repositories": ["nearform/initium-platform"],
   "username": "nearform-renovate-app[bot]"
 }

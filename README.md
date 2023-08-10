@@ -1,4 +1,4 @@
-# k8s-kurated-addons
+# initium-platform
 
 This repository is a tentative approach to offer a set of add-ons that will provide a day-0 platform ready to be used in a matter of hours instead of weeks.
 
@@ -22,7 +22,7 @@ If you dont have `argocd` on your cluster, the following command will install it
 $ make argocd
 ```
 
-If you already have `argocd` (if installed with helm, the name of the chart should be argocd) deployed in your cluster to make deployment successful and all addons synced it is required to verify if following configuration is part of your ArgoCD configuration: [argocd/values.yaml](https://github.com/nearform/k8s-kurated-addons/blob/main/addons/argocd/values.yaml#L23).
+If you already have `argocd` (if installed with helm, the name of the chart should be argocd) deployed in your cluster to make deployment successful and all addons synced it is required to verify if following configuration is part of your ArgoCD configuration: [argocd/values.yaml](https://github.com/nearform/initium-platform/blob/main/addons/argocd/values.yaml#L23).
 You can check it by describing argo-cd config map:
 
 ```
@@ -31,7 +31,7 @@ kubectl describe cm argocd-cm -n argocd
 
 Don't apply changes directly to the Config Map, but apply them the in your installation scripts/helm chart values.
 
-Next, you can download the provided `app-of-apps.yaml` in our [latest stable release](https://github.com/nearform/k8s-kurated-addons/releases/latest) and then apply that manifest using this command:
+Next, you can download the provided `app-of-apps.yaml` in our [latest stable release](https://github.com/nearform/initium-platform/releases/latest) and then apply that manifest using this command:
 
 ```bash
 kubectl apply -f app-of-apps.yaml
@@ -144,7 +144,7 @@ Once ready, you can use this simple set of commands:
 
 ```bash
 # Create the cluster
-$ KKA_DEPLOY_MINIMAL=true make ci
+$ INITIUM_DEPLOY_MINIMAL=true make ci
 # Run the unit tests
 $ make unit-test
 ```
@@ -169,12 +169,12 @@ $ make integration-test
 
 If you desire to contribute to this project, please make sure you have read the [CONTRIBUTING.md](CONTRIBUTING.md) file first.
 
-Once you feel ready for it, remember to [fork this repository](https://github.com/nearform/k8s-kurated-addons/fork).
+Once you feel ready for it, remember to [fork this repository](https://github.com/nearform/initium-platform/fork).
 
 Clone your fork into your own local workstation, then finally run the following command to install the project dependencies using [asdf-vm](https://asdf-vm.com/) and [precommit](https://pre-commit.com/) hooks:
 
 ```bash
-cd path/to/k8s-kurated-addons
+cd path/to/initium-platform
 make bootstrap
 ```
 

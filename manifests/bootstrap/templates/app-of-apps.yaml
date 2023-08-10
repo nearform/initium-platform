@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: k8s-kurated-addons
+  name: initium-platform
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io

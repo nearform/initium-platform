@@ -5071,12 +5071,12 @@
       "locked": false,
       "fontSize": 16,
       "fontFamily": 1,
-      "text": "k8s-kurated-addons\napp-of-apps",
+      "text": "initium-platform\napp-of-apps",
       "baseline": 34,
       "textAlign": "center",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "k8s-kurated-addons\napp-of-apps"
+      "originalText": "initium-platform\napp-of-apps"
     },
     {
       "type": "text",
@@ -5139,12 +5139,12 @@
       "locked": false,
       "fontSize": 20,
       "fontFamily": 1,
-      "text": "Apply k8s-kurated-addons",
+      "text": "Apply initium-platform",
       "baseline": 18,
       "textAlign": "center",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "Apply k8s-kurated-addons"
+      "originalText": "Apply initium-platform"
     },
     {
       "type": "arrow",
