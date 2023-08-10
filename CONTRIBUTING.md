@@ -1,6 +1,6 @@
-# Welcome to K8s-kurated-addons
+# Welcome to Initium platform
 
-Please take a second learn about [K8s-kurated-addons code repo](https://github.com/nearform/k8s-kurated-addons/blob/main/README.md).
+Please take a second learn about [initium-platform code repo](https://github.com/nearform/initium-platform/blob/main/README.md).
 
 We greatly appreciate bug fixes, documentation improvements and new features, however when contributing a new major feature, it is a good idea to idea to first open an issue, to make sure the feature it fits with the goal of the project, so we don't waste your or our time.
 
@@ -13,8 +13,8 @@ We greatly appreciate bug fixes, documentation improvements and new features, ho
 <a id="contributing-how-to"></a>
 
 If you'd like to contribute, start by searching through the
-[issues](https://github.com/nearform/k8s-kurated-addons/issues) and [pull
-requests](https://github.com/nearform/k8s-kurated-addons/pulls) to see whether someone else
+[issues](https://github.com/nearform/initium-platform/issues) and [pull
+requests](https://github.com/nearform/initium-platform/pulls) to see whether someone else
 has raised a similar idea or question.
 
 If you don't see your idea listed, and you think it fits into the goals of this
@@ -46,11 +46,11 @@ We would like to avoid issues that require a follow up questions to identify the
 
 This project uses an automated release setup that is based on [release-please](https://github.com/googleapis/release-please). For a more detailed overview on how it works, feel free to read [their official introduction](https://github.com/googleapis/release-please#whats-a-release-pr).
 
-In short, what happens is that during the normal lifecycle of contributions, as you keep merging PRs, a new release PR will be made (or updated) which will list the changes that will be included in such release ( for eg. see https://github.com/nearform/k8s-kurated-addons/pull/11 ).
+In short, what happens is that during the normal lifecycle of contributions, as you keep merging PRs, a new release PR will be made (or updated) which will list the changes that will be included in such release ( for eg. see https://github.com/nearform/initium-platform/pull/11 ).
 
-Once you merge the PR, a new release will be made and the [`CHANGELOG.md`](https://github.com/nearform/k8s-kurated-addons/blob/main/CHANGELOG.md) will be updated as well. As soon as the release is created, [this workflow](https://github.com/nearform/k8s-kurated-addons/blob/main/.github/workflows/assets.yaml) will be run on top of it, and as a result it will upload on such release the final assets that we deliver for the end-user.
+Once you merge the PR, a new release will be made and the [`CHANGELOG.md`](https://github.com/nearform/initium-platform/blob/main/CHANGELOG.md) will be updated as well. As soon as the release is created, [this workflow](https://github.com/nearform/initium-platform/blob/main/.github/workflows/assets.yaml) will be run on top of it, and as a result it will upload on such release the final assets that we deliver for the end-user.
 
-These assets can finally be found on the release Assets section ( for eg. see https://github.com/nearform/k8s-kurated-addons/releases/tag/v0.0.1 ).
+These assets can finally be found on the release Assets section ( for eg. see https://github.com/nearform/initium-platform/releases/tag/v0.0.1 ).
 
 ## Running the local stack
 
@@ -63,7 +63,7 @@ How this is done is simple:
 - We mount the **parent folder** of where you clone this repository [in kind](./manifests/kind/templates/cluster.yaml#L6-9) so later on the charts can use the `containerPath` as mount volume
 - We build a docker image of this project locally to ensure it doesn't change in time and no malicious code comes with it, see [utils/git-http-backend/docker](utils/git-http-backend/docker)
 - We create a custom Helm chart to deploy the built container, see [utils/git-http-backend/chart](utils/git-http-backend/chart)
-- We [build and deploy the image as a chart in the cluster via Tilt](./Tiltfile#L12-18) and we pass to the container image the [kind mounted path](./manifests/kind/templates/cluster.yaml#L8) of where this repository lives, so you can later access it via the [KKA_REPO_URI defined in the .envrc](./.envrc#L8) ( eg. `http://git-http-backend/git/k8s-kurated-addons` )
+- We [build and deploy the image as a chart in the cluster via Tilt](./Tiltfile#L12-18) and we pass to the container image the [kind mounted path](./manifests/kind/templates/cluster.yaml#L8) of where this repository lives, so you can later access it via the [INITIUM_REPO_URI defined in the .envrc](./.envrc#L8) ( eg. `http://git-http-backend/git/initium-platform` )
 
 **REMEMBER:** As ArgoCD will use the latest commit to checkout changes, you **will have** to commit your changes locally otherwise ArgoCD won't be able to see them. Pushing is **NOT REQUIRED**.
 
@@ -75,9 +75,9 @@ This project makes use of the [Renovate Bot](https://docs.renovatebot.com/) to a
 
 ### Bump your addons using a single PR
 
-There are some edge cases to be considered when your addon is divided in multiple charts ( for example, see the [istio addon](https://github.com/nearform/k8s-kurated-addons/tree/main/addons/istio) ). In such cases, Renovate Bot will by default open a PR for each chart detected to be bumped, although this would make the PR difficult to be merged, as each part of the Istio stack has to be bumped as a whole to work correctly.
+There are some edge cases to be considered when your addon is divided in multiple charts ( for example, see the [istio addon](https://github.com/nearform/initium-platform/tree/main/addons/istio) ). In such cases, Renovate Bot will by default open a PR for each chart detected to be bumped, although this would make the PR difficult to be merged, as each part of the Istio stack has to be bumped as a whole to work correctly.
 
-In order to fix this behavior, you will need to add into the [packageRules](https://github.com/nearform/k8s-kurated-addons/blob/main/.github/renovate.json5#L11) section an object that will instruct the Renovate bot to consider the addon as whole. Following the istio example, this is the configuration to be used:
+In order to fix this behavior, you will need to add into the [packageRules](https://github.com/nearform/initium-platform/blob/main/.github/renovate.json5#L11) section an object that will instruct the Renovate bot to consider the addon as whole. Following the istio example, this is the configuration to be used:
 ```js
 {
   matchPaths: ["addons/istio/**"],

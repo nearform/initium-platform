@@ -1,8 +1,8 @@
 # ===== Sanity check =====
-for env in ['KKA_REPO_NAME', 'KKA_REPO_HOST_PATH', 'KKA_REPO_NODE_PATH', 'KKA_REPO_URI', 'KKA_REPO_BRANCH']:
+for env in ['INITIUM_REPO_NAME', 'INITIUM_REPO_HOST_PATH', 'INITIUM_REPO_NODE_PATH', 'INITIUM_REPO_URI', 'INITIUM_REPO_BRANCH']:
     if os.getenv(env, '') == '': fail('Missing or empty {} env var. Did you run this project using the Makefile?'.format(env))
 
-def parse_excluded_env_vars(prefix='KKA_AOA_EXCLUDE_'):
+def parse_excluded_env_vars(prefix='INITIUM_AOA_EXCLUDE_'):
     mapping = {
         'knative': [
             'knative-operator',
@@ -27,9 +27,9 @@ def parse_excluded_env_vars(prefix='KKA_AOA_EXCLUDE_'):
     return ['apps.%s.excluded=true' % app for app in values ]
 
 # ===== Internal variables =====
-ARGOCD_EXTERNAL_PORT = os.getenv('KKA_ARGOCD_EXTERNAL_PORT', 8080)
-ISTIO_HTTP_PORT = os.getenv('KKA_ISTIO_HTTP_PORT', 7080)
-ISTIO_HTTPS_PORT = os.getenv('KKA_ISTIO_HTTPS_PORT', 7443)
+ARGOCD_EXTERNAL_PORT = os.getenv('INITIUM_ARGOCD_EXTERNAL_PORT', 8080)
+ISTIO_HTTP_PORT = os.getenv('INITIUM_ISTIO_HTTP_PORT', 7080)
+ISTIO_HTTPS_PORT = os.getenv('INITIUM_ISTIO_HTTPS_PORT', 7443)
 
 # ===== Extensions =====
 load('ext://namespace', 'namespace_yaml')
@@ -39,7 +39,7 @@ load('ext://namespace', 'namespace_yaml')
 def bootstrap_app_values():
     VALUES_OVERRIDES='./manifests/bootstrap/overrides.local.yaml'
     valueFiles = [VALUES_OVERRIDES] if os.path.exists(VALUES_OVERRIDES) else []
-    values = ['repoURL=%s' % os.getenv('KKA_REPO_URI')]
+    values = ['repoURL=%s' % os.getenv('INITIUM_REPO_URI')]
     values += parse_excluded_env_vars()
     return valueFiles, values
 
@@ -51,18 +51,18 @@ k8s_yaml(helm(
     './utils/metallb',
     name='metallb',
     namespace='metallb-system',
-    set=['cidrBlock="{}"'.format(os.getenv('KKA_METALLB_CIDR'))]
+    set=['cidrBlock="{}"'.format(os.getenv('INITIUM_METALLB_CIDR'))]
 ))
 
-if os.getenv('KKA_DEPLOY_MINIMAL', 'false') == 'false':
+if os.getenv('INITIUM_DEPLOY_MINIMAL', 'false') == 'false':
     ## Git HTTP Backend
-    docker_build('k8s-kurated-addons/git-http-backend', './utils/git-http-backend/docker')
+    docker_build('initium-platform/git-http-backend', './utils/git-http-backend/docker')
     k8s_yaml(namespace_yaml('argocd'), allow_duplicates=False)
     k8s_yaml(helm(
         './utils/git-http-backend/chart',
         name='git-http-backend',
         namespace='argocd',
-        set=['volumes.git_volume.path={}'.format(os.getenv('KKA_REPO_NODE_PATH'))]
+        set=['volumes.git_volume.path={}'.format(os.getenv('INITIUM_REPO_NODE_PATH'))]
     ))
 
     ## k8s secret with TLS cert for wildcard.kube.local domains
@@ -92,8 +92,8 @@ if os.getenv('KKA_DEPLOY_MINIMAL', 'false') == 'false':
     k8s_yaml(helm('./manifests/bootstrap', namespace="argocd", name="app-of-apps", values=valueFiles, set=values))
 
     k8s_resource(
-        objects=['k8s-kurated-addons:Application:argocd'],
-        new_name='k8s-kurated-addons',
+        objects=['initium-platform:Application:argocd'],
+        new_name='initium-platform',
         resource_deps=['argocd-redis', 'argocd-server', 'argocd-repo-server', 'metallb-metallb-source-controller', 'metallb-metallb-source-speaker', 'git-http-backend']
     )
 

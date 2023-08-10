@@ -25,7 +25,7 @@ It can be accessed on `https://grafana.kube.local` through MetalLB load balancer
 ```bash
 172.18.255.200  grafana.kube.local
 ```
-At this moment logging in to Grafana is done by using default credentials defined in [Grafana values](https://github.com/nearform/k8s-kurated-addons/blob/main/addons/grafana/values.yaml#L6)
+At this moment logging in to Grafana is done by using default credentials defined in [Grafana values](https://github.com/nearform/initium-platform/blob/main/addons/grafana/values.yaml#L6)
 In the future default password will be replaced with generated one.
 Grafana is preconfigured to use Loki data source and logs are available shortly upon stack deployment. Custom dashboards for Loki are not included with Grafana, rather idea is to use Grafana’s `explore` feature.
 

@@ -3,7 +3,7 @@ spec:
   destination:
     server: https://kubernetes.default.svc
 subChartsRevision: HEAD
-repoURL: https://github.com/nearform/k8s-kurated-addons.git
+repoURL: https://github.com/nearform/initium-platform.git
 apps:
   # ArgoCD - https://github.com/argoproj/argo-cd/
   argocd:

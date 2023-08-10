@@ -1,4 +1,4 @@
-module github.com/nearform/k8s-kurated-addons
+module github.com/nearform/initium-platform
 
 go 1.21
 

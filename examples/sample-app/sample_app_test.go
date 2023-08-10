@@ -33,8 +33,8 @@ func TestExampleApp(t *testing.T) {
 	http_helper.HTTPDoWithRetry(
 		t,
 		"GET",
-		fmt.Sprintf("http://%s", os.Getenv("KKA_LB_ENDPOINT")),
-		[]byte("Hello world from k8s-kurated-addons!"),
+		fmt.Sprintf("http://%s", os.Getenv("INITIUM_LB_ENDPOINT")),
+		[]byte("Hello world from initium-platform!"),
 		map[string]string{"Host": "sample-app.default.example.com"},
 		200,
 		30,
