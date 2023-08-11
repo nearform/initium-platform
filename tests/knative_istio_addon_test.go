@@ -3,9 +3,11 @@ package test
 import (
 	"log"
 	"testing"
+
+	"github.com/gruntwork-io/terratest/modules/k8s"
 )
 
-func TestHelmIstioAddon(t *testing.T) {
+func TestKnativeAndHelmIstioAddons(t *testing.T) {
 	istioBaseAddonData := HelmAddonData{
 		namespaceName:   "istio-system",
 		releaseName:     "",
@@ -62,6 +64,50 @@ func TestHelmIstioAddon(t *testing.T) {
 	waitUntilLoadBalancerAvailable(t, *istioIngressHelmOptions.KubectlOptions)
 
 	// ----------------------------------
+	operatorResourcePath := "../addons/knative/templates/operator.yaml"
+
+	operatorOptions := k8s.NewKubectlOptions("", "", "default")
+
+	k8s.KubectlApply(t, operatorOptions, operatorResourcePath)
+
+	waitUntilServicesAvailable(t, *operatorOptions, []string{"operator-webhook"})
+
+	// ----------------------------------
+
+	servingResourcePath := "../addons/knative/templates/serving.yaml"
+
+	servingOptions := k8s.NewKubectlOptions("", "", "knative-serving")
+
+	k8s.KubectlApply(t, servingOptions, servingResourcePath)
+
+	waitUntilServicesAvailable(t, *servingOptions, []string{
+		"activator-service",
+		"autoscaler",
+		"controller",
+		"webhook",
+	})
+
+	// ----------------------------------
+
+	eventingResourcePath := "../addons/knative/templates/eventing.yaml"
+
+	eventingOptions := k8s.NewKubectlOptions("", "", "knative-eventing")
+
+	k8s.KubectlApply(t, eventingOptions, eventingResourcePath)
+
+	waitUntilServicesAvailable(t, *eventingOptions, []string{
+		"broker-filter",
+		"broker-ingress",
+		"eventing-webhook",
+		"imc-dispatcher",
+		"inmemorychannel-webhook",
+	})
+
+	// ----------------------------------
+
+	k8s.KubectlDelete(t, eventingOptions, eventingResourcePath)
+	k8s.KubectlDelete(t, servingOptions, servingResourcePath)
+	k8s.KubectlDelete(t, operatorOptions, operatorResourcePath)
 
 	destroyHelmEnvironment(t, istioIngressAddonData, istioIngressHelmOptions)
 	destroyHelmEnvironment(t, istioDiscoveryAddonData, istioDiscoveryHelmOptions)
