@@ -13,7 +13,7 @@ jobs:
         id: get_installation_token
         with:
           app_id: ${{ secrets.RELEASE_PLEASE_APP_ID }}
-          installation_id: ${{ secrets.RELEASE_PLEASE_INSTALLATION_ID }}
+          installation_id: ${{ secrets.RELEASE_PLEASE_APP_INSTALLATION_ID }}
           private_key: ${{ secrets.RELEASE_PLEASE_APP_PRIVATE_KEY }}
 
       - uses: google-github-actions/release-please-action@v3
