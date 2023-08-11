@@ -3,6 +3,7 @@ package test
 import (
 	"log"
 	"testing"
+	"time"
 
 	"github.com/gruntwork-io/terratest/modules/k8s"
 )
@@ -104,6 +105,8 @@ func TestKnativeAndHelmIstioAddons(t *testing.T) {
 	})
 
 	// ----------------------------------
+
+	time.Sleep(90 * time.Second)
 
 	k8s.KubectlDelete(t, eventingOptions, eventingResourcePath)
 	k8s.KubectlDelete(t, servingOptions, servingResourcePath)
