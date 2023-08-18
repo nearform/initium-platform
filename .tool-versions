@@ -9,3 +9,4 @@ kind 0.20.0
 kubectl 1.27.4
 pre-commit 3.3.3
 tilt 0.33.3
+asdf-gcloud 1.2.3
