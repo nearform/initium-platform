@@ -54,7 +54,6 @@ plugin_uninstall: ## uninstall asdf plugins
 	@asdf plugin remove kubectl || true
 	@asdf plugin remove pre-commit || true
 	@asdf plugin remove tilt || true
-	@asdf plugin remove tilt || true
 	@asdf plugin remove gcloud || true
 
 asdf_install: plugin_install ## install all plugins and packages present in .tool-versions file
