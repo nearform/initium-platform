@@ -4,12 +4,22 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"testing"
 
 	_ "github.com/stretchr/testify/assert"
+	"gopkg.in/yaml.v3"
 
 	"github.com/gruntwork-io/terratest/modules/k8s"
 )
+
+type GrafanaValues struct {
+	GrafanaSource struct {
+		Service struct {
+			TargetPort int `yaml:"targetPort"`
+		} `yaml:"service"`
+	} `yaml:"grafana-source"`
+}
 
 func TestHelmGrafanaAddon(t *testing.T) {
 	// add Istio CRDs to test Istio virtual service
@@ -32,11 +42,13 @@ func TestHelmGrafanaAddon(t *testing.T) {
 		log.Fatal(err)
 	}
 
+	grafanaNamespaceAndAddonName := "grafana"
+
 	addonData := HelmAddonData{
 		namespaceName:   "",
 		releaseName:     "",
 		dependencyRepo:  "",
-		addonName:       "grafana",
+		addonName:       grafanaNamespaceAndAddonName,
 		addonAlias:      "",
 		chartPath:       "",
 		hasCustomValues: true,
@@ -49,42 +61,32 @@ func TestHelmGrafanaAddon(t *testing.T) {
 		log.Fatal(err)
 	}
 
-	waitUntilServicesAvailable(t, *helmOptions.KubectlOptions, []string{"grafana"})
-	waitUntilDeploymentsAvailable(t, *helmOptions.KubectlOptions, []string{"grafana"})
+	waitUntilServicesAvailable(t, *helmOptions.KubectlOptions, []string{grafanaNamespaceAndAddonName})
+	waitUntilDeploymentsAvailable(t, *helmOptions.KubectlOptions, []string{grafanaNamespaceAndAddonName})
 
-	// valuesFile, err := os.ReadFile("../addons/grafana/values.yaml")
+	valuesFile, err := os.ReadFile("../addons/grafana/values.yaml")
 
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	// yamlData := make(map[string]interface{})
+	var yamlData GrafanaValues
 
-	// err = yaml.Unmarshal(valuesFile, &yamlData)
+	err = yaml.Unmarshal(valuesFile, &yamlData)
 
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
+	targetPort := 3000
+	if err == nil && yamlData.GrafanaSource.Service.TargetPort != 0 {
+		targetPort = yamlData.GrafanaSource.Service.TargetPort
+	}
 
-	// grafanaSource, ok := yamlData["grafana-source"].(map[string]interface{})
-	// if !ok {
-	// 	log.Fatalf("Error accessing 'grafana-source' key")
-	// }
+	grafanaKubectlOptions := k8s.NewKubectlOptions("", "", grafanaNamespaceAndAddonName)
 
-	// adminPassword, ok := grafanaSource["adminPassword"].(string)
-	// if !ok {
-	// 	log.Fatalf("Error accessing 'adminPassword' key")
-	// }
-
-	grafanaKubectlOptions := k8s.NewKubectlOptions("", "", "grafana")
-
-	tunnel := k8s.NewTunnel(grafanaKubectlOptions, k8s.ResourceTypeService, "grafana", 0, 3000)
+	tunnel := k8s.NewTunnel(grafanaKubectlOptions, k8s.ResourceTypeService, grafanaNamespaceAndAddonName, 0, targetPort)
 	defer tunnel.Close()
 
 	tunnel.ForwardPort(t)
 
 	healthCheck, err := http.NewRequest("GET", fmt.Sprintf("http://%s/healthz", tunnel.Endpoint()), nil)
-	// healthCheck.Header.Add("Authorization", fmt.Sprintf("Basic %s", b64.StdEncoding.EncodeToString([]byte(fmt.Sprintf("admin:%s", adminPassword)))))
 
 	resp, reqErr := http.DefaultClient.Do(healthCheck)
 	if reqErr != nil {
