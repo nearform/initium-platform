@@ -67,6 +67,12 @@ func TestHelmPrometheusServerAddon(t *testing.T) {
 		prometheusServiceName,
 	})
 
+	prometheusStatefulSetName := fmt.Sprintf("prometheus-%s", prometheusServiceName)
+	statefulSetAvailable := waitUntilStatefulSetsAvailable(t, *kubectlOptions, []string{prometheusStatefulSetName})
+	if !statefulSetAvailable {
+		log.Fatalf("Error waiting for StatefulSet %s to become ready.", prometheusStatefulSetName)
+	}
+
 	valuesFile, err := os.ReadFile("../addons/kube-prometheus-stack/values.yaml")
 
 	if err != nil {
@@ -109,8 +115,8 @@ func TestHelmPrometheusServerAddon(t *testing.T) {
 	}
 
 	if jsonResp.Status != "success" || jsonResp.Data.Result[0].Value[1].(string) == "0" {
-		log.Fatalf("Prometheus hasn't received any metrics: status %s, value %s", jsonResp.Status, jsonResp.Data.Result[0].Value[1].(string))
-	} else {
+		log.Fatalf("Error when querying the Prometheus API. status %s, result %s", jsonResp.Status, jsonResp.Data.Result)
+	} else if jsonResp.Status != "error" {
 		log.Printf("Prometheus has received %s metrics!", jsonResp.Data.Result[0].Value[1].(string))
 	}
 
