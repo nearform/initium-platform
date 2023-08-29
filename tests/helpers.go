@@ -3,7 +3,6 @@ package test
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -176,7 +175,6 @@ func waitUntilStatefulSetsAvailable(t *testing.T, kubectlOptions k8s.KubectlOpti
 			if err == nil {
 				var ssstatusJson StatefulSetJsonStruct
 				err = json.Unmarshal([]byte(ssstatus), &ssstatusJson)
-				log.Println(ssstatusJson.Status.ReadyReplicas)
 				if err == nil {
 					if ssstatusJson.Status.ReadyReplicas > 0 {
 						ready = true
@@ -188,7 +186,6 @@ func waitUntilStatefulSetsAvailable(t *testing.T, kubectlOptions k8s.KubectlOpti
 			time.Sleep(30 * time.Second)
 		}
 	}
-	log.Println(readySS, len(statefulSets), readySS == len(statefulSets))
 	return readySS == len(statefulSets)
 }
 
