@@ -87,13 +87,16 @@ func TestHelmGrafanaAddon(t *testing.T) {
 	tunnel.ForwardPort(t)
 
 	healthCheck, err := http.NewRequest("GET", fmt.Sprintf("http://%s/healthz", tunnel.Endpoint()), nil)
+	if err != nil {
+		log.Fatalf("Error when building the request: %s", reqErr)
+	}
 
 	resp, reqErr := http.DefaultClient.Do(healthCheck)
 	if reqErr != nil {
-		log.Fatalf("Error when making the request %s", reqErr)
+		log.Fatalf("Error when making the request: %s", reqErr)
 	}
 
-	if resp.StatusCode != 200 {
+	if resp.StatusCode != http.StatusOK {
 		log.Fatalf("Grafana is not ready for metrics: status code %d", resp.StatusCode)
 	} else {
 		log.Print("Grafana is ready for metrics!")
