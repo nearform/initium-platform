@@ -40,7 +40,7 @@ plugin_install: ## install asdf plugins
 	@asdf plugin add kubectl https://github.com/asdf-community/asdf-kubectl.git || true
 	@asdf plugin add pre-commit https://github.com/jonathanmorley/asdf-pre-commit.git || true
 	@asdf plugin add tilt https://github.com/virtualstaticvoid/asdf-tilt.git || true
-	@asdf plugin add gcloud https://github.com/jthegedus/asdf-gcloud || true
+	@asdf plugin add gcloud https://github.com/jthegedus/asdf-gcloud.git || true
 
 plugin_uninstall: ## uninstall asdf plugins
 	@asdf plugin remove argocd || true
