@@ -1,6 +1,7 @@
 package test
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -155,6 +156,37 @@ func waitUntilServicesAvailable(t *testing.T, kubectlOptions k8s.KubectlOptions,
 	for _, v := range services {
 		k8s.WaitUntilServiceAvailable(t, &kubectlOptions, v, 10, 30*time.Second)
 	}
+}
+
+type StatefulSetJsonStruct struct {
+	Status struct {
+		ReadyReplicas int `json:"readyReplicas"`
+	} `json:"status"`
+}
+
+func waitUntilStatefulSetsAvailable(t *testing.T, kubectlOptions k8s.KubectlOptions, statefulSets []string) (success bool) {
+	tries := 10
+	readySS := 0
+	for _, v := range statefulSets {
+		currentTries := 0
+		ready := false
+		for currentTries < tries && !ready {
+			ssstatus, err := k8s.RunKubectlAndGetOutputE(t, &kubectlOptions, "get", "statefulset", v, "-o=json")
+			if err == nil {
+				var ssstatusJson StatefulSetJsonStruct
+				err = json.Unmarshal([]byte(ssstatus), &ssstatusJson)
+				if err == nil {
+					if ssstatusJson.Status.ReadyReplicas > 0 {
+						ready = true
+						readySS++
+					}
+				}
+			}
+			currentTries++
+			time.Sleep(30 * time.Second)
+		}
+	}
+	return readySS == len(statefulSets)
 }
 
 func waitUntilLoadBalancerAvailable(t *testing.T, kubectlOptions k8s.KubectlOptions) {
