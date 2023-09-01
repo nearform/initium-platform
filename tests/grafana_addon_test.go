@@ -88,7 +88,7 @@ func TestHelmGrafanaAddon(t *testing.T) {
 
 	healthCheck, err := http.NewRequest("GET", fmt.Sprintf("http://%s/healthz", tunnel.Endpoint()), nil)
 	if err != nil {
-		log.Fatalf("Error when building the request: %s", reqErr)
+		log.Fatalf("Error when building the request: %s", err)
 	}
 
 	resp, reqErr := http.DefaultClient.Do(healthCheck)
