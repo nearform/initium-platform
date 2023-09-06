@@ -3,12 +3,12 @@ package test
 import (
 	"fmt"
 	"os"
-	"testing"
 	"strings"
+	"testing"
 	"time"
 
 	"github.com/stretchr/testify/assert"
-    metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/gruntwork-io/terratest/modules/k8s"
 
@@ -35,7 +35,7 @@ func TestExampleApp(t *testing.T) {
 
 	numRequests := 5
 
-	for i:=0; i < numRequests; i++ {
+	for i := 0; i < numRequests; i++ {
 
 		http_helper.HTTPDoWithRetry(
 			t,
@@ -51,14 +51,14 @@ func TestExampleApp(t *testing.T) {
 	}
 
 	sampleAppLabel := "ksample"
-	prefix := "sample-app" 
+	prefix := "sample-app"
 
 	//Wait for the pods to be created
 	time.Sleep(5 * time.Second)
 
-    podOptions := metav1.ListOptions{
-        LabelSelector: fmt.Sprintf("service=%s", sampleAppLabel),
-    }
+	podOptions := metav1.ListOptions{
+		LabelSelector: fmt.Sprintf("service=%s", sampleAppLabel),
+	}
 
 	pods := k8s.ListPods(t, kubectlOptions, podOptions)
 
@@ -69,10 +69,10 @@ func TestExampleApp(t *testing.T) {
 	// Wait for knative to scale-in
 	time.Sleep(70 * time.Second)
 
-    replicaSets, err := k8s.RunKubectlAndGetOutputE(t, kubectlOptions, "get", "rs")
-    if err != nil {
-        t.Fatal(err)
-    }
+	replicaSets, err := k8s.RunKubectlAndGetOutputE(t, kubectlOptions, "get", "rs")
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	replicaSetNames := strings.Fields(replicaSets)
 
@@ -85,7 +85,7 @@ func TestExampleApp(t *testing.T) {
 
 	rs := k8s.GetReplicaSet(t, kubectlOptions, replicaSet)
 	// Validate knative scale-in process was effective
-    assert.Equal(t, int(rs.Status.Replicas), 0)
+	assert.Equal(t, int(rs.Status.Replicas), 0)
 
 	// =============================================================
 	k8s.KubectlDelete(t, kubectlOptions, "sample-app.yaml")
