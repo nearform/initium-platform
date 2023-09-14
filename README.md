@@ -45,7 +45,7 @@ You can pass your own values or override default values to the addons by modifyi
 
 ### Supported Setups
 
-Below there is a matrix with the cloud providers & Kubernetes versions our setup has been tested with. 
+Below there is a matrix with the cloud providers & Kubernetes versions our setup has been tested with.
 
 | Cloud Provider   | Kubernetes Version |
 |------------------|:------------------:|
