@@ -43,6 +43,17 @@ Full list of the addons that the manifest is installing and additional informati
 
 You can pass your own values or override default values to the addons by modifying the `app-of-apps.yaml` manifest, you can get more details here [docs/ADDONS.md](docs/ADDONS.md#override-values)
 
+### Supported Setups
+
+Below we get a matrix with the cloud providers & Kubernetes versions our setup has been tested with. 
+
+| Cloud Provider   | Kubernetes Version |
+|------------------|:------------------:|
+| AWS              | 1.27               | 
+| GCP              | 1.27               |
+| Azure            | 1.27               |
+
+
 ## Run locally
 
 ### Pre-requisites
