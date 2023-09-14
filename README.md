@@ -49,7 +49,7 @@ Below there is a matrix with the cloud providers & Kubernetes versions our setup
 
 | Cloud Provider   | Kubernetes Version |
 |------------------|:------------------:|
-| AWS              | 1.27               | 
+| AWS              | 1.27               |
 | GCP              | 1.27               |
 | Azure            | 1.27               |
 
