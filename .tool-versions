@@ -4,7 +4,7 @@ awscli 2.13.19
 golang 1.21.0
 golangci-lint 1.54.0
 jq 1.6
-helm 3.12.2
+helm 3.12.3
 kind 0.17.0
 kubectl 1.27.4
 pre-commit 3.4.0
