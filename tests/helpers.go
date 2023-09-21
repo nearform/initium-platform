@@ -189,6 +189,12 @@ func waitUntilStatefulSetsAvailable(t *testing.T, kubectlOptions k8s.KubectlOpti
 	return readySS == len(statefulSets)
 }
 
+func waitUntilDeploymentsAvailable(t *testing.T, kubectlOptions k8s.KubectlOptions, deployments []string) {
+	for _, v := range deployments {
+		k8s.WaitUntilDeploymentAvailable(t, &kubectlOptions, v, 10, 30*time.Second)
+	}
+}
+
 func waitUntilLoadBalancerAvailable(t *testing.T, kubectlOptions k8s.KubectlOptions) {
 	for _, v := range k8s.ListServices(t, &kubectlOptions, v1.ListOptions{}) {
 		if v.Spec.Type == "LoadBalancer" {
