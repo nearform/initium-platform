@@ -79,3 +79,7 @@ apps:
     name: grafana
     path: addons/grafana/
     targetNamespace: grafana
+  vault:
+    name: vault
+    path: addons/vault/
+    targetNamespace: vault
