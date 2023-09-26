@@ -87,9 +87,6 @@ if os.getenv('INITIUM_DEPLOY_MINIMAL', 'false') == 'false':
         namespace='argocd',
     ))
 
-
-
-
     ## App-of-apps
     valueFiles, values = bootstrap_app_values()
     k8s_yaml(helm('./manifests/bootstrap', namespace="argocd", name="app-of-apps", values=valueFiles, set=values))
