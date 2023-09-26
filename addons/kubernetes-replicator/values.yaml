@@ -20,7 +20,7 @@ kubernetes-replicator-source:
   #     maxUnavailable: 1
 
   serviceAccount:
-    create: false
+    create: true
     annotations: {}
     name:
     privileges: []
