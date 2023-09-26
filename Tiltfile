@@ -87,16 +87,7 @@ if os.getenv('INITIUM_DEPLOY_MINIMAL', 'false') == 'false':
         namespace='argocd',
     ))
 
-    ## Kubernetes replicator
-    k8s_yaml(namespace_yaml('kubernetes-replicator'), allow_duplicates=False)
-    local('helm dependency update ./addons/kubernetes-replicator')
-    local('helm repo update')
 
-    k8s_yaml(helm(
-        './addons/kubernetes-replicator',
-        name='kubernetes-replicator',
-        namespace='kubernetes-replicator',
-    ))
 
 
     ## App-of-apps
