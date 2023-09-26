@@ -1,72 +1,73 @@
-image:
-  repository: quay.io/mittwald/kubernetes-replicator
-  #tag: stable # if no tag is given, the chart's appVersion is used
-  pullPolicy: Always
-imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
-grantClusterAdmin: false
-automountServiceAccountToken: true
-args: []
-  # - -resync-period=30m
-  # - -allow-all=false
-
-## Deployment strategy / DaemonSet updateStrategy
-##
-updateStrategy: {}
-#   type: RollingUpdate
-#   rollingUpdate:
-#     maxUnavailable: 1
-
-serviceAccount:
-  create: false
-  annotations: {}
-  name:
-  privileges: []
+kubernetes-replicator-source:
+  image:
+    repository: quay.io/mittwald/kubernetes-replicator
+    #tag: stable # if no tag is given, the chart's appVersion is used
+    pullPolicy: Always
+  imagePullSecrets: []
+  nameOverride: ""
+  fullnameOverride: ""
+  grantClusterAdmin: false
   automountServiceAccountToken: true
-  # - apiGroups: [""]
-  #   resources: ["configmaps"]
-podSecurityContext: {}
-  # fsGroup: 2000
+  args: []
+    # - -resync-period=30m
+    # - -allow-all=false
 
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+  ## Deployment strategy / DaemonSet updateStrategy
+  ##
+  updateStrategy: {}
+  #   type: RollingUpdate
+  #   rollingUpdate:
+  #     maxUnavailable: 1
 
-priorityClassName: ""
+  serviceAccount:
+    create: false
+    annotations: {}
+    name:
+    privileges: []
+    automountServiceAccountToken: true
+    # - apiGroups: [""]
+    #   resources: ["configmaps"]
+  podSecurityContext: {}
+    # fsGroup: 2000
 
-resources: {}
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
 
-nodeSelector: {}
+  priorityClassName: ""
 
-tolerations: []
+  resources: {}
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
 
-affinity: {}
+  nodeSelector: {}
 
-podLabels: {}
+  tolerations: []
 
-podAnnotations: {}
+  affinity: {}
 
-livenessProbe:
-  initialDelaySeconds: 60
-  periodSeconds: 10
-  timeoutSeconds: 1
-  failureThreshold: 3
-  successThreshold: 1
+  podLabels: {}
 
-readinessProbe:
-  initialDelaySeconds: 60
-  periodSeconds: 10
-  timeoutSeconds: 1
-  failureThreshold: 3
-  successThreshold: 1
+  podAnnotations: {}
+
+  livenessProbe:
+    initialDelaySeconds: 60
+    periodSeconds: 10
+    timeoutSeconds: 1
+    failureThreshold: 3
+    successThreshold: 1
+
+  readinessProbe:
+    initialDelaySeconds: 60
+    periodSeconds: 10
+    timeoutSeconds: 1
+    failureThreshold: 3
+    successThreshold: 1
