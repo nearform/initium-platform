@@ -12,38 +12,6 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
-// func TestHelmKubernetesReplicatorAddon(t *testing.T) {
-// 	addonData := HelmAddonData{
-// 		namespaceName:   "kubernetes-replicator",
-// 		releaseName:     "",
-// 		dependencyRepo:  "",
-// 		addonName:       "kubernetes-replicator",
-// 		addonAlias:      "",
-// 		chartPath:       "",
-// 		hasCustomValues: true,
-// 		manageNamespace: false,
-// 	}
-// 	kubectlOptions := k8s.NewKubectlOptions("", "", addonData.namespaceName)
-
-// 	k8s.CreateNamespace(t, kubectlOptions, "kubernetes-replicator")
-
-// 	_, err := k8s.GetNamespaceE(t, kubectlOptions, "kubernetes-replicator")
-
-// 	if err != nil {
-// 		log.Printf("Namespace exists")
-// 	}
-
-// 	helmOptions, err := prepareHelmEnvironment(t, &addonData)
-
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-
-// 	destroyHelmEnvironment(t, addonData, helmOptions)
-// 	defer k8s.DeleteNamespace(t, kubectlOptions, "kubernetes-replicator")
-
-// }
-
 func TestSecretReplication(t *testing.T) {
 
 	// Helm deploy the kubernetes-replicator chart
