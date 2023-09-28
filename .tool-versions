@@ -10,3 +10,4 @@ kubectl 1.27.4
 pre-commit 3.4.0
 tilt 0.33.3
 gcloud 445.0.0
+initium 0.5.0
