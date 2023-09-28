@@ -41,6 +41,8 @@ plugin_install: ## install asdf plugins
 	@asdf plugin add pre-commit https://github.com/jonathanmorley/asdf-pre-commit.git || true
 	@asdf plugin add tilt https://github.com/virtualstaticvoid/asdf-tilt.git || true
 	@asdf plugin add gcloud https://github.com/jthegedus/asdf-gcloud.git || true
+	@asdf plugin add initium https://github.com/nearform/asdf-initium.git || true
+
 
 plugin_uninstall: ## uninstall asdf plugins
 	@asdf plugin remove argocd || true
@@ -55,6 +57,7 @@ plugin_uninstall: ## uninstall asdf plugins
 	@asdf plugin remove pre-commit || true
 	@asdf plugin remove tilt || true
 	@asdf plugin remove gcloud || true
+	@asdf plugin remove initium || true
 
 asdf_install: plugin_install ## install all plugins and packages present in .tool-versions file
 	@asdf install
