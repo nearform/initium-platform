@@ -8,6 +8,12 @@ spec:
     istio: ingressgateway
   servers:
   - hosts:
+    - "*.{{ .Values.externalDomain }}"
+    port:
+      name: http
+      number: 80
+      protocol: HTTP
+  - hosts:
     - {{ .Values.gateway.host | quote }}
     port:
       name: https

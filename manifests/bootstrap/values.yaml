@@ -1,2 +1,3 @@
 revision: HEAD
 repoURL: "https://github.com/nearform/initium-platform.git"
+externalDomain: example.com

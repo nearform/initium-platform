@@ -102,6 +102,12 @@ if os.getenv('INITIUM_DEPLOY_MINIMAL', 'false') == 'false':
 
     # ===== Tilt local resources =====
 
+    local_resource(
+        'grafana-password',
+        cmd='kubectl get secret -n grafana grafana-initial-admin-secret -o jsonpath="{.data.admin-password}" | base64 -d; echo',
+        auto_init=False
+    )
+
     ## ArgoCD admin password
     local_resource(
         'argocd-password',

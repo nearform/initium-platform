@@ -18,4 +18,4 @@ metadata:
   namespace: knative-serving
 data:
   # Use this base domain for knative apps
-  example.com: ""
+  {{ .Values.externalDomain }}: ""

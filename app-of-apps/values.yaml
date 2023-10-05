@@ -4,6 +4,7 @@ spec:
     server: https://kubernetes.default.svc
 subChartsRevision: HEAD
 repoURL: https://github.com/nearform/initium-platform.git
+externalDomain: example.com
 apps:
   # ArgoCD - https://github.com/argoproj/argo-cd/
   argocd:
@@ -79,6 +80,11 @@ apps:
     name: grafana
     path: addons/grafana/
     targetNamespace: grafana
+    ignoreDifferences:
+      - group: v1
+        kind: Secret
+        jsonPointers:
+          - /data/admin-password
 
   # Kubernetes Replicator
   kubernetes-replicator-source:

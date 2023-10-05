@@ -19,8 +19,11 @@ spec:
     path: {{ .path }}
     repoURL: {{ $.Values.repoURL }}
     targetRevision: {{ coalesce .targetRevision $.Values.subChartsRevision "HEAD" | quote }}
-    {{- if .helmValues }}
     helm:
+      parameters:
+        - name: externalDomain
+          value: {{ $.Values.externalDomain }}
+    {{- if .helmValues }}
       values: |-
         {{- .helmValues | toYaml | nindent 8 }}
     {{- end}}
