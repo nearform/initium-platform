@@ -1,10 +1,10 @@
 argocd 2.8.4
 eksctl 0.151.0
-awscli 2.13.22
-golang 1.21.1
+awscli 2.13.26
+golang 1.21.3
 golangci-lint 1.54.2
 jq 1.6
-helm 3.13.0
+helm 3.13.1
 kind 0.17.0
 kubectl 1.27.4
 pre-commit 3.4.0
