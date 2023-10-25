@@ -79,3 +79,9 @@ apps:
     name: grafana
     path: addons/grafana/
     targetNamespace: grafana
+
+  # Kubernetes Replicator
+  kubernetes-replicator-source:
+    name: kubernetes-replicator
+    path: addons/kubernetes-replicator/
+    targetNamespace: kubernetes-replicator

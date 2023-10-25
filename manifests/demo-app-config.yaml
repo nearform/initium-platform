@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: app-config
+  namespace: default
+  annotations:
+    replicator.v1.mittwald.de/replicate-to: "initium,initium.+"
+type: Opaque
+data:
+  db_uname: YWRtaW4K
+  db_pwd: YWRtaW4K
