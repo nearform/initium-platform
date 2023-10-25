@@ -9,28 +9,24 @@ apps:
   # ArgoCD - https://github.com/argoproj/argo-cd/
   argocd:
     name: argocd
-    path: addons/argocd/
     targetNamespace: argocd
     excluded: true
 
   # Cert-manager - https://cert-manager.io/
   cert-manager:
     name: cert-manager
-    path: addons/cert-manager/
     targetNamespace: cert-manager
     excluded: false
 
   # Dex - https://dexidp.io/
   dex:
     name: dex
-    path: addons/dex/
     targetNamespace: dex
 
   # Prometheus + Operator - https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack
   # External grafana app needs to be deployed together with this stack
   kube-prometheus-stack:
     name: kube-prometheus-stack
-    path: addons/kube-prometheus-stack/
     targetNamespace: prometheus
     serverSideApply: true
 
@@ -55,19 +51,16 @@ apps:
   # Knative - https://knative.dev/
   knative:
     name: knative
-    path: addons/knative/
     targetNamespace: knative
 
   # OpenTelemetry - https://opentelemetry.io/
   opentelemetry-collector:
     name: opentelemetry-collector
-    path: addons/opentelemetry-collector/
     targetNamespace: opentelemetry
 
   # Grafana Loki - https://grafana.com/oss/loki/
   loki:
     name: loki
-    path: addons/loki/
     targetNamespace: loki
     ignoreDifferences:
       - group: apps
@@ -78,7 +71,6 @@ apps:
   # Grafana - https://grafana.com/oss/
   grafana:
     name: grafana
-    path: addons/grafana/
     targetNamespace: grafana
     ignoreDifferences:
       - group: v1
@@ -89,5 +81,4 @@ apps:
   # Kubernetes Replicator
   kubernetes-replicator-source:
     name: kubernetes-replicator
-    path: addons/kubernetes-replicator/
     targetNamespace: kubernetes-replicator

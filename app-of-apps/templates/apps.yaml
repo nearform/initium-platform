@@ -1,5 +1,6 @@
 {{- range $name, $props := .Values.apps }}
 {{- with $props }}
+{{- $defaultPath := print "addons/" .name "/" -}}
 {{- if not $props.excluded }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -16,7 +17,7 @@ spec:
     namespace: {{ .targetNamespace | default "default" | quote }}
   project: default
   source:
-    path: {{ .path }}
+    path: {{ or .path $defaultPath }}
     repoURL: {{ $.Values.repoURL }}
     targetRevision: {{ coalesce .targetRevision $.Values.subChartsRevision "HEAD" | quote }}
     helm:
