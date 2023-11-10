@@ -1,10 +1,10 @@
 argocd 2.9.0
-awscli 2.13.32
+awscli 2.13.33
 eksctl 0.151.0
 gcloud 445.0.0
-golang 1.21.3
+golang 1.21.4
 golangci-lint 1.55.2
-helm 3.13.1
+helm 3.13.2
 initium 0.5.0
 jq 1.7
 kind 0.17.0
