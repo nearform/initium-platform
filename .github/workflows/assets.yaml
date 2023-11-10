@@ -18,5 +18,7 @@ jobs:
         run: |
           helm template manifests/bootstrap --set revision=${{ github.ref_name }} > app-of-apps.yaml
           ./scripts/upload-assets.sh ${{ github.repository }} app-of-apps.yaml ${{ github.ref }}
+          yq '.argocd-source' ./addons/argocd/values.yaml > argocd-helm-values.yaml
+          ./scripts/upload-assets.sh ${{ github.repository }} argocd-helm-values.yaml ${{ github.ref }}
         env:
           GITHUB_TOKEN: ${{ github.token }}
