@@ -4,6 +4,13 @@ metadata:
   name: sample-app
 spec:
   template:
+    metadata:
+      annotations:
+        # For testing purposes set request-per-second to 1 to force scaling
+        autoscaling.knative.dev/target: "1"
+        autoscaling.knative.dev/metric: "rps"
+      labels:
+        service: "ksample"
     spec:
       containers:
         - image: nginx:stable
