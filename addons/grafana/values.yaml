@@ -2,8 +2,15 @@ grafana-source:
   fullnameOverride: grafana
   rbac:
     pspEnabled: false
-  adminUser: admin
-  adminPassword: strongpassword
+  # adminUser: admin
+  # adminPassword: strongpassword
+  # Use an existing secret for the admin user.
+  admin:
+    ## Name of the secret. Can be templated.
+    existingSecret: grafana-initial-admin-secret
+    userKey: admin-user
+    passwordKey: admin-password
+
   plugins:
   - grafana-piechart-panel
 
@@ -38,6 +45,6 @@ virtualService:
   name: grafana
   namespace: grafana
   gateway: istio-ingress/kube-gateway
-  host: grafana.kube.local
+  internalHost: grafana.kube.local
   port: 80
   serviceName: grafana
