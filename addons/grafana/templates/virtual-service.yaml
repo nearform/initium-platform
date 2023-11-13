@@ -1,3 +1,5 @@
+{{- $name := .Values.externalDomain | required ".Values.externalDomain is required." -}}
+---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
@@ -7,7 +9,8 @@ spec:
   gateways:
   - {{ .Values.virtualService.gateway }}
   hosts:
-  - {{ .Values.virtualService.host }}
+  - {{ .Values.virtualService.internalHost  | quote }}
+  - {{ .Values.virtualService.name}}.{{ .Values.externalDomain }}
   http:
   - route:
     - destination:

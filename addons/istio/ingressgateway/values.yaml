@@ -1,3 +1,4 @@
 gateway:
+  externalHost: "*.example.com"
   host: "*.kube.local"
   tlsCertName: wildcard.kube.local-tls

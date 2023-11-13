@@ -54,6 +54,7 @@ dex-source:
 #         key: client-secret
 
 virtualService:
+  enabled: false
   name: dex
   namespace: dex
   gateway: istio-ingress/kube-gateway
