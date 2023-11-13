@@ -60,7 +60,7 @@ plugin_uninstall: ## uninstall asdf plugins
 	@asdf plugin remove initium || true
 
 asdf_install: plugin_install ## install all plugins and packages present in .tool-versions file
-	@asdf install
+	asdf install
 
 asdf_uninstall: plugin_uninstall ## uninstall all plugins and packages present in .tool-versions file
 
