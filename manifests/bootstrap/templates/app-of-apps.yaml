@@ -20,6 +20,8 @@ spec:
           value: {{ .Values.repoURL }}
         - name: subChartsRevision
           value: {{ .Values.revision }}
+        - name: externalDomain
+          value: {{ .Values.externalDomain }}
       {{- if .Values.apps }}
       values: |-
         apps:

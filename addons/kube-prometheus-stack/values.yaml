@@ -1,3 +1,11 @@
+virtualService:
+  enabled: false
+  name: prometheus
+  namespace: prometheus
+  gateway: istio-ingress/kube-gateway
+  port: 9090
+  serviceName: kube-prometheus-stack-kube-prometheus
+
 kube-prometheus-stack-source:
   prometheus-node-exporter:
     hostRootFsMount:
@@ -7,46 +15,16 @@ kube-prometheus-stack-source:
   grafana:
     # external grafana app is used by default
     enabled: false
+
     namespaceOverride: "grafana"
-
-    ## ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
+    # ForceDeployDatasources Create datasource configmap even if grafana deployment has been disabled
     forceDeployDatasources: true
-
-    ## ForceDeployDashboard Create dashboard configmap even if grafana deployment has been disabled
+    # ForceDeployDashboard Create dashboard configmap even if grafana deployment has been disabled
     forceDeployDashboards: true
 
-    # Administrator credentials when not using an existing secret (see below)
-    adminUser: admin
-    # adminPassword: data-nest-pass-word
-
-    # Use an existing secret for the admin user.
-    # admin:
-    #   ## Name of the secret. Can be templated.
-    #   existingSecret: ""
-    #   userKey: admin-user
-    #   passwordKey: admin-password
-  #   rbac:
-  #     pspEnabled: false
-  # global:
-  #   rbac:
-  #     pspEnabled: false
-  # kube-state-metrics:
-  #   podSecurityPolicy:
-  #     enabled: false
   prometheus:
-    ingress:
-      enabled: false
-      ingressClassName: nginx
-      annotations:
-        # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-        # nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-      hosts:
-        - "prometheus.local"
-      paths:
-        - "/"
-  prometheusSpec:
-    externalUrl: "prometheus.local/"
-    rotuePrefix: "/"
+    prometheusSpec:
+      enableRemoteWriteReceiver: true
   # Required to fix the out-of-sync issues on the this apps suite
   kubelet:
     serviceMonitor:
