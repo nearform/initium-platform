@@ -1,5 +1,5 @@
 argocd 2.9.2
-awscli 2.13.37
+awscli 2.13.38
 eksctl 0.151.0
 gcloud 445.0.0
 golang 1.21.4
