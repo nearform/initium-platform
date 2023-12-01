@@ -22,7 +22,7 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["^.tools-versions$"],
+      "fileMatch": ["^.tool-versions$"],
       "matchStrings": ["initium (?<currentValue>.*?)\\n"],
       "depNameTemplate": "nearform/initium-cli",
       "datasourceTemplate": "github-releases"
