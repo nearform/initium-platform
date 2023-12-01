@@ -24,8 +24,8 @@
       "customType": "regex",
       "fileMatch": ["^.tools-versions$"],
       "matchStrings": ["initium (?<currentValue>.*?)\\n"],
-      "depName": "nearform/initium-cli",
-      "datasource": "github-releases"
+      "depNameTemplate": "nearform/initium-cli",
+      "datasourceTemplate": "github-releases"
     }
   ],
   "platform": "github",
