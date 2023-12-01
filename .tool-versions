@@ -5,7 +5,7 @@ gcloud 445.0.0
 golang 1.21.4
 golangci-lint 1.55.2
 helm 3.13.2
-initium 0.5.0
+initium 0.8.2
 jq 1.6
 kind 0.17.0
 kubectl 1.28.4
