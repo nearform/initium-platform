@@ -19,6 +19,15 @@
       "groupName": "Istio Helm Chart"
     }
   ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["^.tools-versions$"],
+      "matchStrings": ["initium (?<currentValue>.*?)\\n"],
+      "depName": "nearform/initium-cli",
+      "datasource": "github-releases"
+    }
+  ],
   "platform": "github",
   "platformAutomerge": true,
   "prConcurrentLimit": 0,
