@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.2.0](https://github.com/nearform/initium-platform/compare/v0.1.0...v0.2.0) (2023-12-04)
+
+
+### Features
+
+* add certificate for ngrok tcp endpoints ([#154](https://github.com/nearform/initium-platform/issues/154)) ([0daf1fe](https://github.com/nearform/initium-platform/commit/0daf1fe9df5095decbf76533d2382a1f2e616509))
+* added kubernetes replicator addon and test ([#206](https://github.com/nearform/initium-platform/issues/206)) ([a885f94](https://github.com/nearform/initium-platform/commit/a885f94ab5abd3b7b52910291297bcfeb96162ce))
+* argocd custom helm chart values exposed as a release artifact ([#208](https://github.com/nearform/initium-platform/issues/208)) ([1eeb8d6](https://github.com/nearform/initium-platform/commit/1eeb8d640967c391a39669edd5a97c905ceca312))
+* expose grafana and generate admin password ([#237](https://github.com/nearform/initium-platform/issues/237)) ([d31d28b](https://github.com/nearform/initium-platform/commit/d31d28b34e33a81ffd7f7f9b304bd8bbb682f2c7))
+* include initium asdf plugin ([#209](https://github.com/nearform/initium-platform/issues/209)) ([b31ad11](https://github.com/nearform/initium-platform/commit/b31ad11c430463f72e8fad44d0e8f54397920b70))
+* Initium rebranding ([#157](https://github.com/nearform/initium-platform/issues/157)) ([e4cc5e5](https://github.com/nearform/initium-platform/commit/e4cc5e5ee274edecb2b1c784e86ec808373523a4))
+* Test the quick-start-gke document ([#197](https://github.com/nearform/initium-platform/issues/197)) ([2b551c2](https://github.com/nearform/initium-platform/commit/2b551c204c3c501dbf19e4b281da52a960206c26))
+* upgrade k8s to 1.27.3, as well as knative, dex and go tests ([#156](https://github.com/nearform/initium-platform/issues/156)) ([8626970](https://github.com/nearform/initium-platform/commit/86269704b114aa785f59fd44dffd8ae7b9a5a4f9))
+
+
+### Bug Fixes
+
+* bump up jq version to support arm64 architecture ([#242](https://github.com/nearform/initium-platform/issues/242)) ([bf3571f](https://github.com/nearform/initium-platform/commit/bf3571f85e8e795798c84a523a5a521fe7228f2c))
+* proper kind node image for each arch ([#203](https://github.com/nearform/initium-platform/issues/203)) ([d4fed91](https://github.com/nearform/initium-platform/commit/d4fed914f35a6fd189d041f40a8345e231c08b5c))
+* reverting kind version to 0.17.0 ([#181](https://github.com/nearform/initium-platform/issues/181)) ([e175546](https://github.com/nearform/initium-platform/commit/e175546cd551a4fc4d02ee164bf8c07b4ee675fc))
+
 ## [0.1.0](https://github.com/nearform/k8s-kurated-addons/compare/v0.0.1...v0.1.0) (2023-03-23)
 
 
