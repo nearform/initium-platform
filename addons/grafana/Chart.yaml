@@ -6,6 +6,6 @@ version: v0.0.1 # x-release-please-version
 dependencies:
   - name: grafana
     alias: grafana-source
-    version: 7.0.11
+    version: 8.5.8
     repository: https://grafana.github.io/helm-charts
     condition: grafana-source.enabled
